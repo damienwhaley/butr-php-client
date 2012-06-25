@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>butr-client | posting harness</title>
+    <script type="text/javascript" src="../js/contrib/jquery-1.7.2.min.js"></script>
+    <script src="../js/contrib/modernizr-latest.js"></script>
+    <script type="text/javascript" src="../js/contrib/uuid.js"></script>
+    <script type="text/javascript" src="../js/contrib/crypto-sha256-hmac.js"></script>
+    <script type="text/javascript" src="post.js"></script>
+    <script type="text/javascript">
+      var apiKey = '9da7feb8-5f5c-11e1-8107-001c421dce29';
+      var apiSecret = '9e9c3b093fd71f372823cd6d4ea8cc5ddd302aaf7df53b2dcd0f70c5d5a2508a';
+      var nonce = uuid.v4();
+      var method = 'local';
+      var username = 'damien';
+      var password = 'prelude';
+      var sessionToken = 'TOKEN';
+    </script>
+  </head>
+  <body>
+    <h1>Posting Harness</h1>
+    <div style="width: 40%; float: left;">    
+	  <fieldset>
+      <legend>JSON - Create Session</legend>
+      <form name="json" action="http://butr-server.node.local:3000/json" enctype="application/json" method="post">
+        <label>JSON Post</label>
+        <textarea name="data" rows="10" cols="50"></textarea>
+        <button type="button" onclick="javascript:doPost('json', document.json.data.value);">Post</button>
+      </form>
+    </fieldset>
+    <script type="text/javascript">
+      document.json.data.value = buildJsonMessage(apiKey, apiSecret, nonce, method, username, password, '', 'create_session');
+    </script>
+    <fieldset>
+      <legend>JSON - Use Session</legend>
+      <form name="json_session" action="http://butr-server.node.local:3000/json" enctype="application/json" method="post">
+        <label>JSON Post</label>
+        <textarea name="data" rows="10" cols="50"></textarea>
+        <button type="button" onclick="javascript:doPost('json', document.json_session.data.value);">Post</button>
+      </form>
+    </fieldset>
+    <script type="text/javascript">
+      document.json_session.data.value = buildJsonMessage('', '', '', '', '', '', sessionToken, 'ping');
+    </script>
+    
+    <fieldset>
+      <legend>REST</legend>
+      <form name="rest" action="http://butr-server.node.local:3000/rest" method="post">
+        <label>REST Post</label>
+        <textarea name="data" rows="10" cols="50"><?xml version="1.0" encoding="utf-8"?><butr><authentication><session_token>TOKEN</session_token></authentication><ping><content>Did Greedo shoot first?</content></ping></butr></textarea>
+        <button type="button" onclick="javascript:doPost('rest', document.rest.data.value);">Post</button>
+      </form>
+    </fieldset>
+    <fieldset>
+      <legend>SOAP</legend>
+      <form name="soap" action="http://butr-server.node.local:3000/soap" method="post">
+        <label>SOAP Post</label>
+        <textarea name="data" rows="10" cols="50"><?xml version="1.0" encoding="utf-8"?>&lt;soap:envelope&gt;&lt;message&gt;hello world&lt;/message&gt;&lt;/soap:envelope&gt;</textarea>
+        <button type="button" onclick="javascript:doPost('soap', document.soap.data.value);">Post</button>
+      </form>
+    </fieldset>
+    <fieldset>
+      <legend>Diagnostic</legend>
+      <a href="http://butr-server.node.local:3000/diag">Am I Alive?</a>
+    </fieldset>
+    </div>
+    <div style="width: 40%; float: left;">
+      <fieldset>
+        <legend>Output</legend>
+        Status:&nbsp;<div id="targetstatus" style="display: inline;"></div>
+        <br />Response:<hr /><div id="targetout"></div>
+      </fieldset>
+    </div>
+  </body>
+</html>
