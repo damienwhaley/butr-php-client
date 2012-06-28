@@ -54,5 +54,6 @@ define('Butr\MESSAGE_RESULT_EXPIRED', 'EXPIRED');
 define('Butr\PAGINATION_TYPE_PAGE', 'page');
 define('Butr\PAGINATION_TYPE_HELP', 'help');
 
-// Defaults
+// List Defaults
 define('Butr\DEFAULT_LIST_SIZE', 20);
+define('Butr\LIST_SIZE_ALL', -1);

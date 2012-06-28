@@ -44,14 +44,14 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $tab_action = (isset($_POST['tab_action'])) ? $_POST['tab_action'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandAddDockTab();
     $butr_command->setAll($dock_item_uuid, $dock_subitem_uuid, $system_dock_type_uuid,
       $security_client_type_uuid, $tab_name, $display_name, $description, $weighting,
-      $icon, $tab_action, $is_active);
+      $picture_path, $tab_action, $is_active);
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
     echo $butr_command->sendCommand();
@@ -76,14 +76,14 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $tab_action = (isset($_POST['tab_action'])) ? $_POST['tab_action'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandModifyDockTab();
     $butr_command->setAll($uuid, $dock_item_uuid, $dock_subitem_uuid, $system_dock_type_uuid,
       $security_client_type_uuid, $tab_name, $display_name, $description, $weighting,
-      $icon, $tab_action, $is_active);
+      $picture_path, $tab_action, $is_active);
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
     echo $butr_command->sendCommand();

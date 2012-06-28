@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-//$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-//require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandModifyDockSubitem class.
   * This implements the functionality required to call the
@@ -81,10 +77,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   private $_weighting;
   
   /**
-   * String containing the icon for the record to be modified.
+   * String containing the picture_path for the record to be modified.
    * @var string
    */
-  private $_icon;
+  private $_picture_path;
   
   /**
    * String containing the subitem_action for the record to be modified.
@@ -112,7 +108,7 @@ class CommandModifyDockSubitem extends BaseCommand {
     $this->_display_name = '';
     $this->_description = '';
     $this->_weighting = null;
-    $this->_icon = '';
+    $this->_picture_path = '';
     $this->_subitem_action = '';
     $this->_is_active = 0;
   }
@@ -131,16 +127,9 @@ class CommandModifyDockSubitem extends BaseCommand {
       . '","display_name":"' . $this->_display_name
       . '","description":"' . $this->_description
       . '","weighting":"' . $this->_weighting
-      . '","icon":"' . $this->_icon
+      . '","picture_path":"' . $this->_picture_path
       . '","subitem_action":"' . $this->_subitem_action
       . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**
@@ -216,12 +205,12 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Sets the icon for the record to be modified.
-   * @param string $icon
-   *   - The icon for the record to be modified.
+   * Sets the picture_path for the record to be modified.
+   * @param string $picture_path
+   *   - The picture_path for the record to be modified.
    */
-  public function setIcon($icon) {
-    $this->_icon = $icon;
+  public function setPicturePath($picture_path) {
+    $this->_picture_path = $picture_path;
   }
   
   /**
@@ -260,15 +249,15 @@ class CommandModifyDockSubitem extends BaseCommand {
    *   - The description for the record to be modified.
    * @param integer $weighting
    *   - The weighting for the record to be modified.
-   * @param string $icon
-   *   - The icon for the record to be modified.
+   * @param string $picture_path
+   *   - The picutre_path for the record to be modified.
    * @param string $subitem_action
    *   - The UUID for the subitem_action for the record to be modified.
    * @param integer $is_active
    *   - The is active boolean flag for the record to be modified.
    */
   public function setAll($uuid, $dock_item_uuid, $system_dock_type_uuid, $security_client_type_uuid,
-    $subitem_name, $display_name, $description, $weighting, $icon, $subitem_action, $is_active) {
+    $subitem_name, $display_name, $description, $weighting, $picture_path, $subitem_action, $is_active) {
     $this->setUuid($uuid);
     $this->setDockItemUuid($dock_item_uuid);
     $this->setSystemDockTypeUuid($system_dock_type_uuid);
@@ -277,7 +266,7 @@ class CommandModifyDockSubitem extends BaseCommand {
     $this->setDisplayName($display_name);
     $this->setDescription($description);
     $this->setWeighting($weighting);
-    $this->setIcon($icon);
+    $this->setPicturePath($picture_path);
     $this->setSubitemAction($subitem_action);
     $this->setIsActive($is_active);
   }

@@ -52,6 +52,7 @@ abstract class BaseCommand {
   
   /**
    * Default constructor.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    */
   public function __construct() {
     $this->_authentication_snippet = '';
@@ -60,7 +61,8 @@ abstract class BaseCommand {
   }
   
   /**
-   * This sets the authentication part for the 
+   * This sets the authentication part for the message.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $snippet
    */
   public function setAuthenticationSnippet($snippet) {
@@ -70,7 +72,8 @@ abstract class BaseCommand {
   }
   
   /**
-   * This sets the authentication part for the
+   * This sets the command part for the message.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $snippet
    */
   public function setCommandSnippet($snippet) {
@@ -81,6 +84,7 @@ abstract class BaseCommand {
   
   /**
    * This abstract function must be defined in child classes.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -150,11 +154,22 @@ abstract class BaseCommand {
    * This formats the error for a non-JSON return into a JSON format.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $message
+   *   - String containing the error text
+   * @return string
+   *  - String containing the JSON error message.
    */
   private function formatError($message) {
     $output = "{\"authentication\":{\"token\":\"\"},\"result\":{\"status\":\"" . MESSAGE_RESULT_ERROR . "\",\"";
     $output .= "\"explanation\":\"" . $message . "\"";
     $output .= "\"},\"" . $this->_command_name . "\":{}}";
     return $output;
+  }
+  
+  /**
+   * This grabs the command name which was set.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function getCommandName() {
+    return $this->_command_name;
   }
 }

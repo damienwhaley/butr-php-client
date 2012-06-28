@@ -61,13 +61,6 @@ class CommandModifyTable extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the uuid for the record to be modified.
    * @param string $uuid
    *   - The name_label for the record to be modified.

@@ -184,8 +184,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value=""><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value=""><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value=""><br>
       <label for="item_action" id="item_action_label"><?php echo gettext('Item Action'); ?>:</label>
       <input type="text" name="item_action" id="item_action" value=""><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>
@@ -306,7 +306,7 @@ if ($action_mode === 'add') {
     $dockItem['display_name'] = (isset($json_object->fetch_dock_item->display_name)) ? $json_object->fetch_dock_item->display_name : '';
     $dockItem['description'] = (isset($json_object->fetch_dock_item->description)) ? $json_object->fetch_dock_item->description : '';
     $dockItem['weighting'] = (isset($json_object->fetch_dock_item->weighting)) ? $json_object->fetch_dock_item->weighting : '';
-    $dockItem['icon'] = (isset($json_object->fetch_dock_item->icon)) ? $json_object->fetch_dock_item->icon : '';
+    $dockItem['picture_path'] = (isset($json_object->fetch_dock_item->picture_path)) ? $json_object->fetch_dock_item->picture_path : '';
     $dockItem['item_action'] = (isset($json_object->fetch_dock_item->item_action)) ? $json_object->fetch_dock_item->item_action : '';
     $dockItem['is_actve'] = (isset($json_object->fetch_dock_item->is_active)) ? $json_object->fetch_dock_item->is_active : '';
     
@@ -319,7 +319,7 @@ if ($action_mode === 'add') {
     $dockItem['display_name'] = htmlspecialchars($dockItem['display_name'], ENT_COMPAT | ENT_HTML5);
     $dockItem['description'] = htmlspecialchars($dockItem['description'], ENT_NOQUOTES | ENT_HTML5);
     $dockItem['weighting'] = htmlspecialchars($dockItem['weighting'], ENT_COMPAT | ENT_HTML5);
-    $dockItem['icon'] = htmlspecialchars($dockItem['icon'], ENT_COMPAT | ENT_HTML5);
+    $dockItem['picture_path'] = htmlspecialchars($dockItem['picture_path'], ENT_COMPAT | ENT_HTML5);
     $dockItem['item_action'] = htmlspecialchars($dockItem['item_action'], ENT_COMPAT | ENT_HTML5);
   }
     
@@ -355,8 +355,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"><?php echo $dockItem['description']; ?></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value="<?php echo $dockItem['weighting']; ?>"><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value="<?php echo $dockItem['icon']; ?>"><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value="<?php echo $dockItem['picture_path']; ?>"><br>
       <label for="item_action" id="item_action"><?php echo gettext('Item Action'); ?>:</label>
       <input type="text" name="item_action" id="item_action" value="<?php echo $dockItem['item_action']; ?>"><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>

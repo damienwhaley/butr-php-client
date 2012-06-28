@@ -82,14 +82,7 @@ class CommandModifyCountry extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'modify_country';
-    $this->_uuid = '';
-    $this->_country_name = '';
-    $this->_display_name = '';
-    $this->_description = '';
-    $this->_country_code = '';
-    $this->_alternate_code = '';
-    $this->_weighting = null;
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
@@ -109,82 +102,199 @@ class CommandModifyCountry extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
-   * Sets the country_name for the record to be modified.
-   * @param string $country_name
-   *   - The country_name for the record to be modified.
+   * Sets the UUID for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $uuid
+   *   - The UUID for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
+  }
+  
+  /**
+   * Sets the UUID for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The UUID for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
   }
   
   /**
    * Sets the country_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $country_name
    *   - The country_name for the record to be modified.
    */
   public function setCountryName($country_name) {
-    $this->_country_name = $country_name;
+    if (isset($country_name)) {
+      $this->_country_name = $country_name;
+    } else {
+      $this->_country_name = '';
+    }
   }
   
   /**
-  * Sets the display_name for the record to be modified.
-  * @param string $display_name
-  *   - The display_name for the record to be modified.
-  */
+   * Gets the country_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The country_name for the record to be modified.
+   */
+  public function getCountryName() {
+    return $this->_country_name;
+  }
+  
+  /**
+   * Sets the display_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $display_name
+   *   - The display_name for the record to be modified.
+   */
   public function setDisplayName($display_name) {
-    $this->_display_name = $display_name;
+    if (isset($display_name)) {
+      $this->_display_name = $display_name;
+    } else {
+      $this->_display_name = '';
+    }
   }
   
   /**
-  * Sets the description for the record to be modified.
-  * @param string $description
-  *   - The description for the record to be modified.
-  */
+   * Gets the display_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The display_name for the record to be modified.
+   */
+  public function getDisplayName() {
+    return $this->_display_name;
+  }
+  
+  /**
+   * Sets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be modified.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
+  }
+  
+  /**
+   * Gets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be modified.
+   */
+  public function getDescription() {
+    return $this->_description;
   }
   
   /**
    * Sets the country_code for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $country_code
    *   - The country_code for the record to be modified.
    */
   public function setCountryCode($country_code) {
-    $this->_country_code = $country_code;
+    if (isset($country_code)) {
+      $this->_country_code = $country_code;
+    } else {
+      $this->_country_code = '';
+    }
+  }
+  
+  /**
+   * Gets the country_code for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The country_code for the record to be modified.
+   */
+  public function getCountryCode() {
+    return $this->_country_code;
   }
   
   /**
    * Sets the alternate_code for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $alternate_code
    *   - The alternate_code for the record to be modified.
    */
   public function setAlternateCode($alternate_code) {
-    $this->_alternate_code = $alternate_code;
+    if (isset($alternate_code)) {
+      $this->_alternate_code = $alternate_code;
+    } else {
+      $this->_alternate_code = '';
+    }
   }
   
   /**
-  * Sets the weighting for the record to be modified.
-  * @param string $weighting
-  *   - The weighting for the record to be modified.
-  */
+   * Gets the alternate_code for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The alternate_code for the record to be modified.
+   */
+  public function getAlternateCode() {
+    return $this->_alternate_code;
+  }
+  
+  /**
+   * Sets the weighting for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $weighting
+   *   - The weighting for the record to be modified.
+   */
   public function setWeighting($weighting) {
-    $this->_weighting = $weighting;
+    if (isset($weighting) && is_numeric($weighting)) {
+      $this->_weighting = $weighting;
+    } else {
+      $this->_weighting = null;
+    }
+  }
+  
+  /**
+   * Gets the weighting for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The weighting for the record to be modified.
+   */
+  public function getWeighting() {
+    return $this->_weighting;
   }
   
   /**
    * Sets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The description for the record to be modified.
+   *   - The is_active for the record to be modified.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be modified.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
@@ -216,5 +326,20 @@ class CommandModifyCountry extends BaseCommand {
     $this->setAlternateCode($alternate_code);
     $this->setWeighting($weighting);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_country_name = '';
+    $this->_display_name = '';
+    $this->_description = '';
+    $this->_country_code = '';
+    $this->_alternate_code = '';
+    $this->_weighting = null;
+    $this->_is_active = 0;
   }
 }

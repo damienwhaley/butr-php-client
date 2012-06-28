@@ -220,8 +220,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value=""><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value=""><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value=""><br>
       <label for="tab_action" id="tab_action_label"><?php echo gettext('Tab Action'); ?>:</label>
       <input type="text" name="tab_action" id="tab_action" value=""><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>
@@ -374,7 +374,7 @@ if ($action_mode === 'add') {
     $dockTab['display_name'] = (isset($json_object->fetch_dock_tab->display_name)) ? $json_object->fetch_dock_tab->display_name : '';
     $dockTab['description'] = (isset($json_object->fetch_dock_tab->description)) ? $json_object->fetch_dock_tab->description : '';
     $dockTab['weighting'] = (isset($json_object->fetch_dock_tab->weighting)) ? $json_object->fetch_dock_tab->weighting : '';
-    $dockTab['icon'] = (isset($json_object->fetch_dock_tab->icon)) ? $json_object->fetch_dock_tab->icon : '';
+    $dockTab['picture_path'] = (isset($json_object->fetch_dock_tab->picture_path)) ? $json_object->fetch_dock_tab->picture_path : '';
     $dockTab['tab_action'] = (isset($json_object->fetch_dock_tab->tab_action)) ? $json_object->fetch_dock_tab->tab_action : '';
     $dockTab['is_actve'] = (isset($json_object->fetch_dock_tab->is_active)) ? $json_object->fetch_dock_tab->is_active : '';
 
@@ -388,8 +388,8 @@ if ($action_mode === 'add') {
     $dockTab['display_name'] = htmlspecialchars($dockTab['display_name'], ENT_COMPAT | ENT_HTML5);
     $dockTab['description'] = htmlspecialchars($dockTab['description'], ENT_NOQUOTES | ENT_HTML5);
     $dockTab['weighting'] = htmlspecialchars($dockTab['weighting'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['icon'] = htmlspecialchars($dockTab['icon'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['icon'] = htmlspecialchars($dockTab['icon'], ENT_COMPAT | ENT_HTML5);
+    $dockTab['picture_path'] = htmlspecialchars($dockTab['picture_path'], ENT_COMPAT | ENT_HTML5);
+    $dockTab['tab_action'] = htmlspecialchars($dockTab['tab_action'], ENT_COMPAT | ENT_HTML5);
   }
     
   unset($json_dock_tab);
@@ -429,8 +429,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"><?php echo $dockTab['description']; ?></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value="<?php echo $dockTab['weighting']; ?>"><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value="<?php echo $dockTab['icon']; ?>"><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value="<?php echo $dockTab['picture_path']; ?>"><br>
       <label for="tab_action" id="tab_action"><?php echo gettext('Tab Action'); ?>:</label>
       <input type="text" name="tab_action" id="item_action" value="<?php echo $dockTab['tab_action']; ?>"><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>

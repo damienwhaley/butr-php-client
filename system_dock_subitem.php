@@ -184,8 +184,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value=""><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value=""><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value=""><br>
       <label for="subitem_action" id="subitem_action_label"><?php echo gettext('Subitem Action'); ?>:</label>
       <input type="text" name="subitem_action" id="item_action" value=""><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>
@@ -306,7 +306,7 @@ if ($action_mode === 'add') {
     $dockSubitem['display_name'] = (isset($json_object->fetch_dock_subitem->display_name)) ? $json_object->fetch_dock_subitem->display_name : '';
     $dockSubitem['description'] = (isset($json_object->fetch_dock_subitem->description)) ? $json_object->fetch_dock_subitem->description : '';
     $dockSubitem['weighting'] = (isset($json_object->fetch_dock_item->weighting)) ? $json_object->fetch_dock_item->weighting : '';
-    $dockSubitem['icon'] = (isset($json_object->fetch_dock_subitem->icon)) ? $json_object->fetch_dock_subitem->icon : '';
+    $dockSubitem['picture_path'] = (isset($json_object->fetch_dock_subitem->picture_path)) ? $json_object->fetch_dock_subitem->picture_path : '';
     $dockSubitem['subitem_action'] = (isset($json_object->fetch_dock_subitem->subitem_action)) ? $json_object->fetch_dock_subitem->subitem_action : '';
     $dockSubitem['is_actve'] = (isset($json_object->fetch_dock_subitem->is_active)) ? $json_object->fetch_dock_subitem->is_active : '';
     
@@ -319,7 +319,7 @@ if ($action_mode === 'add') {
     $dockSubitem['display_name'] = htmlspecialchars($dockSubitem['display_name'], ENT_COMPAT | ENT_HTML5);
     $dockSubitem['description'] = htmlspecialchars($dockSubitem['description'], ENT_NOQUOTES | ENT_HTML5);
     $dockSubitem['weighting'] = htmlspecialchars($dockSubitem['weighting'], ENT_COMPAT | ENT_HTML5);
-    $dockSubitem['icon'] = htmlspecialchars($dockSubitem['icon'], ENT_COMPAT | ENT_HTML5);
+    $dockSubitem['picture_path'] = htmlspecialchars($dockSubitem['picture_path'], ENT_COMPAT | ENT_HTML5);
     $dockSubitem['subitem_action'] = htmlspecialchars($dockSubitem['subitem_action'], ENT_COMPAT | ENT_HTML5);
   }
     
@@ -355,8 +355,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"><?php echo $dockSubitem['description']; ?></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value="<?php echo $dockSubitem['weighting']; ?>"><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value="<?php echo $dockSubitem['icon']; ?>"><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value="<?php echo $dockSubitem['picture_path']; ?>"><br>
       <label for="subitem_action" id="subitem_action"><?php echo gettext('Subitem Action'); ?>:</label>
       <input type="text" name="subitem_action" id="subitem_action" value="<?php echo $dockSubitem['subitem_action']; ?>"><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>

@@ -175,7 +175,7 @@ function processSystemDockItemAddForm() {
   var displayName = document.system_dock_item_add_form.display_name.value;
   var description = document.system_dock_item_add_form.description.value;
   var weighting = document.system_dock_item_add_form.weighting.value;
-  var icon = document.system_dock_item_add_form.icon.value;
+  var picturePath = document.system_dock_item_add_form.picture_path.value;
   var itemAction = document.system_dock_item_add_form.item_action.value;
   var isActive = 0;
   if (document.system_dock_item_add_form.is_active.checked === true) {
@@ -208,8 +208,8 @@ function processSystemDockItemAddForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (itemAction === undefined || itemAction === null || itemAction === '') {
 	itemAction = '';
@@ -231,7 +231,7 @@ function processSystemDockItemAddForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&item_action=' + escape(itemAction)
     + '&command=add_dock_item'
@@ -315,7 +315,7 @@ function processSystemDockItemModifyForm() {
   var displayName = document.system_dock_item_modify_form.display_name.value;
   var description = document.system_dock_item_modify_form.description.value;
   var weighting = document.system_dock_item_modify_form.weighting.value;
-  var icon = document.system_dock_item_modify_form.icon.value;
+  var picturePath = document.system_dock_item_modify_form.picture_path.value;
   var itemAction = document.system_dock_item_modify_form.item_action.value;
   var isActive = 0;
   if (document.system_dock_item_modify_form.is_active.checked === true) {
@@ -351,8 +351,8 @@ function processSystemDockItemModifyForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (itemAction === undefined || itemAction === null || itemAction === '') {
 	itemAction = '';
@@ -375,7 +375,7 @@ function processSystemDockItemModifyForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&item_action=' + escape(itemAction)
     + '&command=modify_dock_item'

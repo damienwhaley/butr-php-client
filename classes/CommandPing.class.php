@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandPing class.
   * This implements the functionality required to call the
@@ -47,12 +43,5 @@ class CommandPing extends BaseCommand {
    */
   public function generateSnippet() {
     return '"' . $this->_command_name . '":{"content":"Did Greedo shoot first?"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
 }

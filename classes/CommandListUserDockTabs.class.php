@@ -44,11 +44,4 @@ class CommandListUserDockTabs extends BaseCommand {
   public function generateSnippet() {
     return '"' . $this->_command_name . '":{"client_type":"PHP"}';
   }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
 }

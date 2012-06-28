@@ -113,8 +113,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value=""><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value=""><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value=""><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>
       <input type="checkbox" name="is_active" id="is_active" value="1" checked><br>
       <label for="submit">&nbsp;</label>
@@ -170,7 +170,7 @@ if ($action_mode === 'add') {
     $dock['display_name'] = (isset($json_object->fetch_dock->display_name)) ? $json_object->fetch_dock->display_name : '';
     $dock['description'] = (isset($json_object->fetch_dock->description)) ? $json_object->fetch_dock->description : '';
     $dock['weighting'] = (isset($json_object->fetch_dock->weighting)) ? $json_object->fetch_dock->weighting : '';
-    $dock['icon'] = (isset($json_object->fetch_dock->icon)) ? $json_object->fetch_dock->icon : '';
+    $dock['picture_path'] = (isset($json_object->fetch_dock->picture_path)) ? $json_object->fetch_dock->picture_path : '';
     $dock['is_actve'] = (isset($json_object->fetch_dock->is_active)) ? $json_object->fetch_dock->is_active : '';
     
     // Escape output
@@ -180,7 +180,7 @@ if ($action_mode === 'add') {
     $dock['display_name'] = htmlspecialchars($dock['display_name'], ENT_COMPAT | ENT_HTML5);
     $dock['description'] = htmlspecialchars($dock['description'], ENT_NOQUOTES | ENT_HTML5);
     $dock['weighting'] = htmlspecialchars($dock['weighting'], ENT_COMPAT | ENT_HTML5);
-    $dock['icon'] = htmlspecialchars($dock['icon'], ENT_COMPAT | ENT_HTML5);
+    $dock['picture_path'] = htmlspecialchars($dock['picture_path'], ENT_COMPAT | ENT_HTML5);
   }
   unset($json_dock);
   unset($json_object);
@@ -204,8 +204,8 @@ if ($action_mode === 'add') {
       <textarea name="description" id="description"><?php echo $dock['description']; ?></textarea><br>
       <label for="weighting" id="weighting_label"><?php echo gettext('Weighting'); ?>:</label>
       <input type="text" name="weighting" id="weighting" value="<?php echo $dock['weighting']; ?>"><br>
-      <label for="icon" id="icon_label"><?php echo gettext('Icon'); ?>:</label>
-      <input type="text" name="icon" id="icon" value="<?php echo $dock['icon']; ?>"><br>
+      <label for="picture_path" id="picture_path_label"><?php echo gettext('Picture Path'); ?>:</label>
+      <input type="text" name="picture_path" id="picture_path" value="<?php echo $dock['picture_path']; ?>"><br>
       <label for="is_active" id="is_active_label"><?php echo gettext('Is Active'); ?>:</label>
       <input type="checkbox" name="is_active" id="is_active" value="1"<?php if ($dock['is_active'] == 1) { echo ' checked'; } ?>><br>
       <label for="submit">&nbsp;</label>

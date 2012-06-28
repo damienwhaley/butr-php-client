@@ -41,12 +41,12 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandAddDock();
     $butr_command->setAll($security_client_type_uuid, $dock_name, $display_name,
-      $description, $weighting, $icon, $is_active);
+      $description, $weighting, $picture_path, $is_active);
     
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
@@ -69,12 +69,12 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandModifyDock();
     $butr_command->setAll($uuid, $security_client_type_uuid, $dock_name,
-      $display_name, $description, $weighting, $icon, $is_active);    
+      $display_name, $description, $weighting, $picture_path, $is_active);    
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
     echo $butr_command->sendCommand();

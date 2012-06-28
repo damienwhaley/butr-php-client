@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandModifyGlobalLanguageConfiguration class.
   * This implements the functionality required to call the
@@ -118,13 +114,6 @@ class CommandModifyGlobalLanguageConfiguration extends BaseCommand {
      . '","country_uuid":"' . $this->_country_uuid
      . '","weighting":"' . $this->_weighting
      . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**

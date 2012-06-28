@@ -21,6 +21,10 @@
 
 namespace Butr;
 
+// Requires and includes.
+$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once($document_root . '/includes/uuid.inc');
+
 /**
   * BaseCommandFetch class.
   * This base class implements the basics for the fetch
@@ -36,15 +40,17 @@ abstract class BaseCommandFetch extends BaseCommand {
   
   /**
    * Default constructor.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    */
   public function __construct() {
     parent::__construct();
-    $this->_command_name = 'fetch_group';
-    $this->_uuid = '';
+    $this->_command_name = '';
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -53,27 +59,34 @@ abstract class BaseCommandFetch extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the UUID for the record to be fetched.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The UUID for the record to be fetched.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
   }
   
   /**
    * Sets the UUID for the record to be fetched.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - The UUID for the record to be fetched.
    */
   public function getUuid() {
     return $this->_uuid;
+  }
+  
+  /**
+   * This resets all the parameters in one hit.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
   }
 }

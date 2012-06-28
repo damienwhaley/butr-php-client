@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandAddGlobalTitleConfiguration class.
   * This implements the functionality required to call the
@@ -87,14 +83,7 @@ class CommandAddGlobalTitleConfiguration extends BaseCommand {
      . '","weighting":"' . $this->_weighting
      . '","is_active":"' . $this->_is_active . '"}';
   }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
+ 
   /**
    * Sets the name_label for the record to be added.
    * @param string $name_label

@@ -167,7 +167,7 @@ function processSystemDockAddForm() {
   var displayName = document.system_dock_add_form.display_name.value;
   var description = document.system_dock_add_form.description.value;
   var weighting = document.system_dock_add_form.weighting.value;
-  var icon = document.system_dock_add_form.icon.value;
+  var picturePath = document.system_dock_add_form.picture_path.value;
   var isActive = 0;
   if (document.system_dock_add_form.is_active.checked === true) {
 	isActive = 1;  
@@ -193,8 +193,8 @@ function processSystemDockAddForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   
   if (errorMessage !== '') {
@@ -211,7 +211,7 @@ function processSystemDockAddForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&command=add_dock'
     + '&window_name=' + escape(window.name);
@@ -292,7 +292,7 @@ function processSystemDockModifyForm() {
   var displayName = document.system_dock_modify_form.display_name.value;
   var description = document.system_dock_modify_form.description.value;
   var weighting = document.system_dock_modify_form.weighting.value;
-  var icon = document.system_dock_modify_form.icon.value;
+  var picturePath = document.system_dock_modify_form.picture_path.value;
   var isActive = 0;
   if (document.system_dock_modify_form.is_active.checked === true) {
 	isActive = 1;  
@@ -318,8 +318,8 @@ function processSystemDockModifyForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   
   if (errorMessage !== '') {
@@ -337,7 +337,7 @@ function processSystemDockModifyForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&command=modify_dock'
     + '&window_name=' + escape(window.name);

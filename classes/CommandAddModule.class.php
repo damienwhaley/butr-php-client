@@ -77,13 +77,6 @@ class CommandAddModule extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the module_name for the record to be added.
    * @param string $module_name
    *   - The module_name for the record to be added.

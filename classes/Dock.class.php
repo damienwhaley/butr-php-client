@@ -73,7 +73,7 @@ class Dock {
           'name' => htmlspecialchars($dock[$i]->dock_name, ENT_COMPAT | ENT_HTML5),
           'display_label' => htmlspecialchars($dock[$i]->display_label, ENT_COMPAT | ENT_HTML5),
           'description' => htmlspecialchars($dock[$i]->description, ENT_COMPAT | ENT_HTML5),
-          'icon' => htmlspecialchars($dock[$i]->icon, ENT_COMPAT | ENT_HTML5),
+          'picture_path' => htmlspecialchars($dock[$i]->picture_path, ENT_COMPAT | ENT_HTML5),
           'html_id' => $html_id,
           'items' => array(),
         );
@@ -85,7 +85,7 @@ class Dock {
             'name' => htmlspecialchars($dock[$i]->items[$j]->item_name, ENT_COMPAT | ENT_HTML5),
             'display_label' => htmlspecialchars($dock[$i]->items[$j]->display_label, ENT_COMPAT | ENT_HTML5),
             'description' => htmlspecialchars($dock[$i]->items[$j]->description, ENT_COMPAT | ENT_HTML5),
-            'icon' => htmlspecialchars($dock[$i]->items[$j]->icon, ENT_COMPAT | ENT_HTML5),
+            'picture_path' => htmlspecialchars($dock[$i]->items[$j]->picture_path, ENT_COMPAT | ENT_HTML5),
             'item_type' => htmlspecialchars($dock[$i]->items[$j]->item_magic, ENT_COMPAT | ENT_HTML5),
             'action' => htmlspecialchars($dock[$i]->items[$j]->action, ENT_COMPAT | ENT_HTML5),
             'html_id' => $html_id,
@@ -99,7 +99,7 @@ class Dock {
               'name' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->subitem_name, ENT_COMPAT | ENT_HTML5),
               'display_label' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->display_label, ENT_COMPAT | ENT_HTML5),
               'description' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->description, ENT_COMPAT | ENT_HTML5),
-              'icon' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->icon, ENT_COMPAT | ENT_HTML5),
+              'picture_path' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->picture_path, ENT_COMPAT | ENT_HTML5),
               'item_type' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->subitem_magic, ENT_COMPAT | ENT_HTML5),
               'action' => htmlspecialchars($dock[$i]->items[$j]->subitems[$k]->action, ENT_COMPAT | ENT_HTML5),
               'html_id' => $html_id,
@@ -125,7 +125,7 @@ class Dock {
   		  'name' => htmlspecialchars($tab[$i]->tab_name, ENT_COMPAT | ENT_HTML5),
   		  'display_label' => htmlspecialchars($tab[$i]->display_label, ENT_COMPAT | ENT_HTML5),
   		  'description' => htmlspecialchars($tab[$i]->description, ENT_COMPAT | ENT_HTML5),
-  		  'icon' => htmlspecialchars($tab[$i]->icon, ENT_COMPAT | ENT_HTML5),
+  		  'picture_path' => htmlspecialchars($tab[$i]->picture_path, ENT_COMPAT | ENT_HTML5),
   		  'action' => htmlspecialchars($tab[$i]->action, ENT_COMPAT | ENT_HTML5),
   		  'html_id' => $html_id,
   		  'dock_item' => htmlspecialchars($tab[$i]->dock_items_uuid, ENT_COMPAT | ENT_HTML5),
@@ -162,8 +162,8 @@ class Dock {
         $alt_text = $title;
       }
       
-      if (isset($this->_dock[$i]['icon']) && $this->_dock[$i]['icon'] !== '') {
-        $img = $this->_dock[$i]['icon'];
+      if (isset($this->_dock[$i]['picture_path']) && $this->_dock[$i]['picture_path'] !== '') {
+        $img = $this->_dock[$i]['picture_path'];
       } else {
         $img = '#';
       }
@@ -210,8 +210,8 @@ class Dock {
           $alt_text = $title;
         }
         
-        if (isset($this->_dock[$dockIndex]['items'][$i]['icon']) && $this->_dock[$dockIndex]['items'][$i]['icon'] !== '') {
-          $img = $this->_dock[$dockIndex]['items'][$i]['icon'];
+        if (isset($this->_dock[$dockIndex]['items'][$i]['picture_path']) && $this->_dock[$dockIndex]['items'][$i]['picture_path'] !== '') {
+          $img = $this->_dock[$dockIndex]['items'][$i]['picture_path'];
         } else {
           $img = '';
         }
@@ -277,8 +277,8 @@ class Dock {
           $alt_text = $title;
         }
   
-        if ($this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['icon'] && $this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['icon'] !== '') {
-          $img = $this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['icon'];
+        if ($this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['picture_path'] && $this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['picture_path'] !== '') {
+          $img = $this->_dock[$dockIndex]['items'][$dockItemIndex]['subitems'][$i]['picture_path'];
         } else {
           $img = '';
         }
@@ -349,8 +349,8 @@ class Dock {
   		$alt_text = $title;
   	  }
   	
-  	  if (isset($this->_tab[$i]['icon']) && $this->_tab[$i]['icon'] !== '') {
-  	    $img = $this->_tab[$i]['icon'];
+  	  if (isset($this->_tab[$i]['picture_path']) && $this->_tab[$i]['picture_path'] !== '') {
+  	    $img = $this->_tab[$i]['picture_path'];
   	  } else {
   		$img = '';
   	  }

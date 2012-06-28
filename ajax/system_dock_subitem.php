@@ -43,13 +43,13 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $subitem_action = (isset($_POST['subitem_action'])) ? $_POST['subitem_action'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandAddDockSubitem();
     $butr_command->setAll($dock_item_uuid, $system_dock_type_uuid, $security_client_type_uuid,
-      $subitem_name, $display_name, $description, $weighting, $icon, $subitem_action, $is_active);
+      $subitem_name, $display_name, $description, $weighting, $picture_path, $subitem_action, $is_active);
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
     echo $butr_command->sendCommand();
@@ -73,14 +73,14 @@ switch($command) {
     $display_name = (isset($_POST['display_name'])) ? $_POST['display_name'] : '';
     $description = (isset($_POST['description'])) ? $_POST['description'] : '';
     $weighting = (isset($_POST['weighting'])) ? $_POST['weighting'] : '';
-    $icon = (isset($_POST['icon'])) ? $_POST['icon'] : '';
+    $picture_path = (isset($_POST['picture_path'])) ? $_POST['picture_path'] : '';
     $subitem_action = (isset($_POST['subitem_action'])) ? $_POST['subitem_action'] : '';
     $is_active = (isset($_POST['is_active'])) ? $_POST['is_active'] : '';
     
     $butr_command = new Butr\CommandModifyDockSubitem();
     $butr_command->setAll($uuid, $dock_item_uuid, $system_dock_type_uuid,
       $security_client_type_uuid, $subitem_name, $display_name, $description,
-      $weighting, $icon, $subitem_action, $is_active);
+      $weighting, $picture_path, $subitem_action, $is_active);
     $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
     $butr_command->prepareCommand();
     

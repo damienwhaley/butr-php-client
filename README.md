@@ -12,5 +12,7 @@ The project home page is found at [www.butr.org](http://www.butr.org). Like this
 
 ## License
 
+Copyright (c) 2012 Whalebone Studios and Contributors.
+
 AGPLv3+
 

@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandAddPartition class.
   * This implements the functionality required to call the
@@ -70,13 +66,6 @@ class CommandAddPartition extends BaseCommand {
     return '"' . $this->_command_name . '":{"partition_name":"'. $this->_partition_name
      . '","description":"' . $this->_description
      . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**

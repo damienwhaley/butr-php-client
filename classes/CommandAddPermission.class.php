@@ -85,13 +85,6 @@ class CommandAddPermission extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the module_uuid for the record to be added.
    * @param string $module_uuid
    *   - The module_uuid for the record to be added.

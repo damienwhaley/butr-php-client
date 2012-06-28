@@ -21,7 +21,8 @@
 
 namespace Butr;
 
-/* Generates a Universally Unique IDentifier, version 4.
+/** 
+ * Generates a Universally Unique IDentifier, version 4.
  * This function generates a truly random UUID. The built in CakePHP String::uuid() function
  * is not cryptographically secure. You should uses this function instead.
  * @author Sean Colombo <sean@seancolombo.com>
@@ -71,4 +72,14 @@ function uuidSecure() {
  
   return sprintf('%08s-%04s-%04x-%04x-%012s',
       $time_low, $time_mid, $time_hi_and_version, $clock_seq_hi_and_reserved, $node);
+}
+
+/**
+ * Checks to see if the UUID is valid.
+ * @author 
+ * @see http://drupalcontrib.org/api/drupal/contributions!uuid!uuid.module/function/uuid_is_valid/6
+ * @param string $uuid
+ */
+function uuidIsValid($uuid) {
+  return (boolean) preg_match('/^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$/', $uuid);
 }

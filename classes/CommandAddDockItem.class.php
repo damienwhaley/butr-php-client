@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-//$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-//require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandAddDockItem class.
   * This implements the functionality required to call the
@@ -75,10 +71,10 @@ class CommandAddDockItem extends BaseCommand {
   private $_weighting;
   
   /**
-   * String containing the icon for the record to be added.
+   * String containing the picture_path for the record to be added.
    * @var string
    */
-  private $_icon;
+  private $_picture_path;
   
   /**
    * String containing the item_action for the record to be added.
@@ -105,7 +101,7 @@ class CommandAddDockItem extends BaseCommand {
     $this->_display_name = '';
     $this->_description = '';
     $this->_weighting = null;
-    $this->_icon = '';
+    $this->_picture_path = '';
     $this->_item_action = '';
     $this->_is_active = 0;
   }
@@ -123,16 +119,9 @@ class CommandAddDockItem extends BaseCommand {
       . '","display_name":"' . $this->_display_name
       . '","description":"' . $this->_description
       . '","weighting":"' . $this->_weighting
-      . '","icon":"' . $this->_icon
+      . '","picture_path":"' . $this->_picture_path
       . '","item_action":"' . $this->_item_action
       . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**
@@ -199,12 +188,12 @@ class CommandAddDockItem extends BaseCommand {
   }
   
   /**
-   * Sets the icon for the record to be added.
-   * @param string $icon
-   *   - The icon for the record to be added.
+   * Sets the picture_path for the record to be added.
+   * @param string $picture_path
+   *   - The picture_path for the record to be added.
    */
-  public function setIcon($icon) {
-    $this->_icon = $icon;
+  public function setPicturePath($picture_path) {
+    $this->_picture_path = $picture_path;
   }
   
   /**
@@ -241,15 +230,15 @@ class CommandAddDockItem extends BaseCommand {
    *   - The description for the record to be added.
    * @param integer $weighting
    *   - The weighting for the record to be added.
-   * @param string $icon
-   *   - The icon for the record to be added.
+   * @param string $picture_path
+   *   - The picture_path for the record to be added.
    * @param string $item_action
    *   - The UUID for the action for the record to be added.
    * @param integer $is_active
    *   - The is active boolean flag for the record to be added.
    */
   public function setAll($dock_uuid, $system_dock_type_uuid, $security_client_type_uuid,
-    $item_name, $display_name, $description, $weighting, $icon, $item_action, $is_active) {
+    $item_name, $display_name, $description, $weighting, $picture_path, $item_action, $is_active) {
     $this->setDockUuid($dock_uuid);
     $this->setSystemDockTypeUuid($system_dock_type_uuid);
     $this->setSecurityClientTypeUuid($security_client_type_uuid);
@@ -257,7 +246,7 @@ class CommandAddDockItem extends BaseCommand {
     $this->setDisplayName($display_name);
     $this->setDescription($description);
     $this->setWeighting($weighting);
-    $this->setIcon($icon);
+    $this->setPicturePath($picture_path);
     $this->setItemAction($item_action);
     $this->setIsActive($is_active);
   }

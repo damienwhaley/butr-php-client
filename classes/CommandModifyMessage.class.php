@@ -93,13 +93,6 @@ class CommandModifyMessage extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the module for the record to be modified.
    * @param string $uuid
    *   - The uuid for the record to be modified.

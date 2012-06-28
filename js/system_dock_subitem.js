@@ -175,7 +175,7 @@ function processSystemDockSubitemAddForm() {
   var displayName = document.system_dock_subitem_add_form.display_name.value;
   var description = document.system_dock_subitem_add_form.description.value;
   var weighting = document.system_dock_subitem_add_form.weighting.value;
-  var icon = document.system_dock_subitem_add_form.icon.value;
+  var picturePath = document.system_dock_subitem_add_form.picture_path.value;
   var subitemAction = document.system_dock_subitem_add_form.subitem_action.value;
   var isActive = 0;
   if (document.system_dock_subitem_add_form.is_active.checked === true) {
@@ -208,8 +208,8 @@ function processSystemDockSubitemAddForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (subitemAction === undefined || subitemAction === null || subitemAction === '') {
 	subitemAction = '';
@@ -231,7 +231,7 @@ function processSystemDockSubitemAddForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&subitem_action=' + escape(subitemAction)
     + '&command=add_dock_subitem'
@@ -315,7 +315,7 @@ function processSystemDockSubitemModifyForm() {
   var displayName = document.system_dock_subitem_modify_form.display_name.value;
   var description = document.system_dock_subitem_modify_form.description.value;
   var weighting = document.system_dock_subitem_modify_form.weighting.value;
-  var icon = document.system_dock_subitem_modify_form.icon.value;
+  var picturePath = document.system_dock_subitem_modify_form.picture_path.value;
   var subitemAction = document.system_dock_subitem_modify_form.subitem_action.value;
   var isActive = 0;
   if (document.system_dock_subitem_modify_form.is_active.checked === true) {
@@ -351,8 +351,8 @@ function processSystemDockSubitemModifyForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (subitemAction === undefined || subitemAction === null || subitemAction === '') {
 	subitemAction = '';
@@ -375,7 +375,7 @@ function processSystemDockSubitemModifyForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&subitem_action=' + escape(subitemAction)
     + '&command=modify_dock_subitem'

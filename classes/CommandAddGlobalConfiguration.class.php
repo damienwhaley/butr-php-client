@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandAddGlobalConfiguration class.
   * This implements the functionality required to call the
@@ -124,13 +120,6 @@ class CommandAddGlobalConfiguration extends BaseCommand {
      . '","float_setting":"' . $this->_float_setting
      . '","datetime_setting":"' . $this->_datetime_setting
      . '","bit_setting":"' . $this->_bit_setting . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**

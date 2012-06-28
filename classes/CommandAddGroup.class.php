@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandAddGroup class.
   * This implements the functionality required to call the
@@ -78,13 +74,6 @@ class CommandAddGroup extends BaseCommand {
      . '","display_name":"' . $this->_display_name
      . '","description":"' . $this->_description
      . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**

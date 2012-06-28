@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandModifyUser class.
   * This implements the functionality required to call the
@@ -94,13 +90,6 @@ class CommandModifyUser extends BaseCommand {
       . '","last_name":"' . $this->_last_name
       . '","preferred_global_language_uuid":"' . $this->_preferred_global_language_uuid
       . '","username":"' . $this->_username . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**

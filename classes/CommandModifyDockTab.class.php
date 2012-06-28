@@ -21,10 +21,6 @@
 
 namespace Butr;
 
-// Requires and includes.
-//$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
-//require_once($document_root . '/includes/settings.inc');
-
 /**
   * CommandModifyDockTab class.
   * This implements the functionality required to call the
@@ -87,10 +83,10 @@ class CommandModifyDockTab extends BaseCommand {
   private $_weighting;
   
   /**
-   * String containing the icon for the record to be modified.
+   * String containing the picture_path for the record to be modified.
    * @var string
    */
-  private $_icon;
+  private $_picture_path;
   
   /**
    * String containing the subitem_action for the record to be modified.
@@ -119,7 +115,7 @@ class CommandModifyDockTab extends BaseCommand {
     $this->_display_name = '';
     $this->_description = '';
     $this->_weighting = null;
-    $this->_icon = '';
+    $this->_picture_path = '';
     $this->_tab_action = '';
     $this->_is_active = 0;
   }
@@ -139,16 +135,9 @@ class CommandModifyDockTab extends BaseCommand {
       . '","display_name":"' . $this->_display_name
       . '","description":"' . $this->_description
       . '","weighting":"' . $this->_weighting
-      . '","icon":"' . $this->_icon
+      . '","picture_path":"' . $this->_picture_path
       . '","tab_action":"' . $this->_tab_action
       . '","is_active":"' . $this->_is_active . '"}';
-  }
-  
-  /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
   }
   
   /**
@@ -233,12 +222,12 @@ class CommandModifyDockTab extends BaseCommand {
   }
   
   /**
-   * Sets the icon for the record to be modified.
-   * @param string $icon
-   *   - The icon for the record to be modified.
+   * Sets the picture_path for the record to be modified.
+   * @param string $picture_path
+   *   - The picture_path for the record to be modified.
    */
-  public function setIcon($icon) {
-    $this->_icon = $icon;
+  public function setPicturePath($picture_path) {
+    $this->_picture_path = $picture_path;
   }
   
   /**
@@ -279,15 +268,15 @@ class CommandModifyDockTab extends BaseCommand {
    *   - The description for the record to be modified.
    * @param integer $weighting
    *   - The weighting for the record to be modified.
-   * @param string $icon
-   *   - The icon for the record to be modified.
+   * @param string $picture_path
+   *   - The picture_path for the record to be modified.
    * @param string $tab_action
    *   - The UUID for the tab_action for the record to be modified.
    * @param integer $is_active
    *   - The is active boolean flag for the record to be modified.
    */
   public function setAll($uuid, $dock_item_uuid, $dock_subitem_uuid, $system_dock_type_uuid, $security_client_type_uuid,
-    $tab_name, $display_name, $description, $weighting, $icon, $tab_action, $is_active) {
+    $tab_name, $display_name, $description, $weighting, $picture_path, $tab_action, $is_active) {
     $this->setUuid($uuid);
     $this->setDockItemUuid($dock_item_uuid);
     $this->setDockSubitemUuid($dock_subitem_uuid);
@@ -297,7 +286,7 @@ class CommandModifyDockTab extends BaseCommand {
     $this->setDisplayName($display_name);
     $this->setDescription($description);
     $this->setWeighting($weighting);
-    $this->setIcon($icon);
+    $this->setPicturePath($picture_path);
     $this->setTabAction($tab_action);
     $this->setIsActive($is_active);
   }

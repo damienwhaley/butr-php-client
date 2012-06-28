@@ -53,13 +53,6 @@ class CommandAddTable extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the table_name for the record to be added.
    * @param string $table_name
    *   - The table_name for the record to be added.

@@ -40,7 +40,7 @@ abstract class CommandRemoveGroup extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = '';
-    $this->uuid = '';
+    $this->resetAll();
   }
   
   /**
@@ -53,19 +53,16 @@ abstract class CommandRemoveGroup extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the UUID for the record to be removed.
    * @param string $uuid
    *   - The UUID for the record to be removed.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
   }
   
   /**
@@ -75,5 +72,13 @@ abstract class CommandRemoveGroup extends BaseCommand {
    */
   public function getUuid() {
     return $this->_uuid;
+  }
+  
+  /**
+   * This resets all the parameters in one hit.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
   }
 }

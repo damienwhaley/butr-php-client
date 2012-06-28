@@ -15,8 +15,7 @@ PHP
 
 // FARM pages to test:
 
-* refactor the prepareCommand into the base class and remove it from the sub classes
-* remove the includes from the base classes.
+* add getters for all the add/modify classes.
 
 * think I need to change the way the pages load. instead of using insertcontent(),
   it should use the history set and then you trigger the change in history

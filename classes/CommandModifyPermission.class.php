@@ -93,13 +93,6 @@ class CommandModifyPermission extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the uuid for the record to be modified.
    * @param string $uuid
    *   - The module_uuid for the record to be modified.

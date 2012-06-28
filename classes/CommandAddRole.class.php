@@ -77,13 +77,6 @@ class CommandAddRole extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
-   */
-  public function prepareCommand() {  
-    $this->setCommandSnippet($this->generateSnippet());
-  }
-  
-  /**
    * Sets the partition for the record to be added.
    * @param string $partition_uuid
    *   - The partition_uuid for the record to be added.

@@ -176,7 +176,7 @@ function processSystemDockTabAddForm() {
   var displayName = document.system_dock_tab_add_form.display_name.value;
   var description = document.system_dock_tab_add_form.description.value;
   var weighting = document.system_dock_tab_add_form.weighting.value;
-  var icon = document.system_dock_tab_add_form.icon.value;
+  var picturePath = document.system_dock_tab_add_form.picture_path.value;
   var tabAction = document.system_dock_tab_add_form.tab_action.value;
   var isActive = 0;
   if (document.system_dock_tab_add_form.is_active.checked === true) {
@@ -210,8 +210,8 @@ function processSystemDockTabAddForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (tabAction === undefined || tabAction === null || tabAction === '') {
 	tabAction = '';
@@ -234,7 +234,7 @@ function processSystemDockTabAddForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&tab_action=' + escape(tabAction)
     + '&command=add_dock_tab'
@@ -319,7 +319,7 @@ function processSystemDockTabModifyForm() {
   var displayName = document.system_dock_tab_modify_form.display_name.value;
   var description = document.system_dock_tab_modify_form.description.value;
   var weighting = document.system_dock_tab_modify_form.weighting.value;
-  var icon = document.system_dock_tab_modify_form.icon.value;
+  var picturePath = document.system_dock_tab_modify_form.picture_path.value;
   var tabAction = document.system_dock_tab_modify_form.item_action.value;
   var isActive = 0;
   if (document.system_dock_tab_modify_form.is_active.checked === true) {
@@ -356,8 +356,8 @@ function processSystemDockTabModifyForm() {
   if (weighting === undefined || weighting === null || isNaN(weighting)) {
     weighting = '';
   }
-  if (icon === undefined || icon === null || icon === '') {
-	icon = '';
+  if (picturePath === undefined || picturePath === null || picturePath === '') {
+	picturePath = '';
   }
   if (tabAction === undefined || tabAction === null || tabAction === '') {
 	tabAction = '';
@@ -381,7 +381,7 @@ function processSystemDockTabModifyForm() {
     + '&display_name=' + escape(displayName)
     + '&description=' + escape(description)
     + '&weighting=' + escape(weighting)
-    + '&icon='+ escape(icon)
+    + '&picture_path='+ escape(picturePath)
     + '&is_active=' + escape(isActive)
     + '&tab_action=' + escape(tabAction)
     + '&command=modify_dock_tab'

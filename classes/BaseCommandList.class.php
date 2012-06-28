@@ -58,22 +58,25 @@ abstract class BaseCommandList extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = '';
-    $this->_offset = 0;
-    $this->_size = -1;
-    $this->_direction = SORT_DIRECTION_ASCENDING;
-    $this->_ordinal = SORT_ORDINAL_DEFAULT;
+    $this->resetAll();
   }
     
   /**
    * This sets the size paramter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $size
    */
   public function setSize($size) {
-    $this->_size = $size;
+    if (isset($size) && is_numeric($size) && $size >= 0) {
+      $this->_size = $size;
+    } else {
+      $this->_size = LIST_SIZE_ALL;
+    }
   }
   
   /**
    * This gets the size parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return int
    */
   public function getSize() {
@@ -82,14 +85,20 @@ abstract class BaseCommandList extends BaseCommand {
   
   /**
    * This sets the offset paramter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $offset
    */
   public function setOffset($offset) {
-    $this->_offset = $offset;
+    if (isset($offset) && is_numeric($offset) && $offset >= 0) {
+      $this->_offset = $offset;
+    } else {
+      $this->_offset = 0;
+    }
   }
   
   /**
    * This gets the offset parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return int
    */
   public function getOffset() {
@@ -98,14 +107,20 @@ abstract class BaseCommandList extends BaseCommand {
   
   /**
    * This set the ordinal parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $ordinal
    */
   public function setOrdinal($ordinal) {
-    $this->_ordinal = $ordinal;
+    if (isset($ordinal)) {
+      $this->_ordinal = $ordinal;
+    } else {
+      $this->_ordinal = SORT_ORDINAL_DEFAULT;
+    }
   }
   
   /**
    * This gets the ordinal parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    */
   public function getOrdinal() {
@@ -113,22 +128,29 @@ abstract class BaseCommandList extends BaseCommand {
   }  
   /**
    * This sets the direction parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $direction
    */
-  public function setDirection($direction) {
-    $this->_direction = $direction;
+  public function setDirection($direction) {   
+    if (isset($direction) && strcmp($direction, SORT_DIRECTION_DESCENDING) == 0) {
+      $this->_direction = SORT_DIRECTION_DESCENDING;
+    } else {
+      $this->_direction = SORT_DIRECTION_ASCENDING;
+    }
   }
   
   /**
    * This gets the direction parameter.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    */
-  public function getDirection($direction) {
+  public function getDirection() {
     return $this->_direction;
   }
   
   /**
    * This sets all the parameters in one hit.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $offset
    *   - Integer containing the page offset in the results.
    * @param integer $size
@@ -147,6 +169,7 @@ abstract class BaseCommandList extends BaseCommand {
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -159,9 +182,13 @@ abstract class BaseCommandList extends BaseCommand {
   }
   
   /**
-   * Prepare the command ready to be sent.
+   * This resets all the parameters in one hit.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    */
-  public function prepareCommand() {
-    $this->setCommandSnippet($this->generateSnippet());
+  public function resetAll() {
+    $this->_offset = 0;
+    $this->_size = LIST_SIZE_ALL;
+    $this->_direction = SORT_DIRECTION_ASCENDING;
+    $this->_ordinal = SORT_ORDINAL_DEFAULT;
   }
 }
