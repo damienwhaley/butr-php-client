@@ -21,12 +21,16 @@
 
 namespace Butr;
 
+// Requires and includes.
+$document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once($document_root . '/includes/uuid.inc');
+
 /**
   * BaseCommandRemove class.
   * This base class implements the basics for the remove
   * messages.
   */
-abstract class CommandRemoveGroup extends BaseCommand {
+abstract class BaseCommandRemove extends BaseCommand {
   
   /**
    * String containing the uuid for the record to be removed.

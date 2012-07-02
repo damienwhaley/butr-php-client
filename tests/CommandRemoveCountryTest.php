@@ -22,9 +22,10 @@
 $basedir = dirname(__FILE__);
 $basedir = substr($basedir, 0, strlen($basedir)-5);
 require_once($basedir . 'includes/autoload.inc');
+require_once($basedir . '/includes/uuid.inc');
 
 /**
- * This tests the CommandFetchCountry class
+ * This tests the CommandRemoveCountry class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 class SelectEqualsTest extends PHPUnit_Framework_TestCase

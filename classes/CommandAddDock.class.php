@@ -76,17 +76,12 @@ class CommandAddDock extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'add_dock';
-    $this->_security_client_type_uuid = '';
-    $this->_dock_name = '';
-    $this->_display_name = '';
-    $this->_description = '';
-    $this->_weighting = null;
-    $this->_picture_path = '';
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -102,65 +97,174 @@ class CommandAddDock extends BaseCommand {
   
   /**
    * Sets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $security_client_type_uuid
    *   - The security_client_type_uuid for the record to be added.
    */
   public function setSecurityClientTypeUuid($security_client_type_uuid) {
-    $this->_security_client_type_uuid = $security_client_type_uuid;
+    if (isset($security_client_type_uuid) && uuidIsValid($security_client_type_uuid)) {
+      $this->_security_client_type_uuid = $security_client_type_uuid;
+    } else {
+      $this->_security_client_type_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The security_client_type_uuid for the record to be added.
+   */
+  public function getSecurityClientTypeUuid() {
+    return $this->_security_client_type_uuid;
   }
   
   /**
    * Sets the dock_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $dock_name
    *   - The dock_name for the record to be added.
-  */
+   */
   public function setDockName($dock_name) {
-    $this->_dock_name = $dock_name;
+    if (isset($dock_name)) {
+      $this->_dock_name = $dock_name;
+    } else {
+      $this->_dock_name = '';
+    }
   }
   
   /**
-  * Sets the display_name for the record to be added.
-  * @param string $display_name
-  *   - The display_name for the record to be added.
-  */
+   * Gets the dock_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The dock_name for the record to be added.
+   */
+  public function getDockName() {
+    return $this->_dock_name;
+  }
+  
+  /**
+   * Sets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $display_name
+   *   - The display_name for the record to be added.
+   */
   public function setDisplayName($display_name) {
-    $this->_display_name = $display_name;
+    if (isset($display_name)) {
+      $this->_display_name = $display_name;
+    } else {
+      $this->_display_name = '';
+    }
   }
   
   /**
-  * Sets the description for the record to be added.
-  * @param string $description
-  *   - The description for the record to be added.
-  */
+   * Gets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The display_name for the record to be added.
+   */
+  public function getDisplayName() {
+    return $this->_display_name;
+  }
+  
+  /**
+   * Sets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be added.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
   }
   
   /**
-  * Sets the weighting for the record to be added.
-  * @param string $weighting
-  *   - The weighting for the record to be added.
-  */
+   * Gets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be added.
+   */
+  public function getDescription() {
+    return $this->_description;
+  }
+  
+  /**
+   * Sets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $weighting
+   *   - The weighting for the record to be added.
+   */
   public function setWeighting($weighting) {
-    $this->_weighting = $weighting;
+    if (isset($weighting) && is_numeric($weighting)) {
+      $this->_weighting = $weighting;
+    } else {
+      $this->_weighting = null;
+    }
+  }
+  
+  /**
+   * Gets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The weighting for the record to be added.
+   */
+  public function getWeighting() {
+    return $this->_weighting;
   }
   
   /**
    * Sets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $picture_path
    *   - The picture_path for the record to be added.
    */
   public function setPicturePath($picture_path) {
-    $this->_picture_path = $picture_path;
+    if(isset($picture_path)) {
+      $this->_picture_path = $picture_path;
+    } else {
+      $this->_picture_path = '';
+    }
+  }
+  
+  /**
+   * Gets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The picture_path for the record to be added.
+   */
+  public function getPicturePath() {
+    return $this->_picture_path;
   }
   
   /**
    * Sets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The description for the record to be added.
+   *   - The is_active for the record to be added.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be added.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
@@ -189,5 +293,19 @@ class CommandAddDock extends BaseCommand {
     $this->setWeighting($weighting);
     $this->setPicturePath($picture_path);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_security_client_type_uuid = '';
+    $this->_dock_name = '';
+    $this->_display_name = '';
+    $this->_description = '';
+    $this->_weighting = null;
+    $this->_picture_path = '';
+    $this->_is_active = 0;
   }
 }

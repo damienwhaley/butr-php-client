@@ -94,20 +94,12 @@ class CommandAddDockItem extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'add_dock_item';
-    $this->_dock_uuid = '';
-    $this->_system_dock_type_uuid = '';
-    $this->_security_client_type_uuid = '';
-    $this->_item_name = '';
-    $this->_display_name = '';
-    $this->_description = '';
-    $this->_weighting = null;
-    $this->_picture_path = '';
-    $this->_item_action = '';
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -126,96 +118,251 @@ class CommandAddDockItem extends BaseCommand {
   
   /**
    * Sets the dock_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $dock_uuid
    *   - The dock_uuid for the record to be added.
    */
   public function setDockUuid($dock_uuid) {
-    $this->_dock_uuid = $dock_uuid;
+    if (isset($dock_uuid) && uuidIsValid($dock_uuid)) {
+      $this->_dock_uuid = $dock_uuid;
+    } else {
+      $this->_dock_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the dock_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The dock_uuid for the record to be added.
+   */
+  public function getDockUuid() {
+    return $this->_dock_uuid;
   }
   
   /**
    * Sets the system_dock_type_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $system_dock_type_uuid
    *   - The system_dock_type_uuid for the record to be added.
    */
   public function setSystemDockTypeUuid($system_dock_type_uuid) {
-    $this->_system_dock_type_uuid = $system_dock_type_uuid;
+    if (isset($system_dock_type_uuid) && uuidIsValid($system_dock_type_uuid)) {
+      $this->_system_dock_type_uuid = $system_dock_type_uuid;
+    } else {
+      $this->_system_dock_type_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the system_dock_type_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The system_dock_type_uuid for the record to be added.
+   */
+  public function getSystemDockTypeUuid() {
+    return $this->_system_dock_type_uuid;
   }
   
   /**
    * Sets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $security_client_type_uuid
    *   - The security_client_type_uuid for the record to be added.
    */
   public function setSecurityClientTypeUuid($security_client_type_uuid) {
-    $this->_security_client_type_uuid = $security_client_type_uuid;
+    if (isset($security_client_type_uuid) && uuidIsValid($security_client_type_uuid)) {
+      $this->_security_client_type_uuid = $security_client_type_uuid;
+    } else {
+      $this->_security_client_type_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The security_client_type_uuid for the record to be added.
+   */
+  public function getSecurityClientTypeUuid() {
+    return $this->_security_client_type_uuid;
   }
   
   /**
    * Sets the item_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $item_name
    *   - The item_name for the record to be added.
   */
   public function setItemName($item_name) {
-    $this->_item_name = $item_name;
+    if (isset($item_name)) {
+      $this->_item_name = $item_name;
+    } else {
+      $this->_item_name = '';
+    }
   }
   
   /**
-  * Sets the display_name for the record to be added.
-  * @param string $display_name
-  *   - The display_name for the record to be added.
-  */
+   * Gets the item_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The item_name for the record to be added.
+   */
+  public function getItemName() {
+    return $this->_item_name;
+  }
+  
+  /**
+   * Sets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $display_name
+   *   - The display_name for the record to be added.
+   */
   public function setDisplayName($display_name) {
-    $this->_display_name = $display_name;
+    if (isset($display_name)) {
+      $this->_display_name = $display_name;
+    } else {
+      $this->_display_name = '';
+    }
   }
   
   /**
-  * Sets the description for the record to be added.
-  * @param string $description
-  *   - The description for the record to be added.
-  */
+   * Gets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The display_name for the record to be added.
+   */
+  public function getDisplayName() {
+    return $this->_display_name;
+  }
+  
+  /**
+   * Sets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be added.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
   }
   
   /**
-  * Sets the weighting for the record to be added.
-  * @param string $weighting
-  *   - The weighting for the record to be added.
-  */
+   * Gets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be added.
+   */
+  public function getDescription() {
+    return $this->_description;
+  }
+  
+  /**
+   * Sets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $weighting
+   *   - The weighting for the record to be added.
+   */
   public function setWeighting($weighting) {
-    $this->_weighting = $weighting;
+    if (isset($weighting) && is_numeric($weighting)) {
+      $this->_weighting = $weighting;
+    } else {
+      $this->_weighting = null;
+    }
+  }
+  
+  /**
+   * Gets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The weighting for the record to be added.
+   */
+  public function getWeighting() {
+    return $this->_weighting;
   }
   
   /**
    * Sets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $picture_path
    *   - The picture_path for the record to be added.
    */
   public function setPicturePath($picture_path) {
-    $this->_picture_path = $picture_path;
+    if (isset($picture_path)) {
+      $this->_picture_path = $picture_path;
+    } else {
+      $this->_picture_path = '';
+    }
+  }
+  
+  /**
+   * Gets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The picture_path for the record to be added.
+   */
+  public function getPicturePath() {
+    return $this->_picture_path;
   }
   
   /**
    * Sets the item_action for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $item_action
    *   - The action for the record to be added.
    */
   public function setItemAction($item_action) {
-    $this->_item_action = $item_action;
+    if (isset($item_action)) {
+      $this->_item_action = $item_action;
+    } else {
+      $this->_item_action = '';
+    }
+  }
+  
+  /**
+   * Gets the item_action for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The action for the record to be added.
+   */
+  public function getItemAction() {
+    return $this->_item_action;
   }
   
   /**
    * Sets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The description for the record to be added.
+   *   - The is_active for the record to be added.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be added.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $dock_uuid
    *   - The UUID for the dock_uuid for the record to be added.
    * @param string $system_dock_type_uuid
@@ -249,5 +396,22 @@ class CommandAddDockItem extends BaseCommand {
     $this->setPicturePath($picture_path);
     $this->setItemAction($item_action);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_dock_uuid = '';
+    $this->_system_dock_type_uuid = '';
+    $this->_security_client_type_uuid = '';
+    $this->_item_name = '';
+    $this->_display_name = '';
+    $this->_description = '';
+    $this->_weighting = null;
+    $this->_picture_path = '';
+    $this->_item_action = '';
+    $this->_is_active = 0;
   }
 }

@@ -68,8 +68,6 @@ function setHistoryConfigurationGlobalFetch(uuid) {
 	content = content.substring(0, content.length - 1);
   }
   
-  alert(uuid);
-  
   document.title = historyState.pageTitle;
   $('#title').html(butr_i18n_GlobalConfigurationAdministration+' - '+butr_i18n_ModifyGlobalConfguration);
   document.butr_state_form.content.value = content;

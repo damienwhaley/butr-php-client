@@ -99,22 +99,13 @@ class CommandModifyDockSubitem extends BaseCommand {
    */
   public function __construct() {
     parent::__construct();
-    $this->_uuid = '';
     $this->_command_name = 'modify_dock_subitem';
-    $this->_dock_item_uuid = '';
-    $this->_system_dock_type_uuid = '';
-    $this->_security_client_type_uuid = '';
-    $this->_subitem_name = '';
-    $this->_display_name = '';
-    $this->_description = '';
-    $this->_weighting = null;
-    $this->_picture_path = '';
-    $this->_subitem_action = '';
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -134,105 +125,275 @@ class CommandModifyDockSubitem extends BaseCommand {
   
   /**
    * Sets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The dock_uuid for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The dock_uuid for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
   }
   
   /**
    * Sets the dock_item_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $dock_item_uuid
    *   - The dock_uuid for the record to be modified.
    */
   public function setDockItemUuid($dock_item_uuid) {
-    $this->_dock_item_uuid = $dock_item_uuid;
+    if (isset($dock_item_uuid) && uuidIsValid($dock_item_uuid)) {
+      $this->_dock_item_uuid = $dock_item_uuid;
+    } else {
+      $this->_dock_item_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the dock_item_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The dock_uuid for the record to be modified.
+   */
+  public function getDockItemUuid() {
+    return $this->_dock_item_uuid;
   }
   
   /**
    * Sets the system_dock_type_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $system_dock_type_uuid
    *   - The system_dock_type_uuid for the record to be modified.
    */
   public function setSystemDockTypeUuid($system_dock_type_uuid) {
-    $this->_system_dock_type_uuid = $system_dock_type_uuid;
+    if (isset($system_dock_type_uuid) && uuidIsValid($system_dock_type_uuid)) {
+      $this->_system_dock_type_uuid = $system_dock_type_uuid;
+    } else {
+      $this->_system_dock_type_uuid = '';
+    }
   }
   
   /**
-   * Sets the security_client_type for the record to be modified.
+   * Gets the system_dock_type_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The system_dock_type_uuid for the record to be modified.
+   */
+  public function getSystemDockTypeUuid() {
+    return $this->_system_dock_type_uuid;
+  }
+  
+  /**
+   * Sets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $security_client_type_uuid
-   *   - The security_client_type_uuid for the record to be modified.
+   *   - The security_client_type_uuid for the record to be added.
    */
   public function setSecurityClientTypeUuid($security_client_type_uuid) {
-    $this->_security_client_type_uuid = $security_client_type_uuid;
+    if (isset($security_client_type_uuid) && uuidIsValid($security_client_type_uuid)) {
+      $this->_security_client_type_uuid = $security_client_type_uuid;
+    } else {
+      $this->_security_client_type_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the security_client_type for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The security_client_type_uuid for the record to be added.
+   */
+  public function getSecurityClientTypeUuid() {
+    return $this->_security_client_type_uuid;
   }
   
   /**
    * Sets the subitem_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $subitem_name
    *   - The subitem_name for the record to be modified.
-  */
+   */
   public function setSubitemName($subitem_name) {
-    $this->_subitem_name = $subitem_name;
+    if (isset($subitem_name)) {
+      $this->_subitem_name = $subitem_name;
+    } else {
+      $this->_subitem_name = '';
+    }
   }
   
   /**
-  * Sets the display_name for the record to be modified.
-  * @param string $display_name
-  *   - The display_name for the record to be modified.
-  */
+   * Gets the subitem_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The subitem_name for the record to be modified.
+   */
+  public function getSubitemName() {
+    return $this->_subitem_name;
+  }
+  
+  /**
+   * Sets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $display_name
+   *   - The display_name for the record to be added.
+   */
   public function setDisplayName($display_name) {
-    $this->_display_name = $display_name;
+    if (isset($display_name)) {
+      $this->_display_name = $display_name;
+    } else {
+      $this->_display_name = '';
+    }
   }
   
   /**
-  * Sets the description for the record to be modified.
-  * @param string $description
-  *   - The description for the record to be modified.
-  */
+   * Gets the display_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The display_name for the record to be added.
+   */
+  public function getDisplayName() {
+    return $this->_display_name;
+  }
+  
+  /**
+   * Sets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be added.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
   }
   
   /**
-  * Sets the weighting for the record to be modified.
-  * @param string $weighting
-  *   - The weighting for the record to be modifed.
-  */
+   * Gets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be added.
+   */
+  public function getDescription() {
+    return $this->_description;
+  }
+  
+  /**
+   * Sets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $weighting
+   *   - The weighting for the record to be added.
+   */
   public function setWeighting($weighting) {
-    $this->_weighting = $weighting;
+    if (isset($weighting) && is_numeric($weighting)) {
+      $this->_weighting = $weighting;
+    } else {
+      $this->_weighting = null;
+    }
   }
   
   /**
-   * Sets the picture_path for the record to be modified.
+   * Gets the weighting for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The weighting for the record to be added.
+   */
+  public function getWeighting() {
+    return $this->_weighting;
+  }
+  
+  /**
+   * Sets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $picture_path
-   *   - The picture_path for the record to be modified.
+   *   - The picture_path for the record to be added.
    */
   public function setPicturePath($picture_path) {
-    $this->_picture_path = $picture_path;
+    if(isset($picture_path)) {
+      $this->_picture_path = $picture_path;
+    } else {
+      $this->_picture_path = '';
+    }
+  }
+  
+  /**
+   * Gets the picture_path for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The picture_path for the record to be added.
+   */
+  public function getPicturePath() {
+    return $this->_picture_path;
   }
   
   /**
    * Sets the item_action for the record to be modified.
-   * @param string $action
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $subitem_action
    *   - The action for the record to be modified.
    */
   public function setSubitemAction($subitem_action) {
+    if (isset($subitem_action)) {
     $this->_subitem_action = $subitem_action;
+    } else {
+      $this->_subitem_action = '';
+    }
   }
   
   /**
-   * Sets the is_active for the record to be modified.
+   * Gets the item_action for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The action for the record to be modified.
+   */
+  public function getSubitemAction() {
+    return $this->_subitem_action;
+  }
+  
+  /**
+   * Sets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The description for the record to be modified.
+   *   - The is_active for the record to be added.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be added.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *    - The UUID for the uuid for the record to be modified.
    * @param string $dock_item_uuid
@@ -269,5 +430,23 @@ class CommandModifyDockSubitem extends BaseCommand {
     $this->setPicturePath($picture_path);
     $this->setSubitemAction($subitem_action);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_dock_item_uuid = '';
+    $this->_system_dock_type_uuid = '';
+    $this->_security_client_type_uuid = '';
+    $this->_subitem_name = '';
+    $this->_display_name = '';
+    $this->_description = '';
+    $this->_weighting = null;
+    $this->_picture_path = '';
+    $this->_subitem_action = '';
+    $this->_is_active = 0;
   }
 }

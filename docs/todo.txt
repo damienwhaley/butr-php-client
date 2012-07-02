@@ -15,7 +15,9 @@ PHP
 
 // FARM pages to test:
 
-* add getters for all the add/modify classes.
+* add getters for all the add/modify classes. See the Country messages.
+
+* add phpunit tests for all classes.
 
 * think I need to change the way the pages load. instead of using insertcontent(),
   it should use the history set and then you trigger the change in history
@@ -25,8 +27,6 @@ PHP
   check for page url and if it's not /butr.php then go to butr.php with the url.
 
 * try uploads with the AJAX.
-
-* set the page title and the admin menu title from a function call in the page.
 
 * make sure PSR-0 is implemented in coding rules.
 * try to do PSR-1 and maybe PSR-2 (but I think there's things that I do differently).
