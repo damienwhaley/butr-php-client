@@ -22,40 +22,33 @@
 $basedir = dirname(__FILE__);
 $basedir = substr($basedir, 0, strlen($basedir)-5);
 require_once($basedir . 'includes/autoload.inc');
-require_once($basedir . '/includes/uuid.inc');
 
 /**
- * This tests the CommandFetchDockTab class
+ * This tests the CommandCreateSession class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 class SelectEqualsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
-  protected $_uuid;
+  protected $_language;
   
   public function setUp() {
-    $this->_testClass = new Butr\CommandFetchDockTab();
-    $this->_uuid = Butr\uuidSecure();
+    $this->_testClass = new Butr\CommandCreateSession();
+    $this->_language = 'se-SE';
   }
   
-  public function testResetAll() {
+  public function testSetLanguage() {
     $this->_testClass->resetAll();
+    $this->_testClass->setLanguage($this->_language);
+    $this->assertEquals($this->_language, $this->_testClass->getLanguage());
   
-    $this->assertEquals('', $this->_testClass->getUuid());
-  }
-  
-  public function testSetUuid() {
     $this->_testClass->resetAll();
-    $this->_testClass->setUuid($this->_uuid);
-    $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setUuid('not-a-uuid');
-    $this->assertEquals('', $this->_testClass->getUuid());
+    $this->_testClass->setLanguage(null);
+    $this->assertEquals('', $this->_testClass->getLanguage());
   }
   
   public function testCommandName() {
-    $this->assertEquals('fetch_dock_tab', $this->_testClass->getCommandName());
+    $this->assertEquals('create_session', $this->_testClass->getCommandName());
   }
   
   public function tearDown() {

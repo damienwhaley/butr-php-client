@@ -32,10 +32,27 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;
+  protected $_magic;
   
   public function setUp() {
     $this->_testClass = new Butr\CommandFetchGlobalConfiguration();
     $this->_uuid = Butr\uuidSecure();
+    $this->_magic = 'magic';
+  }
+  
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+  
+    $this->assertEquals('', $this->_testClass->getUuid());
+    $this->assertEquals('', $this->_testClass->getMagic());
+  }
+  
+  public function testSetAll() {
+    $this->_testClass->resetAll();
+    
+    $this->_testClass->setAll($this->_uuid, $this->_magic);
+    $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
+    $this->assertEquals($this->_magic, $this->_testClass->getMagic());
   }
   
   public function testSetUuid() {
@@ -46,6 +63,16 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setUuid('not-a-uuid');
     $this->assertEquals('', $this->_testClass->getUuid());
+  }
+  
+  public function testMagic() {
+    $this->_testClass->resetAll();
+    $this->_testClass->setMagic($this->_magic);
+    $this->assertEquals($this->_magic, $this->_testClass->getMagic());
+  
+    $this->_testClass->resetAll();
+    $this->_testClass->setMAgic(null);
+    $this->assertEquals('', $this->_testClass->getMagic());
   }
   
   public function testCommandName() {

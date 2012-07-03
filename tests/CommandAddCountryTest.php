@@ -49,6 +49,18 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_is_active = 1;
   }
   
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+    
+    $this->assertEquals('', $this->_testClass->getCountryName());
+    $this->assertEquals('', $this->_testClass->getCountryCode());
+    $this->assertEquals('', $this->_testClass->getDisplayName());
+    $this->assertEquals('', $this->_testClass->getDescription());
+    $this->assertEquals('', $this->_testClass->getAlternateCode());
+    $this->assertNull($this->_testClass->getWeighting());
+    $this->assertEquals(0, $this->_testClass->getIsActive());
+  }
+  
   public function testSetAll() {
     $this->_testClass->resetAll();
     $this->_testClass->setAll($this->_country_name, $this->_display_name, $this->_description,
@@ -125,7 +137,6 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting('apple');
     $this->assertNull($this->_testClass->getWeighting());
-    $this->assertEquals('', $this->_testClass->getWeighting());
     
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting(-10);

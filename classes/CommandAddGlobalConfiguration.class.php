@@ -295,10 +295,10 @@ class CommandAddGlobalConfiguration extends BaseCommand {
       if ($datetime) {
         $this->_datetime_setting = $datetime;
       } else {
-        $this->_datetime_setting = '';  
+        $this->_datetime_setting = null;  
       }
     } else {
-      $this->_datetime_setting = '';
+      $this->_datetime_setting = null;
     }
   }
   
@@ -415,7 +415,8 @@ class CommandAddGlobalConfiguration extends BaseCommand {
     $this->_text_setting = '';
     $this->_integer_setting = null;
     $this->_float_setting = null;
-    $this->_datetime_setting = '';
+    $this->_datetime_setting = null;
+    $this->_uuid_setting = '';
     $this->_bit_setting = 0;
   }
 }

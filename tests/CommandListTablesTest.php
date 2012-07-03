@@ -44,6 +44,15 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_ordinal = 'some column';
   }
   
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+  
+    $this->assertEquals(0, $this->_testClass->getOffset());
+    $this->assertEquals(Butr\LIST_SIZE_ALL, $this->_testClass->getSize());
+    $this->assertEquals(Butr\SORT_DIRECTION_ASCENDING, $this->_testClass->getDirection());
+    $this->assertEquals(Butr\SORT_ORDINAL_DEFAULT, $this->_testClass->getOrdinal());
+  }
+  
   public function testSetAll() {
     $this->_testClass->resetAll();
     $this->_testClass->setAll($this->_offset, $this->_size, $this->_direction, $this->_ordinal);

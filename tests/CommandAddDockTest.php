@@ -50,6 +50,18 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_is_active = 1;
   }
   
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+    
+    $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
+    $this->assertEquals('', $this->_testClass->getDockName());
+    $this->assertEquals('', $this->_testClass->getDisplayName());
+    $this->assertEquals('', $this->_testClass->getDescription());
+    $this->assertNull($this->_testClass->getWeighting());
+    $this->assertEquals('', $this->_testClass->getPicturePath());
+    $this->assertEquals(0, $this->_testClass->getIsActive());
+  }
+  
   public function testSetAll() {
     $this->_testClass->resetAll();
     
@@ -118,7 +130,6 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting('apple');
     $this->assertNull($this->_testClass->getWeighting());
-    $this->assertEquals('', $this->_testClass->getWeighting());
   
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting(-10);

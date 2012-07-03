@@ -147,10 +147,10 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Sets the name_label for the record to be added.
+   * Sets the name_label for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $name_label
-   *   - The name_label for the record to be added.
+   *   - The name_label for the record to be modified.
    */
   public function setNameLabel($name_label) {
     if (isset($name_label)) {
@@ -161,20 +161,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the name_label for the record to be added.
+   * Gets the name_label for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The name_label for the record to be added.
+   *   - The name_label for the record to be modified.
    */
   public function getNameLabel() {
     return $this->_name_label;
   }
   
   /**
-   * Sets the display_label for the record to be added.
+   * Sets the display_label for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $display_label
-   *   - The display_label for the record to be added.
+   *   - The display_label for the record to be modified.
    */
   public function setDisplayLabel($display_label) {
     if (isset($display_label)) {
@@ -185,20 +185,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the display_label for the record to be added.
+   * Gets the display_label for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The display_label for the record to be added.
+   *   - The display_label for the record to be modified.
    */
   public function getDisplayLabel() {
     return $this->_display_label;
   }
   
   /**
-   * Sets the magic for the record to be added.
+   * Sets the magic for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $magic
-   *   - The magic for the record to be added.
+   *   - The magic for the record to be modified.
    */
   public function setMagic($magic) {
     if (isset($magic)) {
@@ -209,20 +209,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the magic for the record to be added.
+   * Gets the magic for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The magic for the record to be added.
+   *   - The magic for the record to be modified.
    */
   public function getMagic() {
     return $this->_magic;
   }
   
   /**
-   * Sets the description for the record to be added.
+   * Sets the description for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $description
-   *   - The description for the record to be added.
+   *   - The description for the record to be modified.
    */
   public function setDescription($description) {
     if (isset($description)) {
@@ -233,20 +233,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the description for the record to be added.
+   * Gets the description for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The description for the record to be added.
+   *   - The description for the record to be modified.
    */
   public function getDescription() {
     return $this->_description;
   }
   
   /**
-   * Sets the text_setting for the record to be added.
+   * Sets the text_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $text_setting
-   *   - The text_setting for the record to be added.
+   *   - The text_setting for the record to be modified.
    */
   public function setTextSetting($text_setting) {
     if (isset($text_setting)) {
@@ -257,20 +257,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the text_setting for the record to be added.
+   * Gets the text_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The text_setting for the record to be added.
+   *   - The text_setting for the record to be modified.
    */
   public function getTextSetting() {
     return $this->_text_setting;
   }
   
   /**
-   * Sets the integer_setting for the record to be added.
+   * Sets the integer_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $integer_setting
-   *   - The integer_setting for the record to be added.
+   *   - The integer_setting for the record to be modified.
    */
   public function setIntegerSetting($integer_setting) {
     if (isset($integer_setting) && is_numeric($integer_setting)) {
@@ -281,20 +281,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the integer_setting for the record to be added.
+   * Gets the integer_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return integer
-   *   - The integer_setting for the record to be added.
+   *   - The integer_setting for the record to be modified.
    */
   public function getIntegerSetting() {
     return $this->_integer_setting;
   }
   
   /**
-   * Sets the float_setting for the record to be added.
+   * Sets the float_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param float $float_setting
-   *   - The float_setting for the record to be added.
+   *   - The float_setting for the record to be modified.
    */
   public function setFloatSetting($float_setting) {
     if (isset($float_setting) && is_numeric($float_setting)) {
@@ -305,21 +305,21 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the float_setting for the record to be added.
+   * Gets the float_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return float
-   *   - The float_setting for the record to be added.
+   *   - The float_setting for the record to be modified.
    */
   public function getFloatSetting() {
     return $this->_float_setting;
   }
   
   /**
-   * Sets the datetime_setting for the record to be added. This only
+   * Sets the datetime_setting for the record to be modified. This only
    * accepts date times in the format "2012-07-02 12:34:56".
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $datetime_setting
-   *   - The datetime_setting for the record to be added.
+   *   - The datetime_setting for the record to be modified.
    */
   public function setDatetimeSetting($datetime_setting) {
     if (isset($datetime_setting)) {
@@ -327,28 +327,28 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
       if ($datetime) {
         $this->_datetime_setting = $datetime;
       } else {
-        $this->_datetime_setting = '';  
+        $this->_datetime_setting = null;  
       }
     } else {
-      $this->_datetime_setting = '';
+      $this->_datetime_setting = null;
     }
   }
   
   /**
-   * Gets the datetime_setting for the record to be added.
+   * Gets the datetime_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return DateTime
-   *   - The datetime_setting for the record to be added.
+   *   - The datetime_setting for the record to be modified.
    */
   public function getDatetimeSetting() {
     return $this->_datetime_setting;
   }
   
   /**
-   * Sets the uuid_setting for the record to be added.
+   * Sets the uuid_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid_setting
-   *   - The uuid_setting for the record to be added.
+   *   - The uuid_setting for the record to be modified.
    */
   public function setUuidSetting($uuid_setting) {
     if (isset($uuid_setting) && uuidIsValid($uuid_setting)) {
@@ -359,20 +359,20 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the uuid_setting for the record to be added.
+   * Gets the uuid_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The uuid_setting for the record to be added.
+   *   - The uuid_setting for the record to be modified.
    */
   public function getUuidSetting() {
     return $this->_uuid_setting;
   }
   
   /**
-   * Sets the bit_setting for the record to be added.
+   * Sets the bit_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $bit_setting
-   *   - The bit_setting for the record to be added.
+   *   - The bit_setting for the record to be modified.
    */
   public function setBitSetting($bit_setting) {
     if (isset($bit_setting) && is_numeric($bit_setting)) {
@@ -387,10 +387,10 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
   }
   
   /**
-   * Gets the bit_setting for the record to be added.
+   * Gets the bit_setting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return integer
-   *   - The bit_setting for the record to be added.
+   *   - The bit_setting for the record to be modified.
    */
   public function getBitSetting() {
     return $this->_bit_setting;
@@ -448,9 +448,10 @@ class CommandModifyGlobalConfiguration extends BaseCommand {
     $this->_magic = '';
     $this->_description = '';
     $this->_text_setting = '';
-    $this->_integer_setting = '';
-    $this->_float_setting = '';
-    $this->_datetime_setting = '';
-    $this->_bit_setting = '';
+    $this->_integer_setting = null;
+    $this->_float_setting = null;
+    $this->_datetime_setting = null;
+    $this->_uuid_setting = '';
+    $this->_bit_setting = 0;
   }
 }

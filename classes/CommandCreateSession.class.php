@@ -40,6 +40,7 @@ class CommandCreateSession extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'create_session';
+    $this->resetAll();
   }
   
   /**
@@ -72,8 +73,18 @@ class CommandCreateSession extends BaseCommand {
    *   - The language code to use.
    */
   public function setLanguage($language) {
-    if ($language && $language !== '') {
+    if (isset($language)) {
       $this->_language = $language;
+    } else {
+      $this->_language = '';
     }
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_language = '';
   }
 }

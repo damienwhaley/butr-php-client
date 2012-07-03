@@ -196,10 +196,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Sets the security_client_type for the record to be added.
+   * Sets the security_client_type for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $security_client_type_uuid
-   *   - The security_client_type_uuid for the record to be added.
+   *   - The security_client_type_uuid for the record to be modified.
    */
   public function setSecurityClientTypeUuid($security_client_type_uuid) {
     if (isset($security_client_type_uuid) && uuidIsValid($security_client_type_uuid)) {
@@ -210,10 +210,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the security_client_type for the record to be added.
+   * Gets the security_client_type for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The security_client_type_uuid for the record to be added.
+   *   - The security_client_type_uuid for the record to be modified.
    */
   public function getSecurityClientTypeUuid() {
     return $this->_security_client_type_uuid;
@@ -244,10 +244,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Sets the display_name for the record to be added.
+   * Sets the display_name for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $display_name
-   *   - The display_name for the record to be added.
+   *   - The display_name for the record to be modified.
    */
   public function setDisplayName($display_name) {
     if (isset($display_name)) {
@@ -258,20 +258,20 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the display_name for the record to be added.
+   * Gets the display_name for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The display_name for the record to be added.
+   *   - The display_name for the record to be modified.
    */
   public function getDisplayName() {
     return $this->_display_name;
   }
   
   /**
-   * Sets the description for the record to be added.
+   * Sets the description for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $description
-   *   - The description for the record to be added.
+   *   - The description for the record to be modified.
    */
   public function setDescription($description) {
     if (isset($description)) {
@@ -282,20 +282,20 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the description for the record to be added.
+   * Gets the description for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The description for the record to be added.
+   *   - The description for the record to be modified.
    */
   public function getDescription() {
     return $this->_description;
   }
   
   /**
-   * Sets the weighting for the record to be added.
+   * Sets the weighting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $weighting
-   *   - The weighting for the record to be added.
+   *   - The weighting for the record to be modified.
    */
   public function setWeighting($weighting) {
     if (isset($weighting) && is_numeric($weighting)) {
@@ -306,20 +306,20 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the weighting for the record to be added.
+   * Gets the weighting for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The weighting for the record to be added.
+   *   - The weighting for the record to be modified.
    */
   public function getWeighting() {
     return $this->_weighting;
   }
   
   /**
-   * Sets the picture_path for the record to be added.
+   * Sets the picture_path for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $picture_path
-   *   - The picture_path for the record to be added.
+   *   - The picture_path for the record to be modified.
    */
   public function setPicturePath($picture_path) {
     if(isset($picture_path)) {
@@ -330,10 +330,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the picture_path for the record to be added.
+   * Gets the picture_path for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - The picture_path for the record to be added.
+   *   - The picture_path for the record to be modified.
    */
   public function getPicturePath() {
     return $this->_picture_path;
@@ -364,10 +364,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Sets the is_active for the record to be added.
+   * Sets the is_active for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The is_active for the record to be added.
+   *   - The is_active for the record to be modified.
    */
   public function setIsActive($is_active) {
     if (isset($is_active) && is_numeric($is_active)) {
@@ -382,10 +382,10 @@ class CommandModifyDockSubitem extends BaseCommand {
   }
   
   /**
-   * Gets the is_active for the record to be added.
+   * Gets the is_active for the record to be modified.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return integer
-   *   - The is_active for the record to be added.
+   *   - The is_active for the record to be modified.
    */
   public function getIsActive() {
     return $this->_is_active;

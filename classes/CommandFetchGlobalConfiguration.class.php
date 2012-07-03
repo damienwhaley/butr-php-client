@@ -40,7 +40,7 @@ class CommandFetchGlobalConfiguration extends BaseCommandFetch {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'fetch_global_configuration';
-    $this->_magic = '';
+    $this->resetAll();
   }
   
   /**
@@ -56,15 +56,21 @@ class CommandFetchGlobalConfiguration extends BaseCommandFetch {
   
   /**
    * Sets the magic for the record to be fetched.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $magic
    *   - The magic for the record to be fetched.
    */
   public function setMagic($magic) {
-    $this->_magic = $magic;
+    if (isset($magic)) {
+      $this->_magic = $magic;
+    } else {
+      $this->_magic = '';
+    }
   }
   
   /**
    * Gets the magic for the record to be fetched.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $magic
    *   - The magic for the record to be fetched.
    */
@@ -74,6 +80,7 @@ class CommandFetchGlobalConfiguration extends BaseCommandFetch {
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The UUID for the record to be fetched.
    * @return string
@@ -82,5 +89,14 @@ class CommandFetchGlobalConfiguration extends BaseCommandFetch {
   public function setAll($uuid, $magic) {
     $this->setUuid($uuid);
     $this->setMagic($magic);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_magic = '';
   }
 }

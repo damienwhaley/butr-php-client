@@ -38,6 +38,12 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_uuid = Butr\uuidSecure();
   }
   
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+    
+    $this->assertEquals('', $this->_testClass->getUuid());
+  }
+  
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);
