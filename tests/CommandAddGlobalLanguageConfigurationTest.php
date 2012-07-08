@@ -25,7 +25,7 @@ require_once($basedir . 'includes/autoload.inc');
 require_once($basedir . 'includes/uuid.inc');
 
 /**
- * This tests the CommandAddDock class
+ * This tests the CommandAddGlobalLanguageConfiguration class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 class SelectEqualsTest extends PHPUnit_Framework_TestCase
@@ -139,6 +139,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   
     $this->_testClass->resetAll();
     $this->_testClass->setCountryUuid('not-a-uuid');
+    $this->assertEquals('', $this->_testClass->getCountryUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setCountryUuid(null);
+    $this->assertEquals('', $this->_testClass->getCountryUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setCountryUuid(200);
     $this->assertEquals('', $this->_testClass->getCountryUuid());
   }
   

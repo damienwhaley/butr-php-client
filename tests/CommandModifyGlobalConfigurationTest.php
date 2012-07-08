@@ -105,6 +105,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setUuid('not-a-uuid');
     $this->assertEquals('', $this->_testClass->getUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuid(null);
+    $this->assertEquals('', $this->_testClass->getUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuid(200);
+    $this->assertEquals('', $this->_testClass->getUuid());
   }
 
   public function testSetNameLabel() {
@@ -220,6 +228,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   
     $this->_testClass->resetAll();
     $this->_testClass->setUuidSetting('not-a-uuid');
+    $this->assertEquals('', $this->_testClass->getUuidSetting());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuidSetting(null);
+    $this->assertEquals('', $this->_testClass->getUuidSetting());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuidSetting(200);
     $this->assertEquals('', $this->_testClass->getUuidSetting());
   }
   

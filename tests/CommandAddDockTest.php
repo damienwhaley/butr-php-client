@@ -86,6 +86,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setSecurityClientTypeUuid('not-a-uuid');
     $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSecurityClientTypeUuid(null);
+    $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSecurityClientTypeUuid(200);
+    $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
   }
   
   public function testSetDockName() {

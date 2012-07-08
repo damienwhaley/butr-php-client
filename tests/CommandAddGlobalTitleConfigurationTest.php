@@ -22,34 +22,25 @@
 $basedir = dirname(__FILE__);
 $basedir = substr($basedir, 0, strlen($basedir)-5);
 require_once($basedir . 'includes/autoload.inc');
-require_once($basedir . 'includes/uuid.inc');
 
 /**
- * This tests the CommandModifyGlobalConfiguration class
+ * This tests the CommandAddGlobalTitleConfiguration class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 class SelectEqualsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
-  protected $_uuid;
   protected $_name_label;
   protected $_display_label;
   protected $_description;
-  protected $_language_code;
-  protected $_language_family;
-  protected $_country_uuid;
   protected $_weighting;
   protected $_is_active;
   
   public function setUp() {
-    $this->_testClass = new Butr\CommandModifyGlobalLanguageConfiguration();
-    $this->_uuid = Butr\uuidSecure();
+    $this->_testClass = new Butr\CommandAddGlobalTitleConfiguration();
     $this->_name_label = 'name_label';
     $this->_display_label = 'display_label';
     $this->_description = 'description';
-    $this->_language_code = 'language_code';
-    $this->_language_family = 'language_family';
-    $this->_country_uuid = Butr\uuidSecure();
     $this->_weighting = 20;
     $this->_is_active = 1;
   }
@@ -57,13 +48,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   public function testResetAll() {
     $this->_testClass->resetAll();
     
-    $this->assertEquals('', $this->_testClass->getUuid());
     $this->assertEquals('', $this->_testClass->getNameLabel());
     $this->assertEquals('', $this->_testClass->getDisplayLabel());
     $this->assertEquals('', $this->_testClass->getDescription());
-    $this->assertEquals('', $this->_testClass->getLanguageCode());
-    $this->assertEquals('', $this->_testClass->getLanguageFamily());
-    $this->assertEquals('', $this->_testClass->getCountryUuid());
     $this->assertNull($this->_testClass->getWeighting());
     $this->assertEquals(0, $this->_testClass->getIsActive()); 
   }
@@ -71,39 +58,16 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   public function testSetAll() {
     $this->_testClass->resetAll();
     
-    $this->_testClass->setAll($this->_uuid, $this->_name_label, $this->_display_label,
-      $this->_description, $this->_language_code, $this->_language_family,
-      $this->_country_uuid, $this->_weighting, $this->_is_active);
+    $this->_testClass->setAll($this->_name_label, $this->_display_label,
+      $this->_description, $this->_weighting, $this->_is_active);
 
-    $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
     $this->assertEquals($this->_name_label, $this->_testClass->getNameLabel());
     $this->assertEquals($this->_display_label, $this->_testClass->getDisplayLabel());
     $this->assertEquals($this->_description, $this->_testClass->getDescription());
-    $this->assertEquals($this->_language_code, $this->_testClass->getLanguageCode());
-    $this->assertEquals($this->_language_family, $this->_testClass->getLanguageFamily());
-    $this->assertEquals($this->_country_uuid, $this->_testClass->getCountryUuid());
     $this->assertEquals($this->_weighting, $this->_testClass->getWeighting());
     $this->assertEquals($this->_is_active, $this->_testClass->getIsActive()); 
   }
 
-  public function testSetUuid() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setUuid($this->_uuid);
-    $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setUuid('not-a-uuid');
-    $this->assertEquals('', $this->_testClass->getUuid());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setUuid(null);
-    $this->assertEquals('', $this->_testClass->getUuid());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setUuid(200);
-    $this->assertEquals('', $this->_testClass->getUuid());
-  }
-  
   public function testSetNameLabel() {
     $this->_testClass->resetAll();
     $this->_testClass->setNameLabel($this->_name_label);
@@ -132,44 +96,6 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setDescription(null);
     $this->assertEquals('', $this->_testClass->getDescription());
-  }
-  
-  public function testSetLanguageCode() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setLanguageCode($this->_language_code);
-    $this->assertEquals($this->_language_code, $this->_testClass->getLanguageCode());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setLanguageCode(null);
-    $this->assertEquals('', $this->_testClass->getLanguageCode());
-  }
-  
-  public function testSetLanguageFamily() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setLanguageFamily($this->_language_family);
-    $this->assertEquals($this->_language_family, $this->_testClass->getLanguageFamily());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setLanguageFamily(null);
-    $this->assertEquals('', $this->_testClass->getLanguageFamily());
-  }
-  
-  public function testSetCountryUuid() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryUuid($this->_country_uuid);
-    $this->assertEquals($this->_country_uuid, $this->_testClass->getCountryUuid());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryUuid('not-a-uuid');
-    $this->assertEquals('', $this->_testClass->getCountryUuid());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryUuid(null);
-    $this->assertEquals('', $this->_testClass->getCountryUuid());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryUuid(200);
-    $this->assertEquals('', $this->_testClass->getCountryUuid());
   }
   
   public function testSetWeighting() {
@@ -217,7 +143,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   }
   
   public function testCommandName() {
-    $this->assertEquals('modify_global_language_configuration', $this->_testClass->getCommandName());
+    $this->assertEquals('add_global_title_configuration', $this->_testClass->getCommandName());
   }
   
   public function tearDown() {

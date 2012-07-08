@@ -103,6 +103,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setUuid('not-a-uuid');
     $this->assertEquals('', $this->_testClass->getUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuid(null);
+    $this->assertEquals('', $this->_testClass->getUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setUuid(200);
+    $this->assertEquals('', $this->_testClass->getUuid());
   }
   
   public function testSetDockItemUuid() {
@@ -112,6 +120,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   
     $this->_testClass->resetAll();
     $this->_testClass->setDockItemUuid('not-a-uuid');
+    $this->assertEquals('', $this->_testClass->getDockItemUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setDockItemUuid(null);
+    $this->assertEquals('', $this->_testClass->getDockItemUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setDockItemUuid(200);
     $this->assertEquals('', $this->_testClass->getDockItemUuid());
   }
   
@@ -123,6 +139,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setSystemDockTypeUuid('not-a-uuid');
     $this->assertEquals('', $this->_testClass->getSystemDockTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSystemDockTypeUuid(null);
+    $this->assertEquals('', $this->_testClass->getSystemDockTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSystemDockTypeUuid(200);
+    $this->assertEquals('', $this->_testClass->getSystemDockTypeUuid());
   }
   
   public function testSetSecurityClientTypeUuid() {
@@ -132,6 +156,14 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   
     $this->_testClass->resetAll();
     $this->_testClass->setSecurityClientTypeUuid('not-a-uuid');
+    $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSecurityClientTypeUuid(null);
+    $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
+    
+    $this->_testClass->resetAll();
+    $this->_testClass->setSecurityClientTypeUuid(200);
     $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
   }
   

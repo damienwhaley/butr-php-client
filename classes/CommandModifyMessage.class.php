@@ -69,17 +69,13 @@ class CommandModifyMessage extends BaseCommand {
    */
   public function __construct() {
     parent::__construct();
-    $this->_uuid = '';
     $this->_command_name = 'modify_message';
-    $this->_module_uuid = '';
-    $this->_message_name = '';
-    $this->_magic = '';
-    $this->_description = '';
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -93,61 +89,156 @@ class CommandModifyMessage extends BaseCommand {
   }
   
   /**
-   * Sets the module for the record to be modified.
+   * Sets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The uuid for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
   }
   
   /**
-   * Sets the module for the record to be modified.
+   * Gets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The uuid for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
+  }
+  
+  /**
+   * Sets the module_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $module_uuid
    *   - The module_uuid for the record to be modified.
    */
   public function setModuleUuid($module_uuid) {
-    $this->_module_uuid = $module_uuid;
+    if (isset($module_uuid) && uuidIsValid($module_uuid)) {
+      $this->_module_uuid = $module_uuid;
+    } else {
+      $this->_module_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the module_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The module_uuid for the record to be modified.
+   */
+  public function getModuleUuid() {
+    return $this->_module_uuid;
   }
   
   /**
    * Sets the message_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $message_name
    *   - The message_name for the record to be modified.
   */
   public function setMessageName($message_name) {
-    $this->_message_name = $message_name;
+    if (isset($message_name)) {
+      $this->_message_name = $message_name;
+    } else {
+      $this->_message_name = '';
+    }
   }
   
   /**
-  * Sets the display_name for the record to be modified.
-  * @param string $display_name
-  *   - The display_name for the record to be modified.
-  */
+   * Gets the message_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The message_name for the record to be modified.
+   */
+  public function getMessageName() {
+    return $this->_message_name;
+  }
+  
+  /**
+   * Sets the magic for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $display_name
+   *   - The display_name for the record to be modified.
+   */
   public function setMagic($magic) {
-    $this->_magic = $magic;
+    if (isset($magic)) {
+      $this->_magic = $magic;
+    } else {
+      $this->_magic = '';
+    }
   }
   
   /**
-  * Sets the description for the record to be modified.
-  * @param string $description
-  *   - The description for the record to be modified.
-  */
+   * Gets the magic for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The display_name for the record to be modified.
+   */
+  public function getMagic() {
+    return $this->_magic;
+  }
+  
+  /**
+   * Sets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be modified.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
+  }
+  
+  /**
+   * Gets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be modified.
+   */
+  public function getDescription() {
+    return $this->_description;
   }
   
   /**
    * Sets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
-   *   - The description for the record to be modified.
+   *   - The is_active for the record to be modified.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be modified.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The UUID for the uuid for the record to be modified.
    * @param string $module_uuid
@@ -168,5 +259,18 @@ class CommandModifyMessage extends BaseCommand {
     $this->setMagic($magic);
     $this->setDescription($description);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_module_uuid = '';
+    $this->_message_name = '';
+    $this->_magic = '';
+    $this->_description = '';
+    $this->_is_active = 0;
   }
 }

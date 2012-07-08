@@ -25,30 +25,24 @@ require_once($basedir . 'includes/autoload.inc');
 require_once($basedir . 'includes/uuid.inc');
 
 /**
- * This tests the CommandModifyCountry class
+ * This tests the CommandModifyGroup class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 class SelectEqualsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;
-  protected $_country_name;
+  protected $_group_name;
   protected $_display_name;
   protected $_description;
-  protected $_country_code;
-  protected $_alternate_code;
-  protected $_weighting;
   protected $_is_active;
   
   public function setUp() {
-    $this->_testClass = new Butr\CommandModifyCountry();
+    $this->_testClass = new Butr\CommandModifyGroup();
     $this->_uuid = Butr\uuidSecure();
-    $this->_country_name = 'country_name';
+    $this->_group_name = 'group_name';
     $this->_display_name = 'display_name';
     $this->_description = 'description';
-    $this->_country_code = 'country_code';
-    $this->_alternate_code = 'alternate_code';
-    $this->_weighting = 10;
     $this->_is_active = 1;
   }
   
@@ -56,30 +50,25 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     
     $this->assertEquals('', $this->_testClass->getUuid());
-    $this->assertEquals('', $this->_testClass->getCountryName());
-    $this->assertEquals('', $this->_testClass->getCountryCode());
+    $this->assertEquals('', $this->_testClass->getGroupName());
     $this->assertEquals('', $this->_testClass->getDisplayName());
     $this->assertEquals('', $this->_testClass->getDescription());
-    $this->assertEquals('', $this->_testClass->getAlternateCode());
-    $this->assertNull($this->_testClass->getWeighting());
-    $this->assertEquals(0, $this->_testClass->getIsActive());
+    $this->assertEquals(0, $this->_testClass->getIsActive()); 
   }
   
   public function testSetAll() {
     $this->_testClass->resetAll();
-    $this->_testClass->setAll($this->_uuid, $this->_country_name, $this->_display_name, $this->_description,
-      $this->_country_code, $this->_alternate_code, $this->_weighting, $this->_is_active);
+    
+    $this->_testClass->setAll($this->_uuid, $this->_group_name, $this->_display_name,
+      $this->_description, $this->_is_active);
 
     $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
-    $this->assertEquals($this->_country_name, $this->_testClass->getCountryName());
-    $this->assertEquals($this->_country_code, $this->_testClass->getCountryCode());
+    $this->assertEquals($this->_group_name, $this->_testClass->getGroupName());
     $this->assertEquals($this->_display_name, $this->_testClass->getDisplayName());
     $this->assertEquals($this->_description, $this->_testClass->getDescription());
-    $this->assertEquals($this->_alternate_code, $this->_testClass->getAlternateCode());
-    $this->assertEquals($this->_weighting, $this->_testClass->getWeighting());
     $this->assertEquals($this->_is_active, $this->_testClass->getIsActive()); 
   }
-  
+
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);
@@ -98,31 +87,21 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuid());
   }
   
-  public function testSetCountryName() {
+  public function testSetGroupName() {
     $this->_testClass->resetAll();
-    $this->_testClass->setCountryName($this->_country_name);
-    $this->assertEquals($this->_country_name, $this->_testClass->getCountryName());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryName(null);
-    $this->assertEquals('', $this->_testClass->getCountryName());
-  }
+    $this->_testClass->setGroupName($this->_group_name);
+    $this->assertEquals($this->_group_name, $this->_testClass->getGroupName());
   
-  public function testSetCountryCode() {
     $this->_testClass->resetAll();
-    $this->_testClass->setCountryCode($this->_country_code);
-    $this->assertEquals($this->_country_code, $this->_testClass->getCountryCode());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setCountryCode(null);
-    $this->assertEquals('', $this->_testClass->getCountryCode());
+    $this->_testClass->setGroupName(null);
+    $this->assertEquals('', $this->_testClass->getGroupName());
   }
   
   public function testSetDisplayName() {
     $this->_testClass->resetAll();
     $this->_testClass->setDisplayName($this->_display_name);
     $this->assertEquals($this->_display_name, $this->_testClass->getDisplayName());
-  
+    
     $this->_testClass->resetAll();
     $this->_testClass->setDisplayName(null);
     $this->assertEquals('', $this->_testClass->getDisplayName());
@@ -137,35 +116,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->setDescription(null);
     $this->assertEquals('', $this->_testClass->getDescription());
   }
-  
-  public function testSetAlternateCode() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setAlternateCode($this->_alternate_code);
-    $this->assertEquals($this->_alternate_code, $this->_testClass->getAlternateCode());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setAlternateCode(null);
-    $this->assertEquals('', $this->_testClass->getAlternateCode());
-  }
-  
-  public function testSetWeighting() {
-    $this->_testClass->resetAll();
-    $this->_testClass->setWeighting($this->_weighting);
-    $this->assertEquals($this->_weighting, $this->_testClass->getWeighting());
-  
-    $this->_testClass->resetAll();
-    $this->_testClass->setWeighting(null);
-    $this->assertNull($this->_testClass->getWeighting());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setWeighting('apple');
-    $this->assertNull($this->_testClass->getWeighting());
-    
-    $this->_testClass->resetAll();
-    $this->_testClass->setWeighting(-10);
-    $this->assertEquals(-10, $this->_testClass->getWeighting());
-  }
-  
+
   public function testSetIsActive() {
     $this->_testClass->resetAll();
     $this->_testClass->setIsActive($this->_is_active);
@@ -193,7 +144,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   }
   
   public function testCommandName() {
-    $this->assertEquals('modify_country', $this->_testClass->getCommandName());
+    $this->assertEquals('modify_group', $this->_testClass->getCommandName());
   }
   
   public function tearDown() {
