@@ -141,8 +141,10 @@ class Authentication {
    *   - The UUID nonce to use.
    */
   public function setNonce($nonce) {
-    if ($nonce && $nonce !== '') {
+    if (isset($nonce) && uuidIsValid($nonce)) {
       $this->_nonce = $nonce;
+    } else {
+      $this->_nonce = '';
     }
   }
   
@@ -177,13 +179,16 @@ class Authentication {
   
   /**
   * This sets the authentication method to generate the login correctly.
+  * Note that this is the magic from the record, not the uuid.
   * @param string $username
   *   - The string for the username.
   */
   public function setAuthenticationMethod($authentication_method) {
-  if ($authentication_method && $authentication_method !== '') {
-    $this->_authentication_method = $authentication_method;
-      }
+    if (isset($authentication_method)) {
+      $this->_authentication_method = $authentication_method;
+    } else {
+      $this->_authentication_method = '';    
+    }
   }
   
   /**
@@ -201,9 +206,11 @@ class Authentication {
   *   - The string for the session token.
   */
   public function setSessionToken($session_token) {
-  if ($session_token && $session_token !== '') {
-    $this->_session_token = $session_token;
-      }
+    if (isset($session_token) && uuidIsValid($session_token)) {
+      $this->_session_token = $session_token;
+    } else {
+      $this->_session_token = '';
+    }
   }
   
   /**
@@ -213,23 +220,34 @@ class Authentication {
    *     over the wire.
    */
   public function setPassword($password_hash) {
-    if ($password_hash && strlen($password_hash) === 64) {
+    if (isset($password_hash) && strlen($password_hash) === 64) {
       $this->_password = $password_hash;
+    } else {
+      $this->_password = '';
     }
   }
   
+  /**
+   * This sets the password to generate the login correctly.
+   * @param string $password_hash
+   *   - The string for the hashed password which was passed
+   *     over the wire.
+   */
+  public function getPassword() {
+    return $this->_password;
+  }
   
   /**
-  * This fetches the session cookie.
+   * This fetches the session cookie.
    * @author Damien Whaley <damien@whalebonestudios.com>
-  * @param string $window_name
-  *   - String containing the name of the window (used to allow multiple windows
-  *     each with different sessions).
-  */
+   * @param string $window_name
+   *   - String containing the name of the window (used to allow multiple windows
+   *     each with different sessions).
+   */
   public function fetchSessionCookie($window_name) {
-  if (isset($_COOKIE['Butr|'.$window_name])) {
-  return $_COOKIE['Butr|'.$window_name];
-      }
-      return '';
+    if (isset($_COOKIE['Butr|'.$window_name])) {
+      return $_COOKIE['Butr|'.$window_name];
+    }
+    return '';
   }
 }

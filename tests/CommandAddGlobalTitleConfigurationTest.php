@@ -55,6 +55,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->_testClass->getIsActive()); 
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $this->_testClass->resetAll();
     
@@ -68,6 +71,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_is_active, $this->_testClass->getIsActive()); 
   }
 
+  /**
+   * @depends testResetAll
+   */
   public function testSetNameLabel() {
     $this->_testClass->resetAll();
     $this->_testClass->setNameLabel($this->_name_label);
@@ -78,6 +84,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getNameLabel());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDisplayLabel() {
     $this->_testClass->resetAll();
     $this->_testClass->setDisplayLabel($this->_display_label);
@@ -88,6 +97,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDisplayLabel());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDescription() {
     $this->_testClass->resetAll();
     $this->_testClass->setDescription($this->_description);
@@ -98,6 +110,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDescription());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetWeighting() {
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting($this->_weighting);
@@ -116,6 +131,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(-10, $this->_testClass->getWeighting());
   }
 
+  /**
+   * @depends testResetAll
+   */
   public function testSetIsActive() {
     $this->_testClass->resetAll();
     $this->_testClass->setIsActive($this->_is_active);

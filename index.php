@@ -56,6 +56,7 @@ unset($json_object);
 unset($butr_command);
 
 // Fetch system branding
+$butr_authentication->setNonce(Butr\uuidSecure());
 $butr_command = new Butr\CommandFetchSystemBranding();
 $butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
 $butr_command->prepareCommand();

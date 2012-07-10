@@ -53,6 +53,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(Butr\SORT_ORDINAL_DEFAULT, $this->_testClass->getOrdinal());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $this->_testClass->resetAll();
     $this->_testClass->setAll($this->_offset, $this->_size, $this->_direction, $this->_ordinal);
@@ -63,6 +66,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_ordinal, $this->_testClass->getOrdinal());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetOffset() {
     $this->_testClass->resetAll();
     $this->_testClass->setOffset(-10);
@@ -81,6 +87,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->_testClass->getOffset());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetSize() {
     $this->_testClass->resetAll();
     $this->_testClass->setSize(-10);
@@ -99,6 +108,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(Butr\LIST_SIZE_ALL, $this->_testClass->getSize());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDirection() {
     $this->_testClass->resetAll();
     $this->_testClass->setDirection(-10);
@@ -125,6 +137,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(Butr\SORT_DIRECTION_DESCENDING, $this->_testClass->getDirection());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetOrdinal() {
     $this->_testClass->resetAll();
     $this->_testClass->setOrdinal('a_column');

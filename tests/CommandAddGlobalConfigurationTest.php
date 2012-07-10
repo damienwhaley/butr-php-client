@@ -71,6 +71,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->_testClass->getBitSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $datetime = DateTime::createFromFormat('Y-m-d H:i:s', $this->_datetime_setting);
     
@@ -93,6 +96,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_bit_setting, $this->_testClass->getBitSetting());
   }
 
+  /**
+   * @depends testResetAll
+   */
   public function testSetNameLabel() {
     $this->_testClass->resetAll();
     $this->_testClass->setNameLabel($this->_name_label);
@@ -103,6 +109,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getNameLabel());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDisplayLabel() {
     $this->_testClass->resetAll();
     $this->_testClass->setDisplayLabel($this->_display_label);
@@ -113,6 +122,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDisplayLabel());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetMagic() {
     $this->_testClass->resetAll();
     $this->_testClass->setMagic($this->_magic);
@@ -123,6 +135,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getMagic());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDescription() {
     $this->_testClass->resetAll();
     $this->_testClass->setDescription($this->_description);
@@ -133,6 +148,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDescription());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetTextSetting() {
     $this->_testClass->resetAll();
     $this->_testClass->setTextSetting($this->_text_setting);
@@ -143,6 +161,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getTextSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetIntegerSetting() {
     $this->_testClass->resetAll();
     $this->_testClass->setIntegerSetting($this->_integer_setting);
@@ -161,6 +182,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(-10, $this->_testClass->getIntegerSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetFloatSetting() {
     $this->_testClass->resetAll();
     $this->_testClass->setFloatSetting($this->_float_setting);
@@ -179,6 +203,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(-10.4, $this->_testClass->getFloatSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDatetimeSetting() {
     $datetime = DateTime::createFromFormat('Y-m-d H:i:s', $this->_datetime_setting);
     
@@ -199,6 +226,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertNull($this->_testClass->getFloatSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetUuidSetting() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuidSetting($this->_uuid_setting);
@@ -217,6 +247,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuidSetting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetBitSetting() {
     $this->_testClass->resetAll();
     $this->_testClass->setBitSetting($this->_bit_setting);

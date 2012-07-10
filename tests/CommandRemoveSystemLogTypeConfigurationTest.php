@@ -44,6 +44,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuid());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);

@@ -21,6 +21,7 @@
 
 // Includes and requires.
 require_once('../includes/butr.inc');
+require_once('../includes/uuid.inc');
 
 $command = isset($_POST['command']) ? $_POST['command'] : '';
 
@@ -46,7 +47,7 @@ switch($command) {
     echo $butr_command->sendCommand();
     break;
   case 'ping':
-    $nonce = isset($_POST['nonce']) ? $_POST['nonce'] : '';
+    $nonce = isset($_POST['nonce']) ? $_POST['nonce'] : Butr\uuidSecure();
     
     $butr_authentication = new Butr\Authentication();
     $butr_authentication->setNonce($nonce);

@@ -58,14 +58,12 @@ class CommandModifyPartition extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'modify_partition';
-    $this->_uuid = '';
-    $this->_partition_name = '';
-    $this->_description = '';
-    $this->_is_active = 0;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -78,42 +76,107 @@ class CommandModifyPartition extends BaseCommand {
   
   /**
    * Sets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
-   *   - The name_label for the record to be modified.
+   *   - The uuid for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The uuid for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
   }
   
   /**
    * Sets the partition_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $partition_name
    *   - The partition_name for the record to be modified.
    */
   public function setPartitionName($partition_name) {
-    $this->_partition_name = $partition_name;
+    if (isset($partition_name)) {
+      $this->_partition_name = $partition_name;
+    } else {
+      $this->_partition_name = '';
+    }
+  }
+  
+  /**
+   * Gets the partition_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The partition_name for the record to be modified.
+   */
+  public function getPartitionName() {
+    return $this->_partition_name;
   }
   
   /**
    * Sets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $description
    *   - The description for the record to be modified.
    */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
+  }
+  
+  /**
+   * Gets the description for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be modified.
+   */
+  public function getDescription() {
+    return $this->_description;
   }
   
   /**
    * Sets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param integer $is_active
    *   - The is_active for the record to be modified.
    */
   public function setIsActive($is_active) {
-    $this->_is_active = $is_active;
+    if (isset($is_active) && is_numeric($is_active)) {
+      if ($is_active == 0) {
+        $this->_is_active = 0;
+      } else {
+        $this->_is_active = 1;
+      }
+    } else {
+      $this->_is_active = 0;
+    }
+  }
+  
+  /**
+   * Gets the is_active for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The is_active for the record to be modified.
+   */
+  public function getIsActive() {
+    return $this->_is_active;
   }
   
   /**
    * This sets all the fields in one method call.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The UUID for the record to be modified.
    * @param string $partition_name
@@ -130,5 +193,16 @@ class CommandModifyPartition extends BaseCommand {
     $this->setPartitionName($partition_name);
     $this->setDescription($description);
     $this->setIsActive($is_active);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_partition_name = '';
+    $this->_description = '';
+    $this->_is_active = 0;
   }
 }

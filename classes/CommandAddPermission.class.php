@@ -64,15 +64,12 @@ class CommandAddPermission extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'add_permission';
-    $this->_module_uuid = '';
-    $this->_permission_name = '';
-    $this->_description = '';
-    $this->_magic = '';
-    $this->_importance = null;
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -86,51 +83,126 @@ class CommandAddPermission extends BaseCommand {
   
   /**
    * Sets the module_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $module_uuid
    *   - The module_uuid for the record to be added.
    */
   public function setModuleUuid($module_uuid) {
-    $this->_module_uuid = $module_uuid;
+    if (isset($module_uuid) && uuidIsValid($module_uuid)) {
+      $this->_module_uuid = $module_uuid;
+    } else {
+      $this->_module_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the module_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The module_uuid for the record to be added.
+   */
+  public function getModuleUuid() {
+    return $this->_module_uuid;
   }
   
   /**
    * Sets the permission_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $permission_name
    *   - The permission_name for the record to be added.
   */
   public function setPermissionName($permission_name) {
-    $this->_permission_name = $permission_name;
+    if (isset($permission_name)) {
+      $this->_permission_name = $permission_name;
+    } else {
+      $this->_permission_name = '';
+    }
+  }
+  /**
+   * Gets the permission_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The permission_name for the record to be added.
+   */
+  public function getPermissionName() {
+    return $this->_permission_name;
   }
   
   /**
-  * Sets the description for the record to be added.
-  * @param string $description
-  *   - The description for the record to be added.
-  */
+   * Sets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $description
+   *   - The description for the record to be added.
+   */
   public function setDescription($description) {
-    $this->_description = $description;
+    if (isset($description)) {
+      $this->_description = $description;
+    } else {
+      $this->_description = '';
+    }
   }
   
   /**
-  * Sets the magic for the record to be added.
-  * @param string $magic
-  *   - The preferred_global_language_uuid for the record to be added.
-  */
+   * Gets the description for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The description for the record to be added.
+   */
+  public function getDescription() {
+    return $this->_description;
+  }
+  
+  /**
+   * Sets the magic for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $magic
+   *   - The magic for the record to be added.
+   */
   public function setMagic($magic) {
-    $this->_magic = $magic;
+    if (isset($magic)) {
+      $this->_magic = $magic;
+    } else {
+      $this->_magic = '';
+    }
   }
   
   /**
-  * Sets the importance for the record to be added.
-  * @param integer $importance
-  *   - The importance for the record to be added.
-  */
+   * Gets the magic for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The magic for the record to be added.
+   */
+  public function getMagic() {
+    return $this->_magic;
+  }
+  
+  /**
+   * Sets the importance for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param integer $importance
+   *   - The importance for the record to be added.
+   */
   public function setImportance($importance) {
-    $this->_importance = $importance;
+    if (isset($importance) && is_numeric($importance)) {
+      $this->_importance = intval(floor($importance));
+    } else {
+      $this->_importance = null;
+    }
+  }
+  
+  /**
+   * Gets the importance for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return integer
+   *   - The importance for the record to be added.
+   */
+  public function getImportance() {
+    return $this->_importance;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $module_uuid
    *   - The UUID for the module for the record to be added.
    * @param string $permission_name
@@ -148,5 +220,17 @@ class CommandAddPermission extends BaseCommand {
     $this->setDescription($description);
     $this->setMagic($magic);
     $this->setImportance($importance);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_module_uuid = '';
+    $this->_permission_name = '';
+    $this->_description = '';
+    $this->_magic = '';
+    $this->_importance = null;
   }
 }

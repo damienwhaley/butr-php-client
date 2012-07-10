@@ -47,6 +47,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getMagic());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $this->_testClass->resetAll();
     
@@ -55,6 +58,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_magic, $this->_testClass->getMagic());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);
@@ -65,6 +71,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuid());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testMagic() {
     $this->_testClass->resetAll();
     $this->_testClass->setMagic($this->_magic);

@@ -59,6 +59,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->_testClass->getIsActive()); 
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $this->_testClass->resetAll();
     
@@ -73,7 +76,10 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_description, $this->_testClass->getDescription());
     $this->assertEquals($this->_is_active, $this->_testClass->getIsActive()); 
   }
-
+  
+  /**
+   * @depends testResetAll
+   */
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);
@@ -92,6 +98,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuid());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetModuleUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setModuleUuid($this->_module_uuid);
@@ -110,6 +119,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getModuleUuid());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetMessageName() {
     $this->_testClass->resetAll();
     $this->_testClass->setMessageName($this->_message_name);
@@ -120,6 +132,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getMessageName());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetMagic() {
     $this->_testClass->resetAll();
     $this->_testClass->setMagic($this->_magic);
@@ -130,6 +145,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getMagic());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDescription() {
     $this->_testClass->resetAll();
     $this->_testClass->setDescription($this->_description);
@@ -139,7 +157,10 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_testClass->setDescription(null);
     $this->assertEquals('', $this->_testClass->getDescription());
   }
-
+  
+  /**
+   * @depends testResetAll
+   */
   public function testSetIsActive() {
     $this->_testClass->resetAll();
     $this->_testClass->setIsActive($this->_is_active);

@@ -15,9 +15,13 @@ PHP
 
 // FARM pages to test:
 
-* add getters for all the add/modify classes. See the Country messages.
 
-* add phpunit tests for all classes.
+// PHPUnit to go:
+- Authentication.class.php
+- Dock.class.php (need to wait until UI is in place)
+- Page.class.php (need to wait until UI is in place)
+- PageFragment.class.php (need to wait until UI is in place)
+- Pagination.class.php (need to wait until UI is in place)
 
 * think I need to change the way the pages load. instead of using insertcontent(),
   it should use the history set and then you trigger the change in history

@@ -70,16 +70,12 @@ class CommandModifyUser extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'modify_user';
-    $this->_uuid = '';
-    $this->_global_title_uuid = '';
-    $this->_first_name = '';
-    $this->_last_name = '';
-    $this->_preferred_global_language_uuid = '';
-    $this->_username = '';
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -94,60 +90,151 @@ class CommandModifyUser extends BaseCommand {
   
   /**
    * Sets the uuid for the record to be modified.
-   * @param string $name_label
-   *   - The _table_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $uuid
+   *   - The uuid for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The uuid for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
   }
   
   /**
    * Sets the global_title_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $name_label
    *   - The global_title_uuid for the record to be modified.
    */
   public function setGlobalTitleUuid($global_title_uuid) {
-    $this->_global_title_uuid = $global_title_uuid;
+    if (isset($global_title_uuid) && uuidIsValid($global_title_uuid)) {
+      $this->_global_title_uuid = $global_title_uuid;
+    } else {
+      $this->_global_title_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the global_title_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The global_title_uuid for the record to be modified.
+   */
+  public function getGlobalTitleUuid() {
+    return $this->_global_title_uuid;
   }
   
   /**
    * Sets the first_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $first_name
    *   - The first_name for the record to be modified.
   */
   public function setFirstName($first_name) {
-    $this->_first_name = $first_name;
+    if (isset($first_name)) {
+      $this->_first_name = $first_name;
+    } else {
+      $this->_first_name = '';
+    }
   }
   
   /**
-  * Sets the last_name for the record to be modified.
-  * @param string $last_name
-  *   - The last_name for the record to be modified.
-  */
+   * Gets the first_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The first_name for the record to be modified.
+   */
+  public function getFirstName() {
+    return $this->_first_name;
+  }
+  
+  /**
+   * Sets the last_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $last_name
+   *   - The last_name for the record to be modified.
+   */
   public function setLastName($last_name) {
-    $this->_last_name = $last_name;
+    if (isset($last_name)) {
+      $this->_last_name = $last_name;
+    } else {
+      $this->_last_name = '';
+    }
   }
   
   /**
-  * Sets the preferred_global_language_uuid for the record to be modified.
-  * @param string $preferred_global_language_uuid
-  *   - The preferred_global_language_uuid for the record to be modified.
-  */
+   * Gets the last_name for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The last_name for the record to be modified.
+   */
+  public function getLastName() {
+    return $this->_last_name;
+  }
+  
+  /**
+   * Sets the preferred_global_language_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $preferred_global_language_uuid
+   *   - The preferred_global_language_uuid for the record to be modified.
+   */
   public function setPreferredGlobalLanguageUuid($preferred_global_language_uuid) {
-    $this->_preferred_global_language_uuid = $preferred_global_language_uuid;
+    if (isset($preferred_global_language_uuid) && uuidIsValid($preferred_global_language_uuid)) {
+      $this->_preferred_global_language_uuid = $preferred_global_language_uuid;
+    } else {
+      $this->_preferred_global_language_uuid = '';
+    }
   }
   
   /**
-  * Sets the username for the record to be modified.
-  * @param string $username
-  *   - The username for the record to be modified.
-  */
+   * Gets the preferred_global_language_uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The preferred_global_language_uuid for the record to be modified.
+   */
+  public function getPreferredGlobalLanguageUuid() {
+    return $this->_preferred_global_language_uuid;
+  }
+  
+  /**
+   * Sets the username for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $username
+   *   - The username for the record to be modified.
+   */
   public function setUsername($username) {
-    $this->_username = $username;
+    if (isset($username)) {
+      $this->_username = $username;
+    } else {
+      $this->_username = '';
+    }
+  }
+  
+  /**
+   * Gets the username for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The username for the record to be modified.
+   */
+  public function getUsername() {
+    return $this->_username;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
    *   - The UUID for the record to be modified.
    * @param string $global_title_uuid
@@ -161,12 +248,26 @@ class CommandModifyUser extends BaseCommand {
    * @param string $username
    *   - The username for the record to be modified.
    */
-  public function setAll($uuid, $global_title_uuid, $first_name, $last_name, $preferred_global_language_uuid, $username) {
+  public function setAll($uuid, $global_title_uuid, $first_name, $last_name,
+    $preferred_global_language_uuid, $username) {
     $this->setUuid($uuid);
     $this->setGlobalTitleUuid($global_title_uuid);
     $this->setFirstName($first_name);
     $this->setLastName($last_name);
     $this->setPreferredGlobalLanguageUuid($preferred_global_language_uuid);
     $this->setUsername($username);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_global_title_uuid = '';
+    $this->_first_name = '';
+    $this->_last_name = '';
+    $this->_preferred_global_language_uuid = '';
+    $this->_username = '';
   }
 }

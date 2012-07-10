@@ -65,6 +65,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->_testClass->getIsActive());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAll() {
     $this->_testClass->resetAll();
     $this->_testClass->setAll($this->_uuid, $this->_country_name, $this->_display_name, $this->_description,
@@ -80,6 +83,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->_is_active, $this->_testClass->getIsActive()); 
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetUuid() {
     $this->_testClass->resetAll();
     $this->_testClass->setUuid($this->_uuid);
@@ -98,6 +104,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getUuid());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetCountryName() {
     $this->_testClass->resetAll();
     $this->_testClass->setCountryName($this->_country_name);
@@ -108,6 +117,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getCountryName());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetCountryCode() {
     $this->_testClass->resetAll();
     $this->_testClass->setCountryCode($this->_country_code);
@@ -118,6 +130,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getCountryCode());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDisplayName() {
     $this->_testClass->resetAll();
     $this->_testClass->setDisplayName($this->_display_name);
@@ -128,6 +143,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDisplayName());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetDescription() {
     $this->_testClass->resetAll();
     $this->_testClass->setDescription($this->_description);
@@ -138,6 +156,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getDescription());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetAlternateCode() {
     $this->_testClass->resetAll();
     $this->_testClass->setAlternateCode($this->_alternate_code);
@@ -148,6 +169,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getAlternateCode());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetWeighting() {
     $this->_testClass->resetAll();
     $this->_testClass->setWeighting($this->_weighting);
@@ -166,6 +190,9 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(-10, $this->_testClass->getWeighting());
   }
   
+  /**
+   * @depends testResetAll
+   */
   public function testSetIsActive() {
     $this->_testClass->resetAll();
     $this->_testClass->setIsActive($this->_is_active);

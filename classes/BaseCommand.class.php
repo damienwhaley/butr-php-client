@@ -66,8 +66,10 @@ abstract class BaseCommand {
    * @param string $snippet
    */
   public function setAuthenticationSnippet($snippet) {
-    if($snippet && $snippet !== '') {
+    if(isset($snippet)) {
       $this->_authentication_snippet = $snippet;
+    } else {
+      $this->_authentication_snippet = '';
     }
   }
   
@@ -77,13 +79,16 @@ abstract class BaseCommand {
    * @param string $snippet
    */
   public function setCommandSnippet($snippet) {
-    if($snippet && $snippet !== '') {
+    if(isset($snippet)) {
       $this->_command_snippet = $snippet;
+    } else {
+      $this->_command_snippet = '';
     }
   }
   
   /**
-   * This abstract function must be defined in child classes.
+   * This abstract function must be defined in child classes. This is
+   * used to generate the JSON snippet for the command.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
@@ -172,4 +177,11 @@ abstract class BaseCommand {
   public function getCommandName() {
     return $this->_command_name;
   }
+  
+  /**
+   * This abstract function must be defined in child classes. This is
+   * used to reset all the sub classes member variables.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  abstract public function resetAll();
 }

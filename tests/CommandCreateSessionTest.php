@@ -37,6 +37,15 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->_language = 'se-SE';
   }
   
+  public function testResetAll() {
+    $this->_testClass->resetAll();
+  
+    $this->assertEquals('', $this->_testClass->getLanguage());
+  }
+  
+  /**
+   * @depends testResetAll
+   */
   public function testSetLanguage() {
     $this->_testClass->resetAll();
     $this->_testClass->setLanguage($this->_language);

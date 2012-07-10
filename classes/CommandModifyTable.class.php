@@ -24,7 +24,7 @@ namespace Butr;
 /**
   * CommandModifyTable class.
   * This implements the functionality required to call the
-  * modify_module message.
+  * modify_table message.
   */
 class CommandModifyTable extends BaseCommand {
   
@@ -46,8 +46,7 @@ class CommandModifyTable extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'modify_table';
-    $this->_uuid = '';
-    $this->_table_name = '';
+    $this->resetAll();
   }
   
   /**
@@ -62,11 +61,26 @@ class CommandModifyTable extends BaseCommand {
   
   /**
    * Sets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $uuid
-   *   - The name_label for the record to be modified.
+   *   - The dock_uuid for the record to be modified.
    */
   public function setUuid($uuid) {
-    $this->_uuid = $uuid;
+    if (isset($uuid) && uuidIsValid($uuid)) {
+      $this->_uuid = $uuid;
+    } else {
+      $this->_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the uuid for the record to be modified.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The dock_uuid for the record to be modified.
+   */
+  public function getUuid() {
+    return $this->_uuid;
   }
   
   /**
@@ -75,7 +89,11 @@ class CommandModifyTable extends BaseCommand {
    *   - The table_name for the record to be modified.
    */
   public function setTableName($table_name) {
-    $this->_table_name = $table_name;
+    if (isset($table_name)) {
+      $this->_table_name = $table_name;
+    } else {
+      $this->_table_name = '';
+    }
   }
   
   /**
@@ -85,5 +103,27 @@ class CommandModifyTable extends BaseCommand {
    */
   public function getTableName() {
     return $this->_table_name;
+  }
+  
+  /**
+   * This sets all the fields in one method call.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $uuid
+   *   - The UUID for the record to be modified.
+   * @param string $table_name
+   *   - The table_name for the record to be modified.
+   */
+  public function setAll($uuid, $table_name){
+    $this->setUuid($uuid);
+    $this->setTableName($table_name);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_uuid = '';
+    $this->_table_name = '';
   }
 }

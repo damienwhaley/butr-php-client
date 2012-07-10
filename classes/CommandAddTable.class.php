@@ -40,11 +40,12 @@ class CommandAddTable extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'add_table';
-    $this->_table_name = '';
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -54,19 +55,33 @@ class CommandAddTable extends BaseCommand {
   
   /**
    * Sets the table_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $table_name
    *   - The table_name for the record to be added.
    */
   public function setTableName($table_name) {
-    $this->_module_name = $table_name;
+    if (isset($table_name)) {
+    $this->_table_name = $table_name;
+    } else {
+      $this->_table_name = '';
+    }
   }
   
   /**
    * Gets the table_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
-   *   - String containing the table_name for the record to be added.
+   *   - The table_name for the record to be added.
    */
   public function getTableName() {
     return $this->_table_name;
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_table_name = '';
   }
 }

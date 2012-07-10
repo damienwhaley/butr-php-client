@@ -64,15 +64,12 @@ class CommandAddUser extends BaseCommand {
   public function __construct() {
     parent::__construct();
     $this->_command_name = 'add_user';
-    $this->_global_title_uuid = '';
-    $this->_first_name = '';
-    $this->_last_name = '';
-    $this->_preferred_global_language_uuid = '';
-    $this->_username = '';
+    $this->resetAll();
   }
   
   /**
    * This generates the command part of the snippet.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    *   - String containing the command snippet.
    */
@@ -86,51 +83,127 @@ class CommandAddUser extends BaseCommand {
   
   /**
    * Sets the global_title_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $name_label
    *   - The global_title_uuid for the record to be added.
    */
   public function setGlobalTitleUuid($global_title_uuid) {
-    $this->_global_title_uuid = $global_title_uuid;
+    if (isset($global_title_uuid) && uuidIsValid($global_title_uuid)) {
+      $this->_global_title_uuid = $global_title_uuid;
+    } else {
+      $this->_global_title_uuid = '';
+    }
+  }
+  
+  /**
+   * Gets the global_title_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The global_title_uuid for the record to be added.
+   */
+  public function getGlobalTitleUuid() {
+    return $this->_global_title_uuid;
   }
   
   /**
    * Sets the first_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $first_name
    *   - The first_name for the record to be added.
   */
   public function setFirstName($first_name) {
-    $this->_first_name = $first_name;
+    if (isset($first_name)) {
+      $this->_first_name = $first_name;
+    } else {
+      $this->_first_name = '';
+    }
   }
   
   /**
-  * Sets the last_name for the record to be added.
-  * @param string $last_name
-  *   - The last_name for the record to be added.
-  */
+   * Gets the first_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The first_name for the record to be added.
+   */
+  public function getFirstName() {
+    return $this->_first_name;
+  }
+  
+  /**
+   * Sets the last_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $last_name
+   *   - The last_name for the record to be added.
+   */
   public function setLastName($last_name) {
-    $this->_last_name = $last_name;
+    if (isset($last_name)) {
+      $this->_last_name = $last_name;
+    } else {
+      $this->_last_name = '';
+    }
   }
   
   /**
-  * Sets the preferred_global_language_uuid for the record to be added.
-  * @param string $preferred_global_language_uuid
-  *   - The preferred_global_language_uuid for the record to be added.
-  */
+   * Gets the last_name for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The last_name for the record to be added.
+   */
+  public function getLastName() {
+    return $this->_last_name;
+  }
+  
+  /**
+   * Sets the preferred_global_language_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $preferred_global_language_uuid
+   *   - The preferred_global_language_uuid for the record to be added.
+   */
   public function setPreferredGlobalLanguageUuid($preferred_global_language_uuid) {
-    $this->_preferred_global_language_uuid = $preferred_global_language_uuid;
+    if (isset($preferred_global_language_uuid) && uuidIsValid($preferred_global_language_uuid)) {
+      $this->_preferred_global_language_uuid = $preferred_global_language_uuid;
+    } else {
+      $this->_preferred_global_language_uuid = '';
+    }
   }
   
   /**
-  * Sets the username for the record to be added.
-  * @param string $username
-  *   - The username for the record to be added.
-  */
+   * Gets the preferred_global_language_uuid for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The preferred_global_language_uuid for the record to be added.
+   */
+  public function getPreferredGlobalLanguageUuid() {
+    return $this->_preferred_global_language_uuid;
+  }
+  
+  /**
+   * Sets the username for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $username
+   *   - The username for the record to be added.
+   */
   public function setUsername($username) {
-    $this->_username = $username;
+    if (isset($username)) {
+      $this->_username = $username;
+    } else {
+      $this->_username = '';
+    }
+  }
+  
+  /**
+   * Gets the username for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The username for the record to be added.
+   */
+  public function getUsername() {
+    return $this->_username;
   }
   
   /**
    * This sets all the parameters for the message in one shot.
+   * @author Damien Whaley <damien@whalebonestudios.com>
    * @param string $global_title_uuid
    *   - The UUID for the global title for the record to be added.
    * @param string $first_name
@@ -142,11 +215,24 @@ class CommandAddUser extends BaseCommand {
    * @param string $username
    *   - The username for the record to be added.
    */
-  public function setAll($global_title_uuid, $first_name, $last_name, $preferred_global_language_uuid, $username) {
+  public function setAll($global_title_uuid, $first_name, $last_name,
+    $preferred_global_language_uuid, $username) {
     $this->setGlobalTitleUuid($global_title_uuid);
     $this->setFirstName($first_name);
     $this->setLastName($last_name);
     $this->setPreferredGlobalLanguageUuid($preferred_global_language_uuid);
     $this->setUsername($username);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_global_title_uuid = '';
+    $this->_first_name = '';
+    $this->_last_name = '';
+    $this->_preferred_global_language_uuid = '';
+    $this->_username = '';
   }
 }
