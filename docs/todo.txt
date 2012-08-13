@@ -1,6 +1,11 @@
 PHP
 ===
 
+PageFragment - make sure it works
+Try getting one of the pages to work with the insert content stuff.
+Need to get an insertFragment which will call functions from within the page.
+Need to refactor the history code like setHistoryUserUser
+
 // FARM pages to do next:
 - #system_module.php
 - #system_partition.php
@@ -15,13 +20,9 @@ PHP
 
 // FARM pages to test:
 
-
 // PHPUnit to go:
-- Authentication.class.php
-- Dock.class.php (need to wait until UI is in place)
-- Page.class.php (need to wait until UI is in place)
-- PageFragment.class.php (need to wait until UI is in place)
-- Pagination.class.php (need to wait until UI is in place)
+- PageDock.class.php (need to wait until UI is in place)
+- PagePagination.class.php (need to wait until UI is in place)
 
 * think I need to change the way the pages load. instead of using insertcontent(),
   it should use the history set and then you trigger the change in history
@@ -34,3 +35,5 @@ PHP
 
 * make sure PSR-0 is implemented in coding rules.
 * try to do PSR-1 and maybe PSR-2 (but I think there's things that I do differently).
+
+-- Template integration

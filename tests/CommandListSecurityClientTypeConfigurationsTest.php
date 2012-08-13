@@ -28,7 +28,7 @@ require_once($basedir . 'includes/constants.inc');
  * This tests the CommandListSecurityClientTypeConfigurations class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandListSecurityClientTypeConfigurationsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_direction;

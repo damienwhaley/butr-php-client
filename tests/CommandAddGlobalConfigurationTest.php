@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddGlobalConfiguration class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddGlobalConfigurationTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_name_label;

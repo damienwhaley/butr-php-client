@@ -22,6 +22,7 @@
 namespace Butr;
 
 $document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once($document_root . '/includes/constants.inc');
 require_once($document_root . '/includes/settings.inc');
 
 /**
@@ -49,25 +50,21 @@ class Page {
   
   /**
    * Default constructor.
-   * @param array $css
-   *   - contains an array of the css files to load.
-   * @param array $js
-   *   - contains an array of the js files to load.
+   * There are optional parameters here:
+   * - Javascript array of strings containing links to additional javascript files.
+   * - Css array of strings containing links to additional css files.
+   * - LanguageCode - string containing the locale for rendering the page in a given language.
    */
   public function __construct() {
-    $arg_count = func_num_args();
+    $this->resetAll();
     
-    $this->_css = array();
-    $this->_js = array();
-    $this->_language_code = '';
+    $arg_count = func_num_args();
     
     // Add language code
     if ($arg_count > 2) {
       $this->setLanguageCode(func_get_arg(2));
-    } else {
-      $this->setLanguageCode(DEFAULT_LANGUAGE);
     }
-    
+
     // Add CSS files
     if ($arg_count > 1) {
       $this->addCss(func_get_arg(1));
@@ -91,7 +88,16 @@ class Page {
    * @param string $language_code
    *   - A string containing the language code for the page.
    */
-  public function generateHtmlTop($page_title = 'Butr', $js_includes = NULL, $css_includes = NULL, $language_code = '') {
+  public function generateHtmlTop($page_title = 'Butr', $js_includes = null,
+    $css_includes = null, $language_code = '') {
+    
+    // i18n Settings
+    putenv('LANG='.str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
+    setlocale(LC_ALL, str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
+    $domain = 'messages';
+    bindtextdomain($domain, realpath($_SERVER["DOCUMENT_ROOT"]) . '/locale');
+    textdomain($domain);
+    
     if (is_null($page_title) || !isset($page_title)) {
       $page_title = '';
     }
@@ -118,22 +124,66 @@ class Page {
       $this->setLanguageCode(DEFAULT_LANGUAGE);
     }
     
-    $js_output = array("    <script src=\"js/contrib/jquery-1.7.2.min.js\"></script>\n",
-      "    <script src=\"js/contrib/jquery-ui-1.8.19.custom.min.js\"></script>\n",
-      "    <script src=\"js/contrib/jquery.history.js\"></script>\n",
-      "    <script src=\"js/contrib/jquery.localisation.min.js\"></script>\n",
-      "    <script src=\"js/contrib/modernizr-latest.js\"></script>\n",
-      "    <script src=\"js/contrib/uuid.js\"></script>\n",
-      "    <script src=\"js/contrib/crypto-sha256-hmac.js\"></script>\n",
-      "    <script src=\"js/contrib/moment.min.js\"></script>\n",
-      "    <script src=\"js/cookies.js\"></script>\n",
-      "    <script src=\"js/history.js\"></script>\n");
+    $js_output = array("    <script type=\"text-javascript\" src=\"js/libs/jquery-ui.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/jquery-1.7.1.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/jquery-ui.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/modernizr-2.5.3.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap-popover.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap-tooltip.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap-dropdown.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap-modal.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/jquery.tablesorter.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/bootstrap-scrollspy.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/script.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/jquery.history.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/jquery.localisation.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/uuid.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/crypto-sha256-hmac.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/libs/moment.min.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/cookies.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/history.js\"></script>\n",
+      "    <script type=\"text/javascript\" src=\"js/tiny_mce/jquery.tinymce.js\"></script>\n",
+      "    <script type=\"text/javascript\">\n",
+      "      $().ready(function() {\n",
+      "        $('textarea.tinymce').tinymce({\n",
+      "          script_url : 'js/tiny_mce/tiny_mce.js',\n",
+      "          theme : \"advanced\",\n",
+      "          plugins : \"autolink,lists,pagebreak,style,layer,table,save,advhr,",
+      "advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,",
+      "searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,",
+      "visualchars,nonbreaking,xhtmlxtras,template,advlist\",\n",
+      "          theme_advanced_buttons1 : \"save,newdocument,|,bold,italic,underline,strikethrough,",
+      "|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,",
+      "fontsizeselect\",\n",
+      "          theme_advanced_buttons2 : \"cut,copy,paste,pastetext,pasteword,|,search,replace,",
+      "|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,",
+      "cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor\",\n",
+      "          theme_advanced_buttons3 : \"tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,",
+      "|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen\",\n",
+      "          theme_advanced_buttons4 : \"insertlayer,moveforward,movebackward,absolute,|",
+      ",styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak\",\n",
+      "          theme_advanced_toolbar_location : \"top\",\n",
+      "          theme_advanced_toolbar_align : \"left\",\n",
+      "          theme_advanced_statusbar_location : \"bottom\",\n",
+      "          theme_advanced_resizing : true,\n",
+      "          content_css : \"css/style.css\",\n",
+      "          template_external_list_url : \"lists/template_list.js\",\n",
+      "          external_link_list_url : \"lists/link_list.js\",\n",
+      "          external_image_list_url : \"lists/image_list.js\",\n",
+      "          media_external_list_url : \"lists/media_list.js\",\n",
+      "        });\n",
+      "      });\n",
+      "    </script>\n");
     
     if (sizeof($this->_js) > 0) {
       $js_output = array_merge($js_output, $this->_js);
     }
     
-    $css_output = array("    <link rel=\"stylesheet\" href=\"css/contrib/reset.css\" />\n");
+    $css_output = array("    <link rel=\"stylesheet\" href=\"css/bootstrap.css\" type=\"text/css\">\n",
+      "    <link rel=\"stylesheet\" href=\"css/style.css\" type=\"text/css\">\n",  
+      "    <link rel=\"stylesheet\" href=\"http://fonts.googleapis.com",
+      "/css?family=Open+Sans:400italic,400,700\" type=\"text/css\">\n");
     
     if (sizeof($this->_css) > 0) {
       $css_output = array_merge($css_output, $this->_css);
@@ -141,7 +191,9 @@ class Page {
     
     if ($this->getLanguageCode() !== '') {
       $language_output = array("    <script type=\"text/javascript\">\n",
-        "      $.localise('js/locales/strings', {language: '" . $this->getLanguageCode() . "', loadBase: true});\n",
+        "      $.localise('js/locales/strings', {language: '",
+        $this->getLanguageCode(),
+        "', loadBase: true});\n",
         "    </script>\n");
     } else {
       $language_output = array("    <script type=\"text/javascript\">\n",
@@ -149,36 +201,97 @@ class Page {
         "    </script>\n");
     }
     
-    $begin_output = array("<html>\n",
-      "  <head>\n",
-      "    <title>$page_title</title>\n",
-      "    <!--[if !IE 7]>\n",
-      "    <style type=\"text/css\">\n",
-      "      #wrap {display:table;height:100%}\n",
-      "    </style>\n",
-      "    <![endif]-->\n");
-    
+    $begin_output = array("<!--[if lt IE 7]><html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"",
+      " lang=\"",
+      $this->getLanguageCode(),
+      "\"><![endif]-->\n",
+	    "<!--[if IE 7]><html class=\"no-js lt-ie9 lt-ie8\"",
+      " lang=\"",
+      $this->getLanguageCode(),
+      "\"><![endif]-->\n",
+	    "<!--[if IE 8]><html class=\"no-js lt-ie9\"",
+      " lang=\"",
+      $this->getLanguageCode(),
+      "\"><![endif]-->\n",
+	    "<!--[if gt IE 8]><!--><html class=\"no-js\"",
+      " lang=\"",
+      $this->getLanguageCode(),
+      "\"><!--<![endif]-->\n",
+	    "  <head>\n",
+      "    <title>",
+      $page_title,
+      "</title>\n",
+		  "    <meta charset=\"utf-8\">\n",
+		  "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n");
+       
     $end_output = array("  </head>\n",
-      "  <body>\n",
-      "    <div id=\"error\" style=\"{ display: none; }\"><div id=\"error_message\"></div><!-- /#error_message --></div><!-- /#error -->\n",
-      "    <div id=\"notice\" style=\"{ display: none; }\"><div id=\"notice_message\"></div><!-- /#notice_message --></div><!-- /#notice -->\n",
-      "    <div id=\"debug\" style=\"{ display: none; }\"><div id=\"debug_message\"></div><!-- /#debug_message --></div><!-- /#debug -->\n");
+      "  <body data-spy=\"scroll\">\n",
+      "    <div class=\"modal hide\" id=\"error\">\n",
+      "      <div class=\"modal-header\">\n",
+      "        <a class=\"close\" data-dismiss=\"error-modal\"",
+      " href=\"javascript:$('#error').modal('hide');\">x</a>\n",
+      "        <h2>",
+      gettext('Error'),
+      "</h2>\n",
+      "        <p id=\"error_message\">&nbsp;</p>\n",
+      "        <p class=\"right\"><a href=\"javascript:void(0);\"",
+      " class=\"btn btn-danger\" data-dismiss=\"error\"",
+      " onclick=\"javascript:$('#error').modal('hide');\">Close</a></p>\n",
+      "        <div class=\"clearfix\"></div>\n",
+      "      </div>\n",
+      "    </div><!-- end .modal -->\n",
+      "    <div class=\"modal hide\" id=\"warning\">\n",
+      "      <div class=\"modal-header\">\n",
+      "        <a class=\"close\" data-dismiss=\"warning\"",
+      " href=\"javascript:$('#warning').modal('hide');\">x</a>\n",
+      "        <h2>",
+      gettext('Warning'),
+      "</h2>\n",
+      "        <p id=\"warning_message\">&nbsp;</p>\n",
+      "        <p class=\"right\"><a href=\"javascript:void(0);\"",
+      " class=\"btn btn-warning\" data-dismiss=\"warning\"",
+      " onclick=\"javascript:$('#warning').modal('hide');\">Close</a></p>\n",
+      "        <div class=\"clearfix\"></div>\n",
+      "      </div>\n",
+      "    </div><!-- end .modal -->\n",
+      "    <div class=\"modal hide\" id=\"notice\">\n",
+      "      <div class=\"modal-header\">\n",
+      "        <a class=\"close\" data-dismiss=\"notice\"",
+      " href=\"javascript:$('#notice').modal('hide');\">x</a>\n",
+      "        <h2>",
+      gettext('Notice'),
+      "</h2>\n",
+      "        <p id=\"notice_message\">&nbsp;</p>\n",
+      "        <p class=\"right\"><a href=\"javascript:void(0);\"",
+      " class=\"btn btn-info\" data-dismiss=\"notice\"",
+      " onclick=\"javascript:$('#notice').modal('hide');\">Close</a></p>\n",
+      "        <div class=\"clearfix\"></div>\n",
+      "      </div>\n",
+      "    </div><!-- end .modal -->\n",
+      "    <div class=\"modal hide\" id=\"debug\">\n",
+      "      <div class=\"modal-header\">\n",
+      "        <a class=\"close\" data-dismiss=\"debug\"",
+      "href=\"javascript:$('#debug').modal('hide');\">x</a>\n",
+      "        <h2>",
+      gettext('Debug'),
+      "</h2>\n",
+      "        <p id=\"debug_message\">&nbsp;</p>\n",
+      "        <p class=\"right\"><a href=\"javascript:void(0);\"",
+      " class=\"btn btn-inverse\" data-dismiss=\"debug\"",
+      " onclick=\"javascript:$('#debug').modal('hide');\">Close</a></p>\n",
+      "        <div class=\"clearfix\"></div>\n",
+      "      </div>\n",
+      "    </div><!-- end .modal -->\n");
     
-    echo "<!DOCTYPE html>\n";
-    
-    // i18n Settings
-    putenv('LANG='.str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
-    setlocale(LC_ALL, str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
-    $domain = 'messages';
-    bindtextdomain($domain, realpath($_SERVER["DOCUMENT_ROOT"]) . '/locale');
-    textdomain($domain);
+    // Get this out early with no buffering.
+    echo "<!doctype html>\n";
     
     // Begin output buffering.
     ob_start();
     
     echo implode('', $begin_output);
-    echo implode('', $js_output);
     echo implode('', $css_output);
+    echo implode('', $js_output);
     echo implode('', $language_output);
     echo implode('', $end_output);
   }
@@ -202,30 +315,52 @@ class Page {
    * @param array $css_includes
    *   - array containing the names of the files to be added.
    */
-  private function addCss($css_includes) {
+  public function addCss($css_includes) {
     if (is_array($css_includes)) {
       for ($i = 0; $i < sizeof($css_includes); $i++) {
         if (trim($css_includes[$i]) !== '') {
-          array_push($this->_css, "    <link rel=\"stylesheet\" href=\"css/" . trim($css_includes[$i]) . "\" />\n");
+          array_push($this->_css, "    <link rel=\"stylesheet\" href=\"css/"
+            . trim($css_includes[$i]) . "\" type=\"text/css\">\n");
         }
       }
     }
   }
   
- /**
-  * This adds the Javascript files to the array of files which need to be loaded.
-  * @author Damien Whaley <damien@whalebonestudios.com>
-  * @param array $jss_includes
-  *   - array containing the names of the files to be added.
-  */
-  private function addJs($js_includes) {
+  /**
+   * This gets all the CSS files which are going to be loaded.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return array
+   *    - Contains all the link tags with the CSS files.
+   */
+  public function getCss() {
+    return $this->_css;
+  }
+  
+  /**
+   * This adds the Javascript files to the array of files which need to be loaded.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param array $jss_includes
+   *   - array containing the names of the files to be added.
+   */
+  public function addJs($js_includes) {
     if (is_array($js_includes)) {
       for ($i = 0; $i < sizeof($js_includes); $i++) {
         if (trim($js_includes[$i]) !== '') {
-          array_push($this->_js, "    <script src=\"js/" . trim($js_includes[$i]) . "\"></script>\n");
+          array_push($this->_js, "    <script type=\"text/javascript\" src=\"js/"
+            . trim($js_includes[$i]) . "\"></script>\n");
         }
       }
     }
+  }
+  
+  /**
+   * This gets all the Javascript files which are going to be loaded.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return array
+   *   - Containing the script tags with the Javascript files to be loaded.
+   */
+  public function getJs() {
+    return $this->_js;
   }
   
  /**
@@ -234,18 +369,20 @@ class Page {
   * @param string $language_code
   *   - string containing the language code.
   */
-  private function setLanguageCode($language_code) {
-    if (isset($language_code)) {
+  public function setLanguageCode($language_code) {
+    if (isset($language_code) && $language_code !== '') {
       $this->_language_code = $language_code;
+    } else {
+      $this->_language_code = DEFAULT_LANGUAGE;
     }
   }
   
   /**
-   * This grabs the language code of the pagewhich is used for i18n.
+   * This grabs the language code of the page which is used for i18n.
    * @author Damien Whaley <damien@whalebonestudios.com>
    * @return string
    */
-  private function getLanguageCode() {
+  public function getLanguageCode() {
     return $this->_language_code;
   }
   
@@ -286,5 +423,30 @@ class Page {
       return $_COOKIE['Butr|'.$window_name];
     }
     return '';
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_css = array();
+    $this->_js = array();
+    $this->_language_code = DEFAULT_LANGUAGE;
+  }
+  
+  /**
+   * This sets all the parameters for the class in one shot.
+   * @param array $js
+   *   - Array of Javascript files to add to the page load.
+   * @param array $css
+   *   - Array of Cascading Style Sheets to add to the page load.
+   * @param string $language_code
+   *   - The langage_code to display the page in the given language/locale.
+   */
+  public function setAll($js, $css, $language_code) {
+    $this->addJs($js);
+    $this->addCss($css);
+    $this->setLanguageCode($language_code);
   }
 }

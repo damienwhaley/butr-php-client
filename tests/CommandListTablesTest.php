@@ -28,7 +28,7 @@ require_once($basedir . 'includes/constants.inc');
  * This tests the CommandListTables class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandListTablesTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_direction;

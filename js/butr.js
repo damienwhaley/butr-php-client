@@ -133,133 +133,7 @@ function handleCheckSessionAliveError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
-  }
-}
-
-/**
- * This opens up the dock item
- * @author Damien Whaley <damien@whalebonestudios.com>
- * @param dock
- *   - string containing the html id of the dock-item-wrap div to display.
- */
-function flyOpenDockItem(dock) {
-  'use strict';
-  
-  var dockItemWrap = $('#' + dock);
-  var dockTile = $('#' + dock.substring(0, dock.length - 5));
-  var isVisible = false;
-  
-  if (dockItemWrap !== undefined && dockItemWrap !== null && typeof(dockItemWrap) === 'object'
-    && dockTile !== undefined && dockTile !== null && typeof(dockTile) === 'object') {
-    isVisible = dockItemWrap.is(":visible");    
-    closeAllDockItems();
-    
-    if (!isVisible) {
-      dockItemWrap.show();
-      dockItemWrap.position({ of: dockTile,
-        my: 'center bottom',
-        at: 'center top',
-        collision: 'flip flip',
-        offset: '-5px'
-      });
-    }
-  }
-}
-
-/**
- * Close the dock item
- * @author Damien Whaley <damien@whalebonestudios.com>
- * @param dock
- *   - string containing the identifier for the dock item.
- */
-function flyCloseDockItem(dock) {
-'use strict';
-  
-  var dockItemWrap = $('#' + dock);
-  
-  if (dockItemWrap !== undefined && dockItemWrap !== null && typeof(dockItemWrap) === 'object') {
-    closeAllDockSubitems();
-    dockItemWrap.hide();
-  }
-}
-
-/**
- * This closes all the dock item menus
- * @author Damien Whaley <damien@whalebonestudios.com>
- */
-function closeAllDockItems() {
-  'use strict';
-  
-  var dockItemId = '';
-  
-  for(var i = 0; i < dockCount; i++) {
-    dockItemId = 'dock-' + ((i < 10) ? '0' + i : i) + '-item';    
-    flyCloseDockItem(dockItemId);
-  }
-  
-}
-
-/**
- * This opens up the dock item
- * @author Damien Whaley <damien@whalebonestudios.com>
- * @param dock
- *   - string containing the html id of the dock-item-wrap div to display.
- */
-function flyOpenDockSubitem(dockItem) {
-  'use strict';
-  
-  var dockSubitemWrap = $('#' + dockItem);
-  var dockItemDiv = $('#' + dockItem.substring(0, dockItem.length - 8));
-  var isVisible = false;
-  
-  if (dockSubitemWrap !== undefined && dockSubitemWrap !== null && typeof(dockSubitemWrap) === 'object'
-    && dockItemDiv !== undefined && dockItemDiv !== null && typeof(dockItemDiv) === 'object') {
-    isVisible = dockSubitemWrap.is(":visible");    
-    closeAllDockSubitems();
-    
-    if (!isVisible) {
-      dockSubitemWrap.show();
-      dockSubitemWrap.position({ of: dockItemDiv,
-        my: 'left bottom',
-        at: 'right top',
-        collision: 'flip flip',
-        offset: '5px'
-      });
-    }
-  }
-}
-
-/**
- * Close the dock subitem
- * @author Damien Whaley <damien@whalebonestudios.com>
- * @param dock
- *   - string containing the identifier for the dock item.
- */
-function flyCloseDockSubitem(dockItem) {
-  'use strict';
-  
-  var dockSubitemWrap = $('#' + dockItem);
-  
-  if (dockSubitemWrap !== undefined && dockSubitemWrap !== null && typeof(dockSubitemWrap) === 'object') {
-    dockSubitemWrap.hide();
-  }
-}
-
-/**
- * This closes all the dock item menus
- * @author Damien Whaley <damien@whalebonestudios.com>
- */
-function closeAllDockSubitems() {
-  'use strict';
-  
-  var dockSubitemId = '';
-  
-  for(var i = 0; i < dockCount; i++) {
-    for(var j = 0; j < dockItemCount; j++) {
-      dockSubitemId = 'dock-' + ((i < 10) ? '0' + i : i) + '-item-' + ((j < 10) ? '0' + j : j) + '-subitem';
-      flyCloseDockSubitem(dockSubitemId);
-    }
+    $('#error').modal('show');
   }
 }
 
@@ -272,9 +146,12 @@ function closeAllDockSubitems() {
 function insertContent(content) {
   'use strict';
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  $('#page-title').html('&nbsp;');
+  $('#page-title-buttons').html('');
   
   if (content === undefined || content === null || content === '') {
     // Nothing to do.
@@ -333,12 +210,11 @@ function insertContent(content) {
 function insertContentResponse(res) {
   'use strict';
   
-  var contentDiv = $('#content');
+  var pageSection = $('#page');
   
-  if (contentDiv !== undefined && contentDiv !== null) {
-    contentDiv.html(res);
+  if (pageSection !== undefined && pageSection !== null) {
+	pageSection.html(res);
   }
-  closeAllDockItems();
 }
 
 /**
@@ -381,7 +257,7 @@ function handleInsertContentError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
 }
 
@@ -448,9 +324,10 @@ function parseSession(jsonSession) {
 function logOut() {
   'use strict';
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
   
   var cookieName = 'Butr|' + window.name;
   

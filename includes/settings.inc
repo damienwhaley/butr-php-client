@@ -29,12 +29,12 @@ define('Butr\DATABASE_ENGINE', 'mysql');
 define('Butr\DATABASE_HOST', 'localhost');
 define('Butr\DATABASE_PORT', '3306');
 define('Butr\DATABASE_NAME', 'butrclient');
-define('Butr\DATABASE_USER', 'butr');
-define('Butr\DATABASE_PASS', 'butr');
+define('Butr\DATABASE_USER', 'DBUSER');
+define('Butr\DATABASE_PASS', 'DBPASS');
 
 // API Key Registration
-define('Butr\API_KEY', '9da7feb8-5f5c-11e1-8107-001c421dce29'); // Pre-determined UUID
-define('Butr\API_SECRET', '9e9c3b093fd71f372823cd6d4ea8cc5ddd302aaf7df53b2dcd0f70c5d5a2508a'); // PHP | opensource_ftw!
+define('Butr\API_KEY', ''); // Pre-determined UUID
+define('Butr\API_SECRET', ''); // Hashed secret
 
 // Butr Node.js Server
 define('Butr\NODEJS_SERVER', 'http://butr-server.node.local:3000/json');

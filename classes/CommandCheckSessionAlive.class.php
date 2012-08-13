@@ -44,4 +44,11 @@ class CommandCheckSessionAlive extends BaseCommand {
   public function generateSnippet() {
     return '"' . $this->_command_name . '":{}';
   }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+  }
 }

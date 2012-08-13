@@ -38,15 +38,27 @@ $butr_authentication = new Butr\Authentication();
 $butr_authentication->setSessionToken($session_token);
 
 // Instantiate page fragment class for templated presentation.
-$butr_page_fragment = new Butr\PageFragment();
+$butr_pageTab = new Butr\PageTab();
+$butr_pageFragment = new Butr\PageFragment();
 
-// Generate the top part of the page fragment including buffering output.
-$butr_page_fragment->generateHtmlTop(array('user_user.js'), array('user_user.css'), $language_code);
+// Grab user dock tabs
+$butr_command = new Butr\CommandListUserDockTabs();
+$butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
+$butr_command->setMagic('user_user');
+$butr_command->prepareCommand();
+$json_user_tabs = $butr_command->sendCommand();
+$json_object = json_decode($json_user_tabs, false);
+$json_error = json_last_error();
+
+if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
+  $butr_pageTab->setAll($json_object->list_user_dock_tabs, $language);
+}
+unset($json_object);
+unset($butr_command);
 
 if (isset($_POST['a'])) {
   switch ($_POST['a']) {
     case 'add':
-      //echo "<script type=\"text/javascript\">setHistoryUserUserAdd();</script>\n";
       $action_mode = 'add';
       break;
     case 'fetch':
@@ -81,13 +93,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_global_title_configurations->items); $i++) {
       if (isset($json_object->list_global_title_configurations->items[$i]->display_label)) {
         $title_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $title_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -110,13 +122,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_global_language_configurations->items); $i++) {
       if (isset($json_object->list_global_language_configurations->items[$i]->display_label)) {
         $language_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $language_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -125,7 +137,6 @@ if ($action_mode === 'add') {
   unset($json_object);
   unset($butr_command);
 ?>
-<h1><?php echo gettext('User Administration'); ?></h1>
 <div id="user_user_add_box">
   <fieldset form="user_user_add_form" name="user_user_add_fieldset" id="user_user_add_fieldset">
     <legend><?php echo gettext('Add User'); ?></legend>
@@ -168,13 +179,13 @@ $title_option_list = array();
     for($i = 0; $i < sizeof($json_object->list_global_title_configurations->items); $i++) {
       if (isset($json_object->list_global_title_configurations->items[$i]->display_label)) {
         $title_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $title_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -197,13 +208,13 @@ $title_option_list = array();
     for($i = 0; $i < sizeof($json_object->list_global_language_configurations->items); $i++) {
       if (isset($json_object->list_global_language_configurations->items[$i]->display_label)) {
         $language_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $language_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -231,17 +242,16 @@ $title_option_list = array();
     $user['username'] = (isset($json_object->fetch_user->username)) ? $json_object->fetch_user->username : '';
 
     // Escpe output
-    $user['uuid'] = htmlspecialchars($user['uuid'], ENT_COMPAT | ENT_HTML5);
-    $user['global_title_uuid'] = htmlspecialchars($user['global_title_uuid'], ENT_COMPAT | ENT_HTML5);
-    $user['first_name'] = htmlspecialchars($user['first_name'], ENT_COMPAT | ENT_HTML5);
-    $user['last_name'] = htmlspecialchars($user['last_name'], ENT_COMPAT | ENT_HTML5);
-    $user['preferred_global_language_uuid'] = htmlspecialchars($user['preferred_global_language_uuid'], ENT_COMPAT | ENT_HTML5);
-    $user['username'] = htmlspecialchars($user['username'], ENT_COMPAT | ENT_HTML5);
+    $user['uuid'] = htmlspecialchars($user['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $user['global_title_uuid'] = htmlspecialchars($user['global_title_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $user['first_name'] = htmlspecialchars($user['first_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $user['last_name'] = htmlspecialchars($user['last_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $user['preferred_global_language_uuid'] = htmlspecialchars($user['preferred_global_language_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $user['username'] = htmlspecialchars($user['username'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   unset($json_object);
   unset($butr_command);
 ?>
-<h1><?php echo gettext('User Administration'); ?></h1>
 <div id="user_user_modify_box">
   <fieldset form="user_user_modify_form" name="user_user_modify_fieldset" id="user_user_modify_fieldset">
     <legend><?php echo gettext('Modify User'); ?></legend>
@@ -351,10 +361,10 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_users->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->title_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->first_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->last_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryUserUserFetch('<?php echo htmlspecialchars($json_object->list_users->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->title_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->first_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_users->items[$i]->last_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryUserUserFetch('<?php echo htmlspecialchars($json_object->list_users->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }
@@ -387,14 +397,88 @@ unset($butr_command);
   unset($json_global_configuration);
   unset($json_object);
   unset($butr_command);
+  
+  // Generate the top part of the page fragment including buffering output.
+  $butr_pageTab->generateHtmlTab();
+  $butr_pageFragment->generateHtmlTop(array('user_user.js'), null, $language_code);
 ?>
-<h1><?php echo gettext('User Administration'); ?></h1>
+<div class="well">
+	<hgroup>
+		<h3 class="left"><?php echo gettext('User Information'); ?></h3>
+		<ul class="actions">
+			<li><a href="" class="icon-cross"></a></li>
+			<li><a href="" class="icon-tick"></a></li>
+			<li><a href="" class="icon-star"></a></li>
+		</ul><!-- end .actions -->
+	</hgroup>
+	<div class="row-fluid">
+		<div class="span8">
+			<div class="col">
+				<span class="lbl">Label</span>
+				<span class="data">Label 1 data</span>
+			</div><!-- end .col -->
+			<div class="col">
+				<span class="lbl">Label</span>
+				<span class="data">Label 2 data</span>
+			</div><!-- end .col -->
+		</div><!-- end .span6 -->
+	</div><!-- end .row -->
+	<div class="row-fluid">
+		<div class="span8">
+			<div class="col">
+				<span class="lbl">Label</span>
+				<span class="data">Label 1 data</span>
+			</div><!-- end .col -->
+			<div class="col">
+				<span class="lbl">Label</span>
+				<span class="data">Label 2 data</span>
+			</div><!-- end .col -->
+		</div><!-- end .span6 -->
+	</div><!-- end .row -->
+	<div class="row-fluid">
+		<div class="span8">
+			<div class="col">
+				<span class="lbl">Radio</span>
+				<span class="data">Radio Button Selection</span>
+			</div><!-- end .col -->
+		</div><!-- end .span6 -->
+	</div><!-- end .row -->
+</div><!-- end .well -->
+
+<div class="well" id="well-search-users">
+  <h4 class="left"><?php echo gettext('Search Users'); ?></h4>
+  <a href="javascript:void(0);" class="right show">Show / Hide</a>
+  <div class="inner">
+    <form class="form-inline">
+    </form>
+  </div><!-- end .inner -->
+</div><!-- end .well -->
+
+<div class="well" id="well-add-user">
+  <h4 class="left"><?php echo gettext('Add User'); ?></h4>
+  <a href="javascript:void(0);" class="right show">Show / Hide</a>
+  <div class="inner">
+    <form class="form-inline">
+    </form>
+  </div><!-- end .inner -->
+</div><!-- end .well -->
+
+<div class="well" id="well-edit-user">
+  <h4 class="left"><?php echo gettext('Edit User'); ?></h4>
+  <a href="javascript:void(0);" class="right show">Show / Hide</a>
+  <div class="inner">
+    <form class="form-inline">
+    </form>
+  </div><!-- end .inner -->
+</div><!-- end .well -->
+
+
 <ul>
   <li><a href="javascript:setHistoryUserUserAdd();"><?php echo gettext('Add User'); ?></a></li>
   <li><a href="javascript:setHistoryUserUserList(0, '<?php echo $default_list_size; ?>', '<?php echo Butr\SORT_ORDINAL_DEFAULT; ?>', '<?php echo Butr\SORT_DIRECTION_ASCENDING; ?>');"><?php echo gettext('List Users'); ?></a></li>
   <li><?php echo gettext('Search Users'); ?></li>
 </ul>
 <?php
+  // Generate bottom part of the page including flushing the buffer.
+  $butr_pageFragment->generateHtmlBottom();
 }
-// Generate bottom part of the page including flushing the buffer.
-$butr_page_fragment->generateHtmlBottom();

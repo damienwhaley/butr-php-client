@@ -22,8 +22,10 @@
 // Include and requires.
 require_once('includes/butr.inc');
 
-// Instantiate page class for templated presentation.
+// Instantiate page classes for templated presentation.
 $butr_page = new Butr\Page();
+$butr_pageNavigation = new Butr\PageNavigation();
+$butr_pageDock = new Butr\PageDock();
 
 $window_name = isset($_POST['window']) ? $_POST['window'] : '';
 $session_token = $butr_page->fetchSessionCookie($window_name);
@@ -86,120 +88,90 @@ $json_user_docks = $butr_command->sendCommand();
 $json_object = json_decode($json_user_docks, false);
 $json_error = json_last_error();
 
-$butr_dock = new Butr\Dock();
 if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
-  $butr_dock->buildDock($json_object->list_user_docks);
+  $butr_pageDock->buildDock($json_object->list_user_docks);
 }
-
 unset($json_object);
 unset($butr_command);
 
-// Grab user tabs
-$butr_command = new Butr\CommandListUserDockTabs();
-$butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
-$butr_command->prepareCommand();
-$json_user_dock_tabs = $butr_command->sendCommand();
-$json_object = json_decode($json_user_dock_tabs, false);
-$json_error = json_last_error();
-
-if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
-	$butr_dock->buildTab($json_object->list_user_dock_tabs);
+if (isset($butr_session->data->modules)) {
+  $butr_pageDock->buildModule($butr_session->data->modules);
 }
-
-unset($json_object);
-unset($butr_command);
 
 $company_name = isset($butr_global_configurations['company_name']) ? $butr_global_configurations['company_name'] : '';
 $language = isset($butr_session->data->language) ? $butr_session->data->language: Butr\DEFAULT_LANGUAGE;
+$user_first_name = isset($butr_session->data->user->first_name) ? $butr_session->data->user->first_name: '';
 
 // Escape output
-$company_name = htmlspecialchars($company_name, ENT_COMPAT | ENT_HTML5);
-$language = htmlspecialchars($language_code, ENT_COMPAT | ENT_HTML5);
+$company_name = htmlspecialchars($company_name, ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$language = htmlspecialchars($language_code, ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$user_first_name = htmlspecialchars($user_first_name, ENT_COMPAT | ENT_HTML5, 'UTF-8');
 
 // Generate the top part of the page including buffering output.
 $butr_page->generateHtmlTop($company_name, array('butr.js'), array('butr.css'), $language);
 ?>
-<script type="text/javascript">
-  'use strict';
-  
-  var History = window.History;
-
-  History.Adapter.bind(window, 'statechange', function(){
-    'use strict';
+    <script type="text/javascript">
+      'use strict';
+      
+      var History = window.History;
     
-    handleHistoryStateChange(History.getState());
-  });
-  
-  var globalJson = '<?php echo str_replace("\n", "", $json_global_configuration); ?>';
-  var butrGlobalConfigurations = parseGlobalConfiguration(globalJson);
-  globalJson = null;
-  var sessionJson = '<?php echo str_replace("\n", "", $json_session); ?>';
-  var butrSession = parseSession(sessionJson);
-  sessionJson = null;
-
-  // Make sure the session is active.
-  $(document).ready(checkSessionAlive);
-</script>
-
-<div id="wrap">
-  <div id="header">
-  </div><!--  /#header -->
-  <div id="title">
-    Title / Menus / Action Bar goes here.
-  </div><!-- /#title -->
-  <div id="tray">
-    <div id="tray-notification" class="tray-tile">
-      <a href="javascript:void(0);" class="tray-link"><img src="/images/icons/tray-notification-icon.png" title="<?php echo gettext('Notification'); ?>" alt="<?php echo gettext('Notification'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-notification -->
-    <div id="tray-history" class="tray-tile">
-      <a href="javascript:void(0);" class="tray-link"><img src="/images/icons/tray-history-icon.png" title="<?php echo gettext('Recently Accessed'); ?>" alt="<?php echo gettext('Recently Accessed'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-history -->
-    <div id="tray-undo" class="tray-tile">
-      <a href="javascript:void(0);" class="tray-link"><img src="/images/icons/tray-undo-icon.png" title="<?php echo gettext('Undo'); ?>" alt="<?php echo gettext('Undo'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-undo -->
-    <div id="tray-help" class="tray-tile">
-      <a href="javascript:void(0);" class="tray-link"><img src="/images/icons/tray-help-icon.png" title="<?php echo gettext('Help'); ?>" alt="<?php echo gettext('Help'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-help -->
-    <div id="tray-search" class="tray-tile">
-      <a href="javascript:void(0);" class="tray-link"><img src="/images/icons/tray-search-icon.png" title="<?php echo gettext('Search'); ?>" alt="<?php echo gettext('Search'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-search -->
-    <div id="tray-logout" class="tray-tile">
-      <a href="javascript:logOut();" class="tray-link"><img src="/images/icons/tray-log_out-icon.png" title="<?php echo gettext('Log Out'); ?>" alt="<?php echo gettext('Log Out'); ?>" class="tray-icon"></a>
-    </div><!-- /#tray-logout -->
-  </div><!-- /#tray -->
-  <div id="content">
-  </div><!-- /#content -->
-  <div id="tab">
+      History.Adapter.bind(window, 'statechange', function(){
+        'use strict';
+        
+        handleHistoryStateChange(History.getState());
+      });
+      
+      var globalJson = '<?php echo str_replace("\n", "", $json_global_configuration); ?>';
+      var butrGlobalConfigurations = parseGlobalConfiguration(globalJson);
+      globalJson = null;
+      var sessionJson = '<?php echo str_replace("\n", "", $json_session); ?>';
+      var butrSession = parseSession(sessionJson);
+      sessionJson = null;
+    
+      // Make sure the session is active.
+      $(document).ready(checkSessionAlive);
+    </script>
+    <div id="fixed-wrapper">
 <?php 
-$butr_dock->printDockTab();
+$butr_pageNavigation->setAll($company_name, $company_picture_path, $user_first_name, $language);
+$butr_pageNavigation->generateHtml();
+$butr_pageDock->generateHtmlDock();
 ?>
-  </div><!-- /#tab -->
-</div><!-- /#wrap -->
-<div id="dock">
-<?php
-$butr_dock->printDock();
-$butr_dock->printDockItems();
-$butr_dock->printDockSubitems();
-?>
-</div><!-- /#dock -->
-<form name="butr_state_form" action="butr.php" method="post">
-  <input type="hidden" name="window" value="" />
-  <input type="hidden" name="content" value="" />
-  <input type="hidden" name="language" value="" />
-</form>
-<script type="text/javascript">
-  document.butr_state_form.window.value = window.name;
+      <div id="heading" class="container-fluid">
+        <div class="row-fluid">
+          <div class="span12">
+            <hgroup class="title">
+              <h1 id="page-title">&nbsp;</h1>
+              <ul class="btns right" id="page-title-buttons">
+              </ul><!-- end .right -->
+            </hgroup><!-- end .title -->
+          </div><!-- end .span12 -->
+        </div><!-- end .row-fluid -->
+      </div><!-- end .container-fluid -->
+    </div><!-- end #fixed-wrapper -->
+    <section id="page">    
+    </section><!-- end #page -->
+    <form name="butr_state_form" action="butr.php" method="post">
+      <input type="hidden" name="window" value="">
+      <input type="hidden" name="content" value="">
+      <input type="hidden" name="page_title" value = "">
+      <input type="hidden" name="fragment_title" value = "">
+      <input type="hidden" name="language" value="">
+    </form>
+    <script type="text/javascript">
+      document.butr_state_form.window.value = window.name;
 <?php 
 if ($content !== '') {
 ?>
-  $(document).ready(function () {
-    insertContent('<?php echo $content; ?>');
-  });
+      $(document).ready(function () {
+        'use strict';
+        insertContent('<?php echo $content; ?>');
+      });
 <?php
-  echo 'moment.lang(butrSession.language);';
+  echo "      moment.lang(butrSession.language);\n";
 }
 ?>
-</script>
+    </script>
 <?php 
 // Generate bottom part of the page including flushing the buffer.
 $butr_page->generateHtmlBottom();

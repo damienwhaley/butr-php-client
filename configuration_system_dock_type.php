@@ -114,11 +114,11 @@ if ($action_mode === 'add') {
     $systemDockType['is_active'] = (isset($json_object->fetch_system_dock_type_configuration->is_active)) ? $json_object->fetch_system_dock_type_configuration->is_active : '';
     
     // Escape output
-    $systemDockType['uuid'] = htmlspecialchars($systemDockType['uuid'], ENT_COMPAT | ENT_HTML5);
-    $systemDockType['name_label'] = htmlspecialchars($systemDockType['name_label'], ENT_COMPAT | ENT_HTML5);
-    $systemDockType['description'] = htmlspecialchars($systemDockType['description'], ENT_NOQUOTES | ENT_HTML5);
-    $systemDockType['magic'] = htmlspecialchars($systemDockType['magic'], ENT_NOQUOTES | ENT_HTML5);
-    $systemDockType['weighting'] = htmlspecialchars($systemDockType['weighting'], ENT_COMPAT | ENT_HTML5);
+    $systemDockType['uuid'] = htmlspecialchars($systemDockType['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $systemDockType['name_label'] = htmlspecialchars($systemDockType['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $systemDockType['description'] = htmlspecialchars($systemDockType['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $systemDockType['magic'] = htmlspecialchars($systemDockType['magic'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $systemDockType['weighting'] = htmlspecialchars($systemDockType['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_system_dock_type);
@@ -223,8 +223,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_system_dock_type_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationSystemDockTypeFetch('<?php echo htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationSystemDockTypeFetch('<?php echo htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

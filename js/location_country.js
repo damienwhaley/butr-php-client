@@ -144,9 +144,11 @@ function processLocationCountryAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.location_country_add_form.submit.disabled = true;
   
   if (countryName === undefined || countryName === null || countryName === '') {
@@ -170,7 +172,7 @@ function processLocationCountryAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.location_country_add_form.submit.disabled = false;
     return false;
   }
@@ -269,9 +271,11 @@ function processLocationCountryModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.location_country_modify_form.submit.disabled = true;
   
   if (countryName === undefined || countryName === null || countryName === '') {
@@ -295,7 +299,7 @@ function processLocationCountryModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.location_country_modify_form.submit.disabled = false;
     return false;
   }
@@ -421,7 +425,7 @@ function handleLocationCountryAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.location_country_add_form.submit.disabled = false;
@@ -468,7 +472,7 @@ function handleLocationCountryModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.location_country_modify_form.submit.disabled = false;

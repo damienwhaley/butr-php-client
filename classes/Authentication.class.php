@@ -24,6 +24,7 @@ namespace Butr;
 // Requires and includes
 $document_root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once($document_root . '/includes/uuid.inc');
+require_once($document_root . '/includes/settings.inc');
 
 /**
   * Authentication class.
@@ -78,13 +79,7 @@ class Authentication {
    * Default constructor.
    */
   public function __construct() {
-    $this->_nonce = uuidSecure();
-    $this->_api_key = API_KEY;
-    $this->_api_secret = API_SECRET;
-    $this->_authentication_method = '';
-    $this->_username = '';
-    $this->_password = '';
-    $this->_session_token = '';
+    $this->resetAll();
   }
   
   /**
@@ -197,7 +192,7 @@ class Authentication {
    *   - The session token for this authentication.
    */
   public function getSessionToken() {
-  return $this->_session_token;
+    return $this->_session_token;
   }
   
   /**
@@ -228,13 +223,31 @@ class Authentication {
   }
   
   /**
-   * This sets the password to generate the login correctly.
-   * @param string $password_hash
+   * This gets the password to generate the login correctly.
+   * @return string
    *   - The string for the hashed password which was passed
    *     over the wire.
    */
   public function getPassword() {
     return $this->_password;
+  }
+  
+  /**
+   * This gets the api_key to generate the login correctly.
+   * @return string
+   *   - The string for the UUID of the api_key.
+   */
+  public function getApiKey() {
+    return $this->_api_key;
+  }
+  
+  /**
+   * This gets the api_secret to generate the login correctly.
+   * @return string
+   *   - The string for the hashed api_secret.
+   */
+  public function getApiSecret() {
+    return $this->_api_secret;
   }
   
   /**
@@ -249,5 +262,37 @@ class Authentication {
       return $_COOKIE['Butr|'.$window_name];
     }
     return '';
+  }
+  
+  /**
+   * This sets all the parameters for the authentication in one shot.
+   * @param string $nonce
+   *   - The UUID for the nonce for the authentication block.
+   * @param string $authentication_method
+   *   - The authentication_method for the authentication block.
+   * @param string $username
+   *   - The username for the authentication block.
+   * @param string $password
+   *   - The hashed password for the authentication block.
+   */
+  public function setAll($nonce, $authentication_method, $username, $password) {
+    $this->setNonce($nonce);
+    $this->setAuthenticationMethod($authentication_method);
+    $this->setUsername($username);
+    $this->setPassword($password);
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_nonce = '';
+    $this->_api_key = API_KEY;
+    $this->_api_secret = API_SECRET;
+    $this->_authentication_method = '';
+    $this->_username = '';
+    $this->_password = '';
+    $this->_session_token = '';
   }
 }

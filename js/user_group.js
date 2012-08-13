@@ -141,9 +141,11 @@ function processUserGroupAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.user_group_add_form.submit.disabled = true;
   
   if (groupName === undefined || groupName === null || groupName === '') {
@@ -158,7 +160,7 @@ function processUserGroupAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.user_group_add_form.submit.disabled = false;
     return false;
   }
@@ -253,9 +255,11 @@ function processUserGroupModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.user_group_modify_form.submit.disabled = true;
   
   if (groupName === undefined || groupName === null || groupName === '') {
@@ -270,7 +274,7 @@ function processUserGroupModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.user_group_modify_form.submit.disabled = false;
     return false;
   }
@@ -401,7 +405,7 @@ function handleUserGroupAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.user_group_add_form.submit.disabled = false;
@@ -452,7 +456,7 @@ function handleUserGroupModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.user_group_modify_form.submit.disabled = false;

@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddDockTab class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddDockTabTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_dock_item_uuid;
@@ -176,7 +176,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
     
     $this->_testClass->resetAll();
-    $this->_testClass->setSecurityClentTypeUuid(200);
+    $this->_testClass->setSecurityClientTypeUuid(200);
     $this->assertEquals('', $this->_testClass->getSecurityClientTypeUuid());
   }
   

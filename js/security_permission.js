@@ -139,9 +139,11 @@ function processSecurityPermissionAddForm() {
   var magic = document.security_permission_add_form.magic.value;
   var importance = document.security_permission_add_form.importance.value;
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.security_permission_add_form.submit.disabled = true;
   
   if (moduleUuid === undefined || moduleUuid === null || moduleUuid === '') {
@@ -162,7 +164,7 @@ function processSecurityPermissionAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.security_permission_add_form.submit.disabled = false;
     return false;
   }
@@ -252,9 +254,11 @@ function processSecurityPermissionModifyForm() {
   var magic = document.security_permission_modify_form.magic.value;
   var importance = document.security_permission_modify_form.importance.value;
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.security_permission_modify_form.submit.disabled = true;
   
   if (moduleUuid === undefined || moduleUuid === null || moduleUuid === '') {
@@ -275,7 +279,7 @@ function processSecurityPermissionModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.security_permission_modify_form.submit.disabled = false;
     return false;
   }
@@ -399,7 +403,7 @@ function handleSecurityPermissionAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.security_permission_add_form.submit.disabled = false;
@@ -446,7 +450,7 @@ function handleSecurityPermissionModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.security_permission_modify_form.submit.disabled = false;

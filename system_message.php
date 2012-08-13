@@ -80,8 +80,8 @@ if ($action_mode === 'add') {
   if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
     for($i = 0; $i < sizeof($json_object->list_modules->items); $i++) {
       $module_option_list[] = "<option value=\""
-        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5)
+        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
         . "</option>\n";
     }
   }
@@ -128,8 +128,8 @@ if ($action_mode === 'add') {
   if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
     for($i = 0; $i < sizeof($json_object->list_modules->items); $i++) {
       $module_option_list[] = "<option value=\""
-        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5)
+        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
         . "</option>\n";
     }
   }
@@ -156,11 +156,11 @@ if ($action_mode === 'add') {
     $message['is_actve'] = (isset($json_object->fetch_message->is_active)) ? $json_object->fetch_message->is_active : '';
   
     // Escape output
-    $message['uuid'] = htmlspecialchars($message['uuid'], ENT_COMPAT | ENT_HTML5);
-    $message['module_uuid'] = htmlspecialchars($message['module_uuid'], ENT_COMPAT | ENT_HTML5);
-    $message['message_name'] = htmlspecialchars($message['message_name'], ENT_COMPAT | ENT_HTML5);
-    $message['magic'] = htmlspecialchars($message['magic'], ENT_COMPAT | ENT_HTML5);
-    $message['description'] = htmlspecialchars($message['description'], ENT_NOQUOTES | ENT_HTML5);  
+    $message['uuid'] = htmlspecialchars($message['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $message['module_uuid'] = htmlspecialchars($message['module_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $message['message_name'] = htmlspecialchars($message['message_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $message['magic'] = htmlspecialchars($message['magic'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $message['description'] = htmlspecialchars($message['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');  
   }
   
   unset($json_message);
@@ -271,8 +271,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_messages->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_messages->items[$i]->message_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistorySystemMessageFetch('<?php echo htmlspecialchars($json_object->list_messages->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_messages->items[$i]->message_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistorySystemMessageFetch('<?php echo htmlspecialchars($json_object->list_messages->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

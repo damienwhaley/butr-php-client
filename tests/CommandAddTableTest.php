@@ -27,7 +27,7 @@ require_once($basedir . 'includes/autoload.inc');
  * This tests the CommandAddTable class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddTableTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_table_name;

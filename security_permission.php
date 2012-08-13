@@ -80,8 +80,8 @@ if ($action_mode === 'add') {
   if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
     for($i = 0; $i < sizeof($json_object->list_modules->items); $i++) {
       $module_option_list[] = "<option value=\""
-        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5)
+        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
         . "</option>\n";
     }
   }
@@ -128,8 +128,8 @@ if ($action_mode === 'add') {
   if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
     for($i = 0; $i < sizeof($json_object->list_modules->items); $i++) {
       $module_option_list[] = "<option value=\""
-        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5)
+        . htmlspecialchars($json_object->list_modules->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+        . "\">" . htmlspecialchars($json_object->list_modules->items[$i]->module_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
         . "</option>\n";
     }
   }
@@ -156,12 +156,12 @@ if ($action_mode === 'add') {
     $permission['importance'] = (isset($json_object->fetch_permission->importance)) ? $json_object->fetch_permission->importance : '';
 
     // Escpe output
-    $permission['uuid'] = htmlspecialchars($permission['uuid'], ENT_COMPAT | ENT_HTML5);
-    $permission['module_uuid'] = htmlspecialchars($permission['module_uuid'], ENT_COMPAT | ENT_HTML5);
-    $permission['permission_name'] = htmlspecialchars($permission['permission_name'], ENT_COMPAT | ENT_HTML5);
-    $permission['description'] = htmlspecialchars($permission['description'], ENT_NOQUOTES | ENT_HTML5);
-    $permission['magic'] = htmlspecialchars($permission['magic'], ENT_COMPAT | ENT_HTML5);
-    $permission['importance'] = htmlspecialchars($permission['importance'], ENT_COMPAT | ENT_HTML5);
+    $permission['uuid'] = htmlspecialchars($permission['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $permission['module_uuid'] = htmlspecialchars($permission['module_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $permission['permission_name'] = htmlspecialchars($permission['permission_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $permission['description'] = htmlspecialchars($permission['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $permission['magic'] = htmlspecialchars($permission['magic'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $permission['importance'] = htmlspecialchars($permission['importance'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   unset($json_permission);
   unset($json_object);
@@ -272,9 +272,9 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_permissions->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_permissions->items[$i]->module_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_permissions->items[$i]->permission_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistorySecurityPermissionFetch('<?php echo htmlspecialchars($json_object->list_permissions->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_permissions->items[$i]->module_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_permissions->items[$i]->permission_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistorySecurityPermissionFetch('<?php echo htmlspecialchars($json_object->list_permissions->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

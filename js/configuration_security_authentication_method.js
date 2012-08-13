@@ -146,9 +146,11 @@ function processConfigurationSecurityAuthenticationMethodAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_security_authentication_method_add_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -169,7 +171,7 @@ function processConfigurationSecurityAuthenticationMethodAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_security_authentication_method_add_form.submit.disabled = false;
     return false;
   }
@@ -268,9 +270,11 @@ function processConfigurationSecurityAuthenticationMethodModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_security_authentication_method_modify_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -291,7 +295,7 @@ function processConfigurationSecurityAuthenticationMethodModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_security_authentication_method_modify_form.submit.disabled = false;
     return false;
   }
@@ -424,7 +428,7 @@ function handleConfigurationSecurityAuthenticationMethodAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_security_authentication_method_add_form.submit.disabled = false;
@@ -475,7 +479,7 @@ function handleConfigurationSecurityAuthenticationMethodModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_security_authentication_method_modify_form.submit.disabled = false;

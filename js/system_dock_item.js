@@ -182,9 +182,11 @@ function processSystemDockItemAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.system_dock_item_add_form.submit.disabled = true;
   
   if (dockUuid === undefined || dockUuid === null || dockUuid === '') {
@@ -217,7 +219,7 @@ function processSystemDockItemAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.system_dock_item_add_form.submit.disabled = false;
     return false;
   }
@@ -322,9 +324,11 @@ function processSystemDockItemModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.system_dock_item_modify_form.submit.disabled = true;
   
   if (uuid === undefined || uuid === null || uuid === '') {
@@ -360,7 +364,7 @@ function processSystemDockItemModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.system_dock_item_modify_form.submit.disabled = false;
     return false;
   }
@@ -489,7 +493,7 @@ function handleSystemDockItemAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.system_dock_item_add_form.submit.disabled = false;
@@ -536,7 +540,7 @@ function handleSystemDockItemModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.system_dock_item_modify_form.submit.disabled = false;

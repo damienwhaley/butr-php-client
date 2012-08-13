@@ -40,7 +40,7 @@ function setHistoryUserUserAdd() {
   }
   
   document.title = historyState.pageTitle;
-  $('#title').html(butr_i18n_UserAdministration+' - '+butr_i18n_AddUser);
+  $('#page-title').html(butr_i18n_UserAdministration+' - '+butr_i18n_AddUser);
   document.butr_state_form.content.value = content;
   History.pushState(historyState, historyState.pageTitle, content);
 }
@@ -69,7 +69,7 @@ function setHistoryUserUserFetch(uuid) {
   }
   
   document.title = historyState.pageTitle;
-  $('#title').html(butr_i18n_UserAdministration+' - '+butr_i18n_ModifyUser);
+  $('#page-title').html(butr_i18n_UserAdministration+' - '+butr_i18n_ModifyUser);
   document.butr_state_form.content.value = content;
   History.pushState(historyState, historyState.pageTitle, content);
 }
@@ -120,7 +120,7 @@ function setHistoryUserUserList(offset, size, ordinal, direction) {
 	  }
 	  
 	  document.title = historyState.pageTitle;
-	  $('#title').html(butr_i18n_UserAdministration + ' - ' + butr_i18n_ListUsers);
+	  $('#page-title').html(butr_i18n_UserAdministration + ' - ' + butr_i18n_ListUsers);
 	  document.butr_state_form.content.value = content;
 	  History.pushState(historyState, historyState.pageTitle, content);
 	}
@@ -139,9 +139,11 @@ function processUserUserAddForm() {
   var preferredGlobalLanguageUuid = document.user_user_add_form.preferred_global_language_uuid.value;
   var username = document.user_user_add_form.username.value;
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.user_user_add_form.submit.disabled = true;
   
   if (globalTitleUuid === undefined || globalTitleUuid === null || globalTitleUuid === '') {
@@ -162,7 +164,7 @@ function processUserUserAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.user_user_add_form.submit.disabled = false;
     return false;
   }
@@ -254,9 +256,11 @@ function processUserUserModifyForm() {
   var preferredGlobalLanguageUuid = document.user_user_modify_form.preferred_global_language_uuid.value;
   var username = document.user_user_modify_form.username.value;
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.user_user_modify_form.submit.disabled = true;
   
   if (globalTitleUuid === undefined || globalTitleUuid === null || globalTitleUuid === '') {
@@ -277,7 +281,7 @@ function processUserUserModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.user_user_modify_form.submit.disabled = false;
     return false;
   }
@@ -401,7 +405,7 @@ function handleUserUserAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.user_user_add_form.submit.disabled = false;
@@ -448,7 +452,7 @@ function handleUserUserModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.user_user_modify_form.submit.disabled = false;

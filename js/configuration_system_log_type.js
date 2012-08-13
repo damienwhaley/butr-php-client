@@ -143,9 +143,11 @@ function processConfigurationSystemLogTypeAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_system_log_type_add_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -166,7 +168,7 @@ function processConfigurationSystemLogTypeAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_system_log_type_add_form.submit.disabled = false;
     return false;
   }
@@ -265,9 +267,11 @@ function processConfigurationSystemLogTypeModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_system_log_type_modify_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -288,7 +292,7 @@ function processConfigurationSystemLogTypeModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_system_log_type_modify_form.submit.disabled = false;
     return false;
   }
@@ -421,7 +425,7 @@ function handleConfigurationSystemLogTypeAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_system_log_type_add_form.submit.disabled = false;
@@ -472,7 +476,7 @@ function handleConfigurationSystemLogTypeModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_system_log_type_modify_form.submit.disabled = false;

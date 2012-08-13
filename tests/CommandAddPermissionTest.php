@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddPermission class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddPermissionTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_module_uuid;

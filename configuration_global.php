@@ -131,16 +131,16 @@ if ($action_mode === 'add') {
     $global['bit_setting'] = (isset($json_object->fetch_global_configuration->bit_setting)) ? $json_object->fetch_global_configuration->bit_setting : '';
     
     // Escape output
-    $global['uuid'] = htmlspecialchars($global['uuid'], ENT_COMPAT | ENT_HTML5);
-    $global['name_label'] = htmlspecialchars($global['name_label'], ENT_COMPAT | ENT_HTML5);
-    $global['display_label'] = htmlspecialchars($global['display_label'], ENT_COMPAT | ENT_HTML5);
-    $global['description'] = htmlspecialchars($global['description'], ENT_NOQUOTES | ENT_HTML5);
-    $global['magic'] = htmlspecialchars($global['magic'], ENT_COMPAT | ENT_HTML5);
-    $global['text_setting'] = htmlspecialchars($global['text_setting'], ENT_NOQUOTES | ENT_HTML5);
-    $global['integer_setting'] = htmlspecialchars($global['integer_setting'], ENT_COMPAT | ENT_HTML5);
-    $global['float_setting'] = htmlspecialchars($global['float_setting'], ENT_COMPAT | ENT_HTML5);
-    $global['datetime_setting'] = htmlspecialchars($global['datetime_setting'], ENT_COMPAT | ENT_HTML5);
-    $global['uuid_setting'] = htmlspecialchars($global['uudi_setting'], ENT_COMPAT | ENT_HTML5);
+    $global['uuid'] = htmlspecialchars($global['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['name_label'] = htmlspecialchars($global['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['display_label'] = htmlspecialchars($global['display_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['description'] = htmlspecialchars($global['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $global['magic'] = htmlspecialchars($global['magic'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['text_setting'] = htmlspecialchars($global['text_setting'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $global['integer_setting'] = htmlspecialchars($global['integer_setting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['float_setting'] = htmlspecialchars($global['float_setting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['datetime_setting'] = htmlspecialchars($global['datetime_setting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $global['uuid_setting'] = htmlspecialchars($global['uudi_setting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_global);
@@ -262,10 +262,10 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_global_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->magic, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->effective_setting, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationGlobalFetch('<?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->magic, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->effective_setting, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationGlobalFetch('<?php echo htmlspecialchars($json_object->list_global_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

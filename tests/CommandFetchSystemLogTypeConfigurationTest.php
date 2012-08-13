@@ -28,13 +28,13 @@ require_once($basedir . '/includes/uuid.inc');
  * This tests the CommandFetchSystemLogType class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandFetchSystemLogTypeConfigurationTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;
   
   public function setUp() {
-    $this->_testClass = new Butr\CommandFetchSystemLogType();
+    $this->_testClass = new Butr\CommandFetchSystemLogTypeConfiguration();
     $this->_uuid = Butr\uuidSecure();
   }
   
@@ -58,7 +58,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   }
   
   public function testCommandName() {
-    $this->assertEquals('fetch_system_log_type', $this->_testClass->getCommandName());
+    $this->assertEquals('fetch_system_log_type_configuration', $this->_testClass->getCommandName());
   }
   
   public function tearDown() {

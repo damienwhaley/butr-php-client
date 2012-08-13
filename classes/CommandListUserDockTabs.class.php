@@ -29,10 +29,17 @@ namespace Butr;
 class CommandListUserDockTabs extends BaseCommand {
   
   /**
+   * String containing the magic for the records to be listed.
+   * @var string
+   */
+  private $_magic;
+  
+  /**
    * Default constructor.
    */
   public function __construct() {
     parent::__construct();
+    $this->resetAll();
     $this->_command_name = 'list_user_dock_tabs';
   }
   
@@ -42,6 +49,39 @@ class CommandListUserDockTabs extends BaseCommand {
    *   - String containing the command snippet.
    */
   public function generateSnippet() {
-    return '"' . $this->_command_name . '":{"client_type":"PHP"}';
+    return '"' . $this->_command_name . '":{"client_type":"PHP","magic":"'
+      . $this->_magic . '"}';
+  }
+  
+  /**
+   * Sets the magic for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @param string $magic
+   *   - The magic for the record to be added.
+   */
+  public function setMagic($magic) {
+    if (isset($magic)) {
+      $this->_magic = $magic;
+    } else {
+      $this->_magic = '';
+    }
+  }
+  
+  /**
+   * Gets the magic for the record to be added.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   * @return string
+   *   - The magic for the record to be added.
+   */
+  public function getMagic() {
+    return $this->_magic;
+  }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+    $this->_magic = '';
   }
 }

@@ -107,10 +107,10 @@ if ($action_mode === 'add') {
     $group['is_active'] = (isset($json_object->fetch_group->is_active)) ? $json_object->fetch_group->is_active : '';
     
     // Escape output
-    $group['uuid'] = htmlspecialchars($group['uuid'], ENT_COMPAT | ENT_HTML5);
-    $group['group_name'] = htmlspecialchars($group['group_name'], ENT_COMPAT | ENT_HTML5);
-    $group['display_name'] = htmlspecialchars($group['display_name'], ENT_COMPAT | ENT_HTML5);
-    $group['description'] = htmlspecialchars($group['description'], ENT_NOQUOTES | ENT_HTML5);
+    $group['uuid'] = htmlspecialchars($group['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $group['group_name'] = htmlspecialchars($group['group_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $group['display_name'] = htmlspecialchars($group['display_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $group['description'] = htmlspecialchars($group['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_group);
@@ -211,8 +211,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_groups->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_groups->items[$i]->group_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryUserGroupFetch('<?php echo htmlspecialchars($json_object->list_groups->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_groups->items[$i]->group_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryUserGroupFetch('<?php echo htmlspecialchars($json_object->list_groups->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

@@ -35,9 +35,11 @@ function processLogInForm() {
   var globalLanguage = document.log_in_form.global_language.value;
   var authenticationMethod = document.log_in_form.authentication_method.value;
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.log_in_form.submit.disabled = true;
   
   if (username === undefined || username === null || username === '') {
@@ -59,7 +61,7 @@ function processLogInForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.log_in_form.submit.disabled = false;
     return false;
   }
@@ -183,7 +185,7 @@ function handleLogInError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.log_in_form.submit.disabled = false;
@@ -204,7 +206,7 @@ function testCapabilities() {
     missing = butr_i18n_YourBrowserDoesNotHave+':'+missing;
     $('#submit').attr('disabled', 'disabled');
     $('#error_message').html(missing);
-    $('#error').show();
+    $('#error').modal('show');
   } else {
 	// Check we can communicate with server.
     processPing();
@@ -307,7 +309,7 @@ function handlePingError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.log_in_form.submit.disabled = true;

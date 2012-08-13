@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddMessage class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddMessageTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_module_uuid;

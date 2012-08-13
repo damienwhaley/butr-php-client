@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandModifyTable class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandModifyTableTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;

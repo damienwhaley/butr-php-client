@@ -111,10 +111,10 @@ if ($action_mode === 'add') {
     $globalTitle['is_active'] = (isset($json_object->fetch_global_title_configuration->is_active)) ? $json_object->fetch_global_title_configuration->is_active : '';
     
     // Escape output
-    $globalTitle['uuid'] = htmlspecialchars($globalTitle['uuid'], ENT_COMPAT | ENT_HTML5);
-    $globalTitle['name_label'] = htmlspecialchars($globalTitle['name_label'], ENT_COMPAT | ENT_HTML5);
-    $globalTitle['description'] = htmlspecialchars($globalTitle['description'], ENT_NOQUOTES | ENT_HTML5);
-    $globalTitle['weighting'] = htmlspecialchars($globalTitle['weighting'], ENT_COMPAT | ENT_HTML5);
+    $globalTitle['uuid'] = htmlspecialchars($globalTitle['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalTitle['name_label'] = htmlspecialchars($globalTitle['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalTitle['description'] = htmlspecialchars($globalTitle['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $globalTitle['weighting'] = htmlspecialchars($globalTitle['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_global_title);
@@ -217,8 +217,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_global_title_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationGlobalTitleFetch('<?php echo htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_title_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationGlobalTitleFetch('<?php echo htmlspecialchars($json_object->list_global_title_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

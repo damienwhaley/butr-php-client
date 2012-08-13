@@ -142,9 +142,11 @@ function processConfigurationGlobalTitleAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_global_title_add_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -162,7 +164,7 @@ function processConfigurationGlobalTitleAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_global_title_add_form.submit.disabled = false;
     return false;
   }
@@ -259,9 +261,11 @@ function processConfigurationGlobalTitleModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.configuration_global_title_modify_form.submit.disabled = true;
   
   if (nameLabel === undefined || nameLabel === null || nameLabel === '') {
@@ -279,7 +283,7 @@ function processConfigurationGlobalTitleModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.configuration_global_title_modify_form.submit.disabled = false;
     return false;
   }
@@ -411,7 +415,7 @@ function handleConfigurationGlobalTitleAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_global_title_add_form.submit.disabled = false;
@@ -462,7 +466,7 @@ function handleConfigurationGlobalTitleModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.configuration_global_title_modify_form.submit.disabled = false;

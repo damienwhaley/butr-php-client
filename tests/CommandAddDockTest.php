@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddDock class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddDockTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_security_client_type_uuid;

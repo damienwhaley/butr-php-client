@@ -116,13 +116,13 @@ if ($action_mode === 'add') {
     $country['display_name'] = (isset($json_object->fetch_country->display_name)) ? $json_object->fetch_country->display_name : '';
     
     // Escape output
-    $country['uuid'] = htmlspecialchars($country['uuid'], ENT_COMPAT | ENT_HTML5);
-    $country['country_name'] = htmlspecialchars($country['country_name'], ENT_COMPAT | ENT_HTML5);
-    $country['description'] = htmlspecialchars($country['description'], ENT_NOQUOTES | ENT_HTML5);
-    $country['country_code'] = htmlspecialchars($country['country_code'], ENT_COMPAT | ENT_HTML5);
-    $country['alterate_code'] = htmlspecialchars($country['alternate_code'], ENT_COMPAT | ENT_HTML5);
-    $country['weighting'] = htmlspecialchars($country['weighting'], ENT_COMPAT | ENT_HTML5);
-    $country['display_name'] = htmlspecialchars($country['display_name'], ENT_COMPAT | ENT_HTML5);
+    $country['uuid'] = htmlspecialchars($country['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $country['country_name'] = htmlspecialchars($country['country_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $country['description'] = htmlspecialchars($country['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $country['country_code'] = htmlspecialchars($country['country_code'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $country['alterate_code'] = htmlspecialchars($country['alternate_code'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $country['weighting'] = htmlspecialchars($country['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $country['display_name'] = htmlspecialchars($country['display_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_country);
@@ -231,8 +231,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_countries->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryLocationCountryFetch('<?php echo htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryLocationCountryFetch('<?php echo htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

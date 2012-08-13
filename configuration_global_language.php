@@ -83,13 +83,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_countries->items); $i++) {
       if (isset($json_object->list_countries->items[$i]->display_name)) {
         $country_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $country_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -108,7 +108,7 @@ if ($action_mode === 'add') {
       <label for="display_label" id="display_label_label"><?php echo gettext('Display Label'); ?>:</label>
       <input type="text" name="display_label" id="display_label" value=""><br>
       <label for="description" id="description_label"><?php echo gettext('Description'); ?>:</label>
-      <textarea type="text" name="description" id="description"></textarea><br>
+      <textarea name="description" id="description"></textarea><br>
       <label for="language_code" id="language_code_label"><?php echo gettext('Language Code'); ?>:</label>
       <input type="text" name="language_code" id="language_code" value=""><br>
       <label for="language_family" id="language_family_label"><?php echo gettext('Language Family'); ?>:</label>
@@ -144,13 +144,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_countries->items); $i++) {
       if (isset($json_object->list_countries->items[$i]->display_name)) {
         $country_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $country_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_countries->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_countries->items[$i]->country_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -182,13 +182,13 @@ if ($action_mode === 'add') {
     $globalLanguage['is_active'] = (isset($json_object->fetch_global_language_configuration->is_active)) ? $json_object->fetch_global_language_configuration->is_active : '';
     
     // Escape output
-    $globalLanguage['uuid'] = htmlspecialchars($globalLanguage['uuid'], ENT_COMPAT | ENT_HTML5);
-    $globalLanguage['name_label'] = htmlspecialchars($globalLanguage['name_label'], ENT_COMPAT | ENT_HTML5);
-    $globalLanguage['description'] = htmlspecialchars($globalLanguage['description'], ENT_NOQUOTES | ENT_HTML5);
-    $globalLanguage['language_code'] = htmlspecialchars($globalLanguage['language_code'], ENT_COMPAT | ENT_HTML5);
-    $globalLanguage['language_family'] = htmlspecialchars($globalLanguage['language_family'], ENT_COMPAT | ENT_HTML5);
-    $globalLanguage['country_uuid'] = htmlspecialchars($globalLanguage['country_uuid'], ENT_COMPAT | ENT_HTML5);
-    $globalLanguage['weighting'] = htmlspecialchars($globalLanguage['weighting'], ENT_COMPAT | ENT_HTML5);
+    $globalLanguage['uuid'] = htmlspecialchars($globalLanguage['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalLanguage['name_label'] = htmlspecialchars($globalLanguage['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalLanguage['description'] = htmlspecialchars($globalLanguage['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $globalLanguage['language_code'] = htmlspecialchars($globalLanguage['language_code'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalLanguage['language_family'] = htmlspecialchars($globalLanguage['language_family'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalLanguage['country_uuid'] = htmlspecialchars($globalLanguage['country_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $globalLanguage['weighting'] = htmlspecialchars($globalLanguage['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_global_language);
@@ -204,7 +204,7 @@ if ($action_mode === 'add') {
       <label for="display_label" id="display_label_label"><?php echo gettext('Display Label'); ?>:</label>
       <input type="text" name="display_label" id="display_label" value="<?php echo $globalLanguage['display_label']; ?>"><br>
       <label for="description" id="description_label"><?php echo gettext('Description'); ?>:</label>
-      <textarea type="text" name="description" id="description"><?php echo $globalLanguage['description']; ?></textarea><br>
+      <textarea name="description" id="description"><?php echo $globalLanguage['description']; ?></textarea><br>
       <label for="language_code" id="language_code_label"><?php echo gettext('Language Code'); ?>:</label>
       <input type="text" name="language_code" id="language_code" value="<?php echo $globalLanguage['language_code']; ?>"><br>
       <label for="language_family" id="language_family_label"><?php echo gettext('Language Family'); ?>:</label>
@@ -304,9 +304,9 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_global_language_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->country_code, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationGlobalLanguageFetch('<?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->country_code, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationGlobalLanguageFetch('<?php echo htmlspecialchars($json_object->list_global_language_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

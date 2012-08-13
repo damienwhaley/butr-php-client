@@ -44,4 +44,11 @@ class CommandListUserDocks extends BaseCommand {
   public function generateSnippet() {
     return '"' . $this->_command_name . '":{"client_type":"PHP"}';
   }
+  
+  /**
+   * This resets all the values back to the defaults.
+   * @author Damien Whaley <damien@whalebonestudios.com>
+   */
+  public function resetAll() {
+  }
 }

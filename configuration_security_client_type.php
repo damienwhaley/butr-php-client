@@ -116,11 +116,11 @@ if ($action_mode === 'add') {
     $securityClientType['is_active'] = (isset($json_object->fetch_security_client_type_configuration->is_active)) ? $json_object->fetch_security_client_type_configuration->is_active : '';
     
     // Escape output
-    $securityClientType['uuid'] = htmlspecialchars($securityClientType['uuid'], ENT_COMPAT | ENT_HTML5);
-    $securityClientType['name_label'] = htmlspecialchars($securityClientType['name_label'], ENT_COMPAT | ENT_HTML5);
-    $securityClientType['description'] = htmlspecialchars($securityClientType['description'], ENT_NOQUOTES | ENT_HTML5);
-    $securityClientType['magic'] = htmlspecialchars($securityClientType['magic'], ENT_NOQUOTES | ENT_HTML5);
-    $securityClientType['weighting'] = htmlspecialchars($securityClientType['weighting'], ENT_COMPAT | ENT_HTML5);
+    $securityClientType['uuid'] = htmlspecialchars($securityClientType['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $securityClientType['name_label'] = htmlspecialchars($securityClientType['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $securityClientType['description'] = htmlspecialchars($securityClientType['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $securityClientType['magic'] = htmlspecialchars($securityClientType['magic'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $securityClientType['weighting'] = htmlspecialchars($securityClientType['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_security_client_type);
@@ -225,8 +225,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_security_client_type_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationSecurityClientTypeFetch('<?php echo htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationSecurityClientTypeFetch('<?php echo htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

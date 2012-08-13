@@ -28,7 +28,7 @@ require_once($basedir . 'includes/constants.inc');
  * This tests the CommandListMessages class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandListMessagesTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_direction;

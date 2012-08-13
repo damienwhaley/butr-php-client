@@ -28,7 +28,7 @@ require_once($basedir . '/includes/uuid.inc');
  * This tests the CommandRemoveDockSubitem class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandRemoveDockSubitemTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;

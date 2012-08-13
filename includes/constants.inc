@@ -47,7 +47,7 @@ define('Butr\SORT_ORDINAL_IS_ACTIVE', 'is_active');
 // Message Result
 define('Butr\MESSAGE_RESULT_OK', 'OK');
 define('Butr\MESSAGE_RESULT_WARNING', 'WARNING');
-define('Butr\MESSAGE_RESULT_ERROR', 'ERROR');
+define('BCopyOfDock.class.phputr\MESSAGE_RESULT_ERROR', 'ERROR');
 define('Butr\MESSAGE_RESULT_EXPIRED', 'EXPIRED');
 
 // Pagination Type
@@ -57,3 +57,8 @@ define('Butr\PAGINATION_TYPE_HELP', 'help');
 // List Defaults
 define('Butr\DEFAULT_LIST_SIZE', 20);
 define('Butr\LIST_SIZE_ALL', -1);
+
+// no-op for less than PHP5.4
+if (PHP_VERSION_ID < 50400) {
+  define('ENT_HTML5', 0);
+}

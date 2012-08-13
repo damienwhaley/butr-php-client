@@ -173,9 +173,11 @@ function processSystemDockAddForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.system_dock_add_form.submit.disabled = true;
   
   if (securityClientTypeUuid === undefined || securityClientTypeUuid === null || securityClientTypeUuid === '') {
@@ -199,7 +201,7 @@ function processSystemDockAddForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.system_dock_add_form.submit.disabled = false;
     return false;
   }
@@ -298,9 +300,11 @@ function processSystemDockModifyForm() {
 	isActive = 1;  
   }
   
-  $('#error').hide();
-  $('#warning').hide();
-  $('#notice').hide();
+  $('#error').modal('hide');
+  $('#warning').modal('hide');
+  $('#notice').modal('hide');
+  $('#debug').modal('hide');
+  
   document.system_dock_modify_form.submit.disabled = true;
   
   if (securityClientTypeUuid === undefined || securityClientTypeUuid === null || securityClientTypeUuid === '') {
@@ -324,7 +328,7 @@ function processSystemDockModifyForm() {
   
   if (errorMessage !== '') {
     $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').show();
+    $('#notice').modal('show');
     document.system_dock_modify_form.submit.disabled = false;
     return false;
   }
@@ -450,7 +454,7 @@ function handleSystemDockAddError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.system_dock_add_form.submit.disabled = false;
@@ -497,7 +501,7 @@ function handleSystemDockModifyError(res) {
 
   if (responseStatus !== 'OK') {
     $('#error_message').html(explanation);
-    $('#error').show();
+    $('#error').modal('show');
   }
   
   document.system_dock_modify_form.submit.disabled = false;

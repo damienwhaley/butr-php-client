@@ -81,13 +81,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_security_client_type_configurations->items); $i++) {
       if (isset($json_object->list_security_client_type_configurations->items[$i]->display_label)) {
         $security_client_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $security_client_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -110,13 +110,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_system_dock_type_configurations->items); $i++) {
       if (isset($json_object->list_system_dock_type_configurations->items[$i]->display_label)) {
         $system_dock_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $system_dock_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -139,15 +139,15 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_dock_items->items); $i++) {
       if (isset($json_object->list_dock_items->items[$i]->display_name)) {
         $dock_item_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
-          . " (" .htmlspecialchars( $json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" .htmlspecialchars( $json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       } else {
         $dock_item_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->item_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->item_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       }
     }
@@ -170,15 +170,15 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_dock_subitems); $i++) {
       if (isset($json_object->list_dock_subitems->items[$i]->display_name)) {
         $dock_subitem_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
         . "</option>\n";
       } else {
         $dock_subitem_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->dock_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->dock_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       }
     }
@@ -248,13 +248,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_security_client_type_configurations->items); $i++) {
       if (isset($json_object->list_security_client_type_configurations->items[$i]->display_label)) {
         $security_client_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $security_client_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_security_client_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -277,13 +277,13 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_system_dock_type_configurations->items); $i++) {
       if (isset($json_object->list_system_dock_type_configurations->items[$i]->display_label)) {
         $system_dock_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       } else {
         $system_dock_type_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
+          . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_system_dock_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8')
           . "</option>\n";
       }
     }
@@ -306,15 +306,15 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_dock_items->items); $i++) {
       if (isset($json_object->list_dock_items->items[$i]->display_name)) {
         $dock_item_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       } else {
         $dock_item_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->item_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_items->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_items->items[$i]->item_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_items->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       }
     }
@@ -337,15 +337,15 @@ if ($action_mode === 'add') {
     for($i = 0; $i < sizeof($json_object->list_dock_subitems->items); $i++) {
       if (isset($json_object->list_dock_subitems->items[$i]->display_name)) {
         $dock_subitem_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->display_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->display_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       } else {
         $dock_subitem_option_list[] = "<option value=\""
-          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5)
-          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->dock_name, ENT_COMPAT | ENT_HTML5)
-          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5) . ")"
+          . htmlspecialchars($json_object->list_dock_subitems->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . "\">" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->dock_name, ENT_COMPAT | ENT_HTML5, 'UTF-8')
+          . " (" . htmlspecialchars($json_object->list_dock_subitems->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8') . ")"
           . "</option>\n";
       }
     }
@@ -379,17 +379,17 @@ if ($action_mode === 'add') {
     $dockTab['is_actve'] = (isset($json_object->fetch_dock_tab->is_active)) ? $json_object->fetch_dock_tab->is_active : '';
 
     // Escape output
-    $dockTab['uuid'] = htmlspecialchars($dockTab['uuid'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['system_dock_type_uuid'] = htmlspecialchars($dockTab['system_dock_type_uuid'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['dock_item_uuid'] = htmlspecialchars($dockTab['dock_item_uuid'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['dock_subitem_uuid'] = htmlspecialchars($dockTab['dock_subitem_uuid'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['security_client_type_uuid'] = htmlspecialchars($dockTab['security_client_type_uuid'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['tab_name'] = htmlspecialchars($dockTab['tab_name'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['display_name'] = htmlspecialchars($dockTab['display_name'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['description'] = htmlspecialchars($dockTab['description'], ENT_NOQUOTES | ENT_HTML5);
-    $dockTab['weighting'] = htmlspecialchars($dockTab['weighting'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['picture_path'] = htmlspecialchars($dockTab['picture_path'], ENT_COMPAT | ENT_HTML5);
-    $dockTab['tab_action'] = htmlspecialchars($dockTab['tab_action'], ENT_COMPAT | ENT_HTML5);
+    $dockTab['uuid'] = htmlspecialchars($dockTab['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['system_dock_type_uuid'] = htmlspecialchars($dockTab['system_dock_type_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['dock_item_uuid'] = htmlspecialchars($dockTab['dock_item_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['dock_subitem_uuid'] = htmlspecialchars($dockTab['dock_subitem_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['security_client_type_uuid'] = htmlspecialchars($dockTab['security_client_type_uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['tab_name'] = htmlspecialchars($dockTab['tab_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['display_name'] = htmlspecialchars($dockTab['display_name'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['description'] = htmlspecialchars($dockTab['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $dockTab['weighting'] = htmlspecialchars($dockTab['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['picture_path'] = htmlspecialchars($dockTab['picture_path'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $dockTab['tab_action'] = htmlspecialchars($dockTab['tab_action'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
     
   unset($json_dock_tab);
@@ -528,12 +528,12 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_dock_tabs->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->dock_item_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->dock_subitem_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->system_dock_type_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->tab_name, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistorySystemDockTabFetch('<?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->dock_item_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->dock_subitem_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->system_dock_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->security_client_type_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->tab_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistorySystemDockTabFetch('<?php echo htmlspecialchars($json_object->list_dock_tabs->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

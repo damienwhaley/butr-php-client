@@ -28,7 +28,7 @@ require_once($basedir . 'includes/constants.inc');
  * This tests the CommandListRegistrations class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandListRegistrationsTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_direction;
@@ -37,7 +37,7 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
   protected $_offset;
   
   public function setUp() {
-    $this->_testClass = new Butr\CommandListRegstrations();
+    $this->_testClass = new Butr\CommandListRegistrations();
     $this->_offset = 10;
     $this->_size = Butr\LIST_SIZE_ALL;
     $this->_direction = Butr\SORT_DIRECTION_DESCENDING;

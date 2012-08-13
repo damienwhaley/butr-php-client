@@ -19,6 +19,51 @@
  */
 
 /**
+ * This actually sets the history state
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param historyState
+ *   - Object containing the histoy state.
+ */
+function setHistory(historyState) {
+  'use strict';
+  
+  var content = '';
+  
+  if (historyState === undefined || historyState === null) {
+	historyState = {};
+	historyState.pageTitle = '';
+	historyState.fragmentTitle = '';
+	historyState.pageUrl = '';
+	historyState.pageAttributes = '';
+  }
+  
+  if (historyState.pageUrl !== undefined && historyState.pageUrl !== null
+    && historyState.pageAttributes !== undefined && historyState.pageAttributes !== null) {
+    content = '?page=' + historyState.pageUrl + '&' + historyState.pageAttributes;
+  
+    // Remove trailing ampersand
+    if (content.charAt(content.length - 1) === '&') {
+      content = content.substring(0, content.length - 1);
+    }
+  }
+  
+  if (historyState.pageTitle === undefined || historyState.pageTitle === null) {
+	historyState.pageTitle = '';
+  }
+  else {
+	historyState.pageTitle = historyState.pageTitle+' | Butr | '
+	  +butrGlobalConfigurations.company_name;
+  }
+
+  document.butr_state_form.content.value = historyState.content;
+  document.butr_state_form.page_title.value = historyState.pageTitle;
+  document.butr_state_form.fragment_title.value = historyState.fragmentTitle;
+  document.title = historyState.pageTitle;
+  $('#page-title').html(historyState.fragmentTitle);
+  History.pushState(historyState, historyState.pageTitle, content);
+}
+
+/**
  * This set the history to allow back/forwards buttons. This is for the
  * country administration page.
  * @author Damien Whaley <damien@whalebonestudios.com>
@@ -107,23 +152,13 @@ function setHistoryConfigurationGlobalLanguage() {
 function setHistoryUserUser() {
   'use strict';
   
-  var content = '';
   var historyState = {};
   historyState.pageUrl = 'user_user.php';
   historyState.pageAttributes = '';
-  historyState.pageTitle = butrGlobalConfigurations.company_name + ' | Butr | '+butr_i18n_UserAdministration;
+  historyState.pageTitle = butr_i18n_UserAdministration;
+  historyState.fragmentTitle = butr_i18n_UserAdministration;
   
-  content = '?page=' + historyState.pageUrl + '&' + historyState.pageAttributes;
-
-  // Remove trailing ampersand
-  if (content.charAt(content.length - 1) === '&') {
-	  content = content.substring(0, content.length - 1);
-  }
-  
-  document.title = historyState.pageTitle;
-  $('#title').html(butr_i18n_UserAdministration);
-  document.butr_state_form.content.value = content;
-  History.pushState(historyState, historyState.pageTitle, content);
+  setHistory(historyState);
 }
 
 /**

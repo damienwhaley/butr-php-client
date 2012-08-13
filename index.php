@@ -27,34 +27,6 @@ $butr_authentication = new Butr\Authentication();
 $butr_authentication->setSessionToken('');
 $butr_authentication->setNonce(Butr\uuidSecure());
 
-// Grab global language configuration settings
-$butr_command = new Butr\CommandListGlobalLanguageConfigurations();
-$butr_command->setAll(0, -1, Butr\SORT_DIRECTION_ASCENDING, Butr\SORT_ORDINAL_DEFAULT);
-$butr_command->setAuthenticationSnippet($butr_authentication->generateSnippet());
-$butr_command->prepareCommand();
-$json_global_language_configurations = $butr_command->sendCommand();
-$json_object = json_decode($json_global_language_configurations, false);
-$json_error = json_last_error();
-
-$language_option_list = array();
-if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
-  for($i = 0; $i < sizeof($json_object->list_global_language_configurations->items); $i++) {
-    if (isset($json_object->list_global_language_configurations->items[$i]->display_name)) {
-      $language_option_list[] = "<option value=\"" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_code, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->display_label, ENT_COMPAT | ENT_HTML5)
-        . "</option>\n";
-    }
-    else {
-      $language_option_list[] = "<option value=\"" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->language_code, ENT_COMPAT | ENT_HTML5)
-        . "\">" . htmlspecialchars($json_object->list_global_language_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5)
-        . "</option>\n";
-    }
-  }
-}
-unset($json_global_language_configurations);
-unset($json_object);
-unset($butr_command);
-
 // Fetch system branding
 $butr_authentication->setNonce(Butr\uuidSecure());
 $butr_command = new Butr\CommandFetchSystemBranding();
@@ -67,22 +39,24 @@ $json_error = json_last_error();
 if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   $system_version = (isset($json_object->fetch_system_branding->system_version)) ? $json_object->fetch_system_branding->system_version : '';
   $company_name = (isset($json_object->fetch_system_branding->company_name)) ? $json_object->fetch_system_branding->company_name : gettext('Log in');
+  $company_name_title = (isset($json_object->fetch_system_branding->company_name)) ? $json_object->fetch_system_branding->company_name : gettext('Log in');
   $default_language = (isset($json_object->fetch_system_branding->default_language)) ? $json_object->fetch_system_branding->default_language : '';
 
   // Escape output
-  $system_version = htmlspecialchars($system_version, ENT_COMPAT | ENT_HTML5);
-  $company_name = htmlspecialchars($company_name, ENT_COMPAT | ENT_HTML5);
-  $default_language = htmlspecialchars($default_language, ENT_COMPAT | ENT_HTML5);
+  $system_version = htmlspecialchars($system_version, ENT_COMPAT | ENT_HTML5, 'UTF-8');
+  $company_name = htmlspecialchars($company_name, ENT_COMPAT | ENT_HTML5, 'UTF-8');
+  $default_language = htmlspecialchars($default_language, ENT_COMPAT | ENT_HTML5, 'UTF-8');
 }
 if ($company_name == '') {
   $company_name = gettext('Log In');
+  $company_name_title = '';
 }
 
 // Instantiate page class for templated presentation.
 $butr_page = new Butr\Page();
 
 // Generate the top part of the page including buffering output.
-$butr_page->generateHtmlTop($company_name, array('index.js'), array('index.css'));
+$butr_page->generateHtmlTop($company_name, array('index.js'), null);
 ?>
 <noscript>
 <?php
@@ -90,34 +64,47 @@ echo gettext('Butr requires Javascript. Please enable it, or download a better b
 echo "\n";
 ?>
 </noscript>
-<div id="log_in_box">
-  <fieldset form="log_in_form" name="log_in_fieldset" id="log_in_fieldset">
-    <legend><?php echo gettext('Log In'); ?></legend>
-    <form name="log_in_form" method="post" onsubmit="javascript:return processLogInForm();">
-      <label for="username" id="username_label"><?php echo gettext('Username'); ?>:</label>
-      <input type="text" name="username" id="username" autofocus="autofocus" placeholder="<?php echo gettext('Username'); ?>"><br>
-      <label for="password" id="password_label"><?php echo gettext('Password'); ?>:</label>
-      <input type="password" name="password" id="password" placeholder="<?php echo gettext('Password'); ?>"><br>
-      <label for="global_language" id="global_language_label"><?php echo gettext('Language'); ?>:</label>
-      <select name="global_language">
-        <option value=""><?php echo gettext('Default'); ?></option>
-<?php echo implode($language_option_list, "\n") ?>
-      </select><br>
-      <label for="submit" id="submit_label">&nbsp;</label>
-      <button type="submit" name="submit" id="submit" style="disabled: disabled;"><?php echo gettext('Log In'); ?></button><br>
-      <input type="hidden" name="nonce" value="<?php echo Butr\uuidSecure(); ?>">
-      <input type="hidden" name="authentication_method" value="local">
-      <div id="system_version"><?php echo gettext('Version')?>:&nbsp;<?php echo $system_version; ?></div>
-    </form>
-  </fieldset>
-</div><!-- /#log_in_box -->
-<form name="log_in_done" action="butr.php" method="post">
-  <input type="hidden" name="token" value="">
-  <input type="hidden" name="window" value="<?php echo Butr\uuidSecure(); ?>">
-</form>
+<div class="container-fluid">
+	<div id="login">
+			<h1><?php echo $company_name_title; ?>&nbsp;<?php echo gettext('Butr Log In'); ?></h1>
+			<div class="well">
+				<form name="log_in_form" action="#" method="post" accept-charset="utf-8" onsubmit="javascript:return processLogInForm();">
+				  <input type="hidden" name="nonce" value="<?php echo Butr\uuidSecure(); ?>">
+          <input type="hidden" name="authentication_method" value="local">
+          <input type="hidden" name="global_language" value="">
+					<div class="row-fluid">
+						<div class="control-group span12">
+							<label for="username" id="username_label"><?php echo gettext('Username'); ?></label>
+							<input type="text" class="span12" id="username" name="username" value="" autofocus="autofocus" placeholder="<?php echo gettext('Username'); ?>">
+						</div><!-- end .control-group -->
+					</div><!-- end .row-fluid -->
+					<div class="row-fluid">
+						<div class="control-group span12">
+							<label for="password" id="password_label"><?php echo gettext('Password'); ?></label>
+							<input type="password" class="span12" id="password" name="password" value="" placeholder="<?php echo gettext('Password'); ?>">
+						</div><!-- end .control-group -->
+					</div><!-- end .row-fluid -->
+					<div class="row-fluid">
+						<div class="control-group span12">
+							<button type="submit" class="btn btn-primary disabled" style="disabled: disabled;"><?php echo gettext('Log In'); ?></button>
+						</div><!-- end .control-group -->
+					</div><!-- end .row-fluid -->
+					<div class="clearfix"></div>
+				</form>
+				<form name="log_in_done" action="butr.php" method="post">
+          <input type="hidden" name="token" value="">
+          <input type="hidden" name="window" value="<?php echo Butr\uuidSecure(); ?>">
+        </form>
+			</div><!-- end .well -->
+			<p class="alignright help-text"><?php echo gettext('Version')?>:&nbsp;<?php echo $system_version; ?></p>
+		</div><!-- end #login -->
+</div><!-- end .container-fluid -->
 <script type="text/javascript">
-  window.name = '';
-  testCapabilities();
+  $(document).ready(function () {
+    'use strict';
+    window.name = '';
+    testCapabilities();
+  }
 </script>
 <?php 
 // Generate bottom part of the page including flushing the buffer.

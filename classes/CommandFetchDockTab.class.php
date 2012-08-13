@@ -29,12 +29,6 @@ namespace Butr;
 class CommandFetchDockTab extends BaseCommandFetch {
   
   /**
-   * String containing the uuid for the record to be fetched.
-   * @var string
-   */
-  private $_uuid;
-  
-  /**
    * Default constructor.
    */
   public function __construct() {

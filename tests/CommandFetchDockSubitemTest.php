@@ -28,7 +28,7 @@ require_once($basedir . '/includes/uuid.inc');
  * This tests the CommandFetchDockSubitem class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandFetchDockSubitemTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_uuid;

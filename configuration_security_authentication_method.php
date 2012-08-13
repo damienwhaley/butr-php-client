@@ -114,12 +114,12 @@ if ($action_mode === 'add') {
     $securityAuthenticationMethod['is_active'] = (isset($json_object->fetch_security_authentication_method_configuration->is_active)) ? $json_object->fetch_security_authentication_method_configuration->is_active : '';
     
     // Escape output
-    $securityAuthenticationMethod['uuid'] = htmlspecialchars($securityAuthenticationMethod['uuid'], ENT_COMPAT | ENT_HTML5);
-    $securityAuthenticationMethod['name_label'] = htmlspecialchars($securityAuthenticationMethod['name_label'], ENT_COMPAT | ENT_HTML5);
-    $securityAuthenticationMethod['display_label'] = htmlspecialchars($securityAuthenticationMethod['display_label'], ENT_COMPAT | ENT_HTML5);
-    $securityAuthenticationMethod['description'] = htmlspecialchars($securityAuthenticationMethod['description'], ENT_NOQUOTES | ENT_HTML5);
-    $securityAuthenticationMethod['magic'] = htmlspecialchars($securityAuthenticationMethod['magic'], ENT_NOQUOTES | ENT_HTML5);
-    $securityAuthenticationMethod['weighting'] = htmlspecialchars($securityAuthenticationMethod['weighting'], ENT_COMPAT | ENT_HTML5);
+    $securityAuthenticationMethod['uuid'] = htmlspecialchars($securityAuthenticationMethod['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $securityAuthenticationMethod['name_label'] = htmlspecialchars($securityAuthenticationMethod['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $securityAuthenticationMethod['display_label'] = htmlspecialchars($securityAuthenticationMethod['display_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $securityAuthenticationMethod['description'] = htmlspecialchars($securityAuthenticationMethod['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $securityAuthenticationMethod['magic'] = htmlspecialchars($securityAuthenticationMethod['magic'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $securityAuthenticationMethod['weighting'] = htmlspecialchars($securityAuthenticationMethod['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_security_authentication_method);
@@ -224,8 +224,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_security_authentication_method_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_security_authentication_method_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationSecurityAuthenticationMethodFetch('<?php echo htmlspecialchars($json_object->list_security_authentication_method_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_security_authentication_method_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationSecurityAuthenticationMethodFetch('<?php echo htmlspecialchars($json_object->list_security_authentication_method_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }

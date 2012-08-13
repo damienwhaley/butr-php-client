@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddGlobalLanguageConfiguration class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddglobalLanguageConfigurationTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_name_label;

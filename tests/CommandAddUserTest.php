@@ -28,7 +28,7 @@ require_once($basedir . 'includes/uuid.inc');
  * This tests the CommandAddUser class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class SelectEqualsTest extends PHPUnit_Framework_TestCase
+class CommandAddUserTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
   protected $_global_title_uuid;

@@ -116,11 +116,11 @@ if ($action_mode === 'add') {
     $systemLogType['is_active'] = (isset($json_object->fetch_system_log_type_configuration->is_active)) ? $json_object->fetch_system_log_type_configuration->is_active : '';
     
     // Escape output
-    $systemLogType['uuid'] = htmlspecialchars($systemLogType['uuid'], ENT_COMPAT | ENT_HTML5);
-    $systemLogType['name_label'] = htmlspecialchars($systemLogType['name_label'], ENT_COMPAT | ENT_HTML5);
-    $systemLogType['description'] = htmlspecialchars($systemLogType['description'], ENT_NOQUOTES | ENT_HTML5);
-    $systemLogType['magic'] = htmlspecialchars($systemLogType['magic'], ENT_NOQUOTES | ENT_HTML5);
-    $systemLogType['weighting'] = htmlspecialchars($systemLogType['weighting'], ENT_COMPAT | ENT_HTML5);
+    $systemLogType['uuid'] = htmlspecialchars($systemLogType['uuid'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $systemLogType['name_label'] = htmlspecialchars($systemLogType['name_label'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+    $systemLogType['description'] = htmlspecialchars($systemLogType['description'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $systemLogType['magic'] = htmlspecialchars($systemLogType['magic'], ENT_NOQUOTES | ENT_HTML5, 'UTF-8');
+    $systemLogType['weighting'] = htmlspecialchars($systemLogType['weighting'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
   }
   
   unset($json_system_log_type);
@@ -225,8 +225,8 @@ if ($json_error === JSON_ERROR_NONE && $json_object->result->status === 'OK') {
   for($i = 0; $i < sizeof($json_object->list_system_log_type_configurations->items); $i++) {
 ?>
     <tr class="<?php echo ($alternate = !$alternate) ? 'odd' : 'even'; ?>">
-      <td><?php echo htmlspecialchars($json_object->list_system_log_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5); ?></td>
-      <td><button onclick="javascript:setHistoryConfigurationSystemLogTypeFetch('<?php echo htmlspecialchars($json_object->list_system_log_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5); ?>');"><?php echo gettext('Modify'); ?></button></td>
+      <td><?php echo htmlspecialchars($json_object->list_system_log_type_configurations->items[$i]->name_label, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?></td>
+      <td><button onclick="javascript:setHistoryConfigurationSystemLogTypeFetch('<?php echo htmlspecialchars($json_object->list_system_log_type_configurations->items[$i]->uuid, ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>');"><?php echo gettext('Modify'); ?></button></td>
     </tr>
 <?php
   }
