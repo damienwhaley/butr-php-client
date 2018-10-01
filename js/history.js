@@ -35,16 +35,40 @@ function setHistory(historyState) {
 	historyState.fragmentTitle = '';
 	historyState.pageUrl = '';
 	historyState.pageAttributes = '';
+	historyState.pageWells = '';
+  }
+  
+  if (historyState.language === undefined || historyState.language === null || historyState.language === '') {
+	historyState.language = 'en-AU';
+	if (butrSession !== undefined && butrSession !== null) {
+	  if (butrSession.language !== undefined && butrSession !== null && butrSession.language !== '') {
+	    historyState.language = butrSession.language;
+	  }
+    }; 
   }
   
   if (historyState.pageUrl !== undefined && historyState.pageUrl !== null
-    && historyState.pageAttributes !== undefined && historyState.pageAttributes !== null) {
-    content = '?page=' + historyState.pageUrl + '&' + historyState.pageAttributes;
+    && historyState.pageAttributes !== undefined && historyState.pageAttributes !== null
+    && historyState.pageWells !== undefined && historyState.pageWells !== null) {
+    content = escape(historyState.pageUrl) + '?' + historyState.pageAttributes;
   
     // Remove trailing ampersand
     if (content.charAt(content.length - 1) === '&') {
       content = content.substring(0, content.length - 1);
     }
+    // Remove trailing question mark
+    if (content.charAt(content.length - 1) === '?') {
+      content = content.substring(0, content.length - 1);
+    }
+    if (historyState.pageWells !== undefined && historyState.pageWells !== null && historyState.pageWells !== '') {
+      content += '&w=' + escape(historyState.pageWells);
+    }
+  }
+  if (content !== undefined && content !== null && content !== '') {
+	historyState.content = content;
+  }
+  else {
+	historyState.content = '';
   }
   
   if (historyState.pageTitle === undefined || historyState.pageTitle === null) {
@@ -54,13 +78,151 @@ function setHistory(historyState) {
 	historyState.pageTitle = historyState.pageTitle+' | Butr | '
 	  +butrGlobalConfigurations.company_name;
   }
-
+  
+  // Save the history state object
   document.butr_state_form.content.value = historyState.content;
   document.butr_state_form.page_title.value = historyState.pageTitle;
   document.butr_state_form.fragment_title.value = historyState.fragmentTitle;
+  document.butr_state_form.page_wells = historyState.pageWells;
+  document.butr_state_form.page_url = historyState.pageUrl;
+  document.butr_state_form.page_attributes = historyState.pageAttributes;
+  document.butr_state_form.language = historyState.language;
+  
   document.title = historyState.pageTitle;
   $('#page-title').html(historyState.fragmentTitle);
-  History.pushState(historyState, historyState.pageTitle, content);
+  History.pushState(historyState, historyState.pageTitle, '?page=' + content);
+}
+
+/**
+ * This is fired whenever there is a state change. This figures out the content
+ * to load and calls insertContent with the correct parameters.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param state
+ *   - Object containing the History state
+ */
+function handleHistoryStateChange(state) {
+  'use strict';
+  
+  if (state === undefined || state === null) {
+    // Nothing to do.
+    return;
+  }
+  
+  if (state.data === undefined || state.data === null) {
+    // Nothing to do.
+    return;
+  }
+  
+  var content = '';
+  
+  if (state.data.content !== undefined && state.data.content !== null && state.data.content !== '') {
+	content = state.data.content;
+  }
+  else {
+	if (state.data.pageUrl !== undefined && state.data.pageUrl !== null
+	  && state.data.pageAttributes !== undefined && state.data.pageAttributes !== null
+	  && state.data.pageWells !== undefined && state.data.pageWells !== null) {
+	  content = '?page=' + escape(state.data.pageUrl) + '&' + state.data.pageAttributes;
+	 
+	  // Remove trailing ampersand
+	  if (content.charAt(content.length - 1) === '&') {
+	    content = content.substring(0, content.length - 1);
+	  }
+	  if (state.data.pageWells !== undefined && state.data.pageWells !== null && state.data.pageWells !== '') {
+	    content += '&w=' + escape(state.data.pageWells);
+	  }
+	}
+  }
+  
+  if (content !== undefined && content !== null && content !== '') {
+	// Save the history state object
+	saveHistory(state.data.pageTitle, state.data.fragmentTitle,
+	  state.data.pageUrl, state.data.pageAttributes,
+	  state.data.pageWells, state.data.content);
+	
+	document.butr_state_form.language = state.data.language;
+	
+    insertPageFragment(content, false);
+  }
+}
+
+/**
+ * This saves the history sate object to the state form object.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param pageTitle
+ *   - String containing the page title
+ * @param fragmentTitle
+ *   - String containing the fragment title
+ * @param pageUrl
+ *   - String containing the page to load
+ * @param pageAttributes
+ *   - String containing the attributes for the page load
+ * @param pageWells
+ *   - String containing the page wells which were open
+ * @param content
+ *   - String containing the pageUrl and pageAttributes combined
+ */
+function saveHistory(pageTitle, fragmentTitle, pageUrl, pageAttributes,
+  pageWells, content) {
+  'use strict';
+  
+  if (content === undefined || content === null || content === '') {
+	var newContent = '';
+	
+	if (pageUrl !== undefined && pageUrl !== null
+	  && pageAttributes !== undefined && pageAttributes !== null
+	  && pageWells !== undefined && pageWells !== null) {
+		newContent = '?page=' + escape(pageUrl) + '&' + pageAttributes;
+	 
+	  // Remove trailing ampersand
+	  if (newContent.charAt(newContent.length - 1) === '&') {
+		newContent = newContent.substring(0, newContent.length - 1);
+	  }
+	  if (pageWells !== undefined && pageWells !== null && pageWells !== '') {
+		newContent += '&w=' + escape(pageWells);
+	  }
+	}
+	  
+	document.butr_state_form.content.value = newContent;
+  }
+  else {
+    document.butr_state_form.content.value = content;
+  }
+  
+  if (pageTitle === undefined || pageTitle === null || pageTitle === '') {
+	document.butr_state_form.page_title.value = '';
+  }
+  else {
+    document.butr_state_form.page_title.value = pageTitle;
+  }
+  
+  if (fragmentTitle === undefined || fragmentTitle === null || fragmentTitle === '') {
+	document.butr_state_form.fragment_title.value = '';
+  }
+  else {
+    document.butr_state_form.fragment_title.value = fragmentTitle;
+  }
+  
+  if (pageWells === undefined || pageWells === null || pageWells === '') {
+	document.butr_state_form.page_wells = '';
+  }
+  else {
+    document.butr_state_form.page_wells = pageWells;
+  }
+  
+  if (pageUrl === undefined || pageUrl === null || pageUrl === '') {
+	document.butr_state_form.page_url = '';
+  }
+  else {
+    document.butr_state_form.page_url = pageUrl;
+  }
+  
+  if (pageAttributes === undefined || pageAttributes === null || pageAttributes === '') {
+	document.butr_state_form.page_attributes = '';
+  }
+  else {
+    document.butr_state_form.page_attributes = pageAttributes;
+  } 
 }
 
 /**
@@ -157,6 +319,25 @@ function setHistoryUserUser() {
   historyState.pageAttributes = '';
   historyState.pageTitle = butr_i18n_UserAdministration;
   historyState.fragmentTitle = butr_i18n_UserAdministration;
+  historyState.pageWells = '';
+  
+  setHistory(historyState);
+}
+
+/**
+ * This set the user history to allow back/forwards buttons. This is for the
+ * user administration page.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ */
+function setHistoryDashboard() {
+  'use strict';
+  
+  var historyState = {};
+  historyState.pageUrl = 'dashboard.php';
+  historyState.pageAttributes = '';
+  historyState.pageTitle = butr_i18n_Dashboard;
+  historyState.fragmentTitle = butr_i18n_Dashboard;
+  historyState.pageWells = '';
   
   setHistory(historyState);
 }

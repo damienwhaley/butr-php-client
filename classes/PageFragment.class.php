@@ -84,11 +84,8 @@ class PageFragment {
    *   - An array of strings indicating the additional javascript files to load.
    * @param array $css_includes
    *   - An array of strings indicating the additional css style files to load.
-   * @param string $language_code
-   *   - A string containing the language code for the page.
    */
-  public function generateHtmlTop($js_includes = NULL, $css_includes = NULL,
-    $language_code = '') {
+  public function generateHtmlTop($js_includes = null, $css_includes = null) {
     // Add CSS files
     if (is_array($css_includes)) {
       $this->addCss($css_includes);
@@ -99,14 +96,9 @@ class PageFragment {
       $this->addJs($js_includes);
     }
     
-    // Set the language for the page
-    if ($language_code !== '') {
-      $this->setLanguageCode($language_code);
-    } else {
-      $this->setLanguageCode(DEFAULT_LANGUAGE);
-    }
-    
-    $js_output = array("    <script type=\"text/javascript\" src=\"js/script.js\"></script>\n");
+    $js_output = array("      <script type=\"text/javascript\" src=\"js/script.js\"></script>\n",
+      "      <script type=\"text/javascript\" src=\"js/helpers.js\"></script>\n",
+      "      <script type=\"text/javascript\" src=\"js/history.js\"></script>\n");
     
     if (sizeof($this->_js) > 0) {
       $js_output = array_merge($js_output, $this->_js);
@@ -118,45 +110,73 @@ class PageFragment {
       $css_output = array_merge($css_output, $this->_css);
     }
     
+    $output = array("      <form name=\"fragment_state_form\" action=\"#\" method=\"post\">\n",
+      "        <input type=\"hidden\" name=\"uuid\" value=\"\">\n",
+      "      </form>\n",
+      "      <div class=\"container-fluid\">\n",
+			"        <div id=\"content\" class=\"row-fluid\">\n");
+    
+    // Begin output buffering.
+    ob_start();
+
+    echo implode('', $js_output);
+    echo implode('', $css_output);
+    echo implode('', $output);
+  }
+  
+  /**
+   * This generates the top part of the page for every screen in the system.
+   * @param string $language_code
+   *   - A string containing the language code for the page.
+   */
+  public function generateHtmlMiddle($language_code = '') {
+      
+    // Set the language for the page
+    if ($language_code !== '') {
+      $this->setLanguageCode($language_code);
+    } else {
+      $this->setLanguageCode(DEFAULT_LANGUAGE);
+    }
+  
     // i18n Settings
     putenv('LANG='.str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
     setlocale(LC_ALL, str_replace('-', '_', $this->getLanguageCode()).'.UTF-8');
     $domain = 'messages';
     bindtextdomain($domain, realpath($_SERVER["DOCUMENT_ROOT"]) . '/locale');
     textdomain($domain);
-    
-    $output = array("      <div class=\"container-fluid\">\n",
-			"        <div id=\"content\" class=\"row-fluid\">\n",
-      "          <article id=\"main\" class=\"span8\">\n",
-      "            <div class=\"alert alert-success hide\" id=\"success_alert\">\n",
-      "              <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n",
-      "              <p id=\"alert-success-text\">&nbsp;</p>\n",
-      "            </div><!-- end .alert -->\n",
-      "            <div class=\"alert alert-warning hide\" id=\"warning_alert\">\n",
-      "              <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n",
-      "              <p id=\"alert-warning-text\">&nbsp;</p>\n",
-      "            </div><!-- end .alert -->\n",
-      "            <div class=\"alert alert-info hide\" id=\"info_alert\">\n",
-      "              <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n",
-      "              <p id=\"alert-info-text\">&nbsp;</p>\n",
-      "            </div><!-- end .alert -->\n",
-      "            <div class=\"alert alert-block alert-error hide\" id=\"error_alert\">\n",
-      "              <button type=\"button\" class=\"close\" data-dismiss=\"alert\">x</button>\n",
-      "              <h4 class=\"alert-heading\" id=\"alert-error-title\">",
-      gettext('Oops!'),
-      "</h4>\n",
-      "              <p id=\"alert-error-text\">&nbsp;</p>\n",
-      "              <p>\n",
-      "                <a class=\"btn btn-danger\" href=\"javascript:void(0);\">Take this action</a>\n",
-      "                <a class=\"btn\" href=\"javascript:void(0);\">Or do this</a>\n",
-      "              </p>\n",
-      "            </div><!-- end .alert -->\n");
-    
-    // Begin output buffering.
-    ob_start();
-    
-    echo implode('', $js_output);
-    echo implode('', $css_output);
+  
+    $output = array("          <article id=\"main\" class=\"span8\">\n",
+        "            <div class=\"alert alert-success hide\" id=\"success_alert\">\n",
+        "              <button type=\"button\" class=\"close\" onclick=\"javascript:$('#success_alert').hide();\">x</button>\n",
+        "              <p id=\"success_alert_message\">&nbsp;</p>\n",
+        "            </div><!-- end .alert -->\n",
+        "            <div class=\"alert alert-warning hide\" id=\"warning_alert\">\n",
+        "              <button type=\"button\" class=\"close\" onclick=\"javascript:$('#warning_alert').hide();\">x</button>\n",
+        "              <p id=\"warning_alert_message\">&nbsp;</p>\n",
+        "            </div><!-- end .alert -->\n",
+        "            <div class=\"alert alert-info hide\" id=\"info_alert\">\n",
+        "              <button type=\"button\" class=\"close\" onclick=\"javascript:$('#info_alert').hide();\">x</button>\n",
+        "              <p id=\"info_alert_message\">&nbsp;</p>\n",
+        "            </div><!-- end .alert -->\n",
+        "            <div class=\"alert alert-block alert-error hide\" id=\"error_alert\">\n",
+        "              <button type=\"button\" class=\"close\" onclick=\"javascript:$('#error_alert').hide();\">x</button>\n",
+        "              <h4 class=\"alert-heading\" id=\"error_alert_title\">",
+        gettext('Oops!'),
+        "</h4>\n",
+        "              <p id=\"error_alert_message\">&nbsp;</p>\n",
+        "              <p>\n",
+        "                <a class=\"btn btn-danger\" href=\"",
+        "javascript:$('#error_alert').hide();\"\n",
+        "                 id=\"error_alert_button_1\">",
+        gettext('Take this action'),
+        "</a>\n",
+        "                <a class=\"btn\" href=\"javascript:$('#error_alert').hide();\"\n",
+        "                  id=\"error_alert_button_2\">",
+        gettext('Or do this'),
+        "</a>\n",
+        "              </p>\n",
+        "            </div><!-- end .alert -->\n");
+  
     echo implode('', $output);
   }
   
@@ -265,7 +285,7 @@ class PageFragment {
     if (is_array($css_includes)) {
       for ($i = 0; $i < sizeof($css_includes); $i++) {
         if (trim($css_includes[$i]) !== '') {
-          array_push($this->_css, "    <link rel=\"stylesheet\" href=\"css/"
+          array_push($this->_css, "      <link rel=\"stylesheet\" href=\"css/"
             . trim($css_includes[$i]) . "\" />\n");
         }
       }
@@ -290,7 +310,7 @@ class PageFragment {
     if (is_array($js_includes)) {
       for ($i = 0; $i < sizeof($js_includes); $i++) {
         if (trim($js_includes[$i]) !== '') {
-          array_push($this->_js, "    <script type=\"text/javascript\" src=\"js/"
+          array_push($this->_js, "      <script type=\"text/javascript\" src=\"js/"
             . trim($js_includes[$i]) . "\"></script>\n");
         }
       }

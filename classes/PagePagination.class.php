@@ -26,9 +26,9 @@ require_once($document_root . '/includes/constants.inc');
 require_once($document_root . '/includes/settings.inc');
 
 /**
-  * Pagination class.
+  * PagePagination class.
   */
-class Pagination {
+class PagePagination {
   
   /**
    * Integer holding the total number of results.
@@ -118,13 +118,14 @@ class Pagination {
     bindtextdomain($domain, realpath($_SERVER["DOCUMENT_ROOT"]) . '/locale');
     textdomain($domain);
     
-    $output = array();
+    $this->_output = array();
+    
+		$this->_output[] = "                  <ul>\n";
     
     $last_page = $this->_total_count - ($this->_total_count % $this->_size);
     
     if ($this->_offset > 0) {
-      $this->_output[] = $this->generateEntry(0, 0, false, '&lt;&lt; ' . gettext('First'));
-      $this->_output[] = $this->generateEntry($this->_offset - $this->_size, 0, false, '&lt; ' . gettext('Previous'));
+      $this->_output[] = $this->generateEntry($this->_offset - $this->_size, 0, false, gettext('Previous'));
     }
     
     $min_threshold = 0;
@@ -168,9 +169,10 @@ class Pagination {
     }
 
     if ($this->_offset < $last_page) {
-      $this->_output[] = $this->generateEntry($this->_offset + $this->_size, 0, false, gettext('Next') . ' &gt;');
-      $this->_output[] = $this->generateEntry($i, 0, false, gettext('Last') . ' &gt;&gt;');
+      $this->_output[] = $this->generateEntry($this->_offset + $this->_size, 0, false, gettext('Next'));
     }
+    
+    $this->_output[] = "                  </ul>\n";
   }
   
   /**
@@ -185,50 +187,106 @@ class Pagination {
     bindtextdomain($domain, realpath($_SERVER["DOCUMENT_ROOT"]) . '/locale');
     textdomain($domain);
     
-    echo "<div id=\"pagination-" . $this->_type . "-wrap\" class=\"pagination-" . $this->_type . "-wrap\">\n";
-    echo "<form name=\"pagination_" . $this->_type . "_form\" action=\"butr.php\" method=\"post\">\n";
+    $output_top = array();
+    
+    $output_top[] = "            <form name=\"pagination_";
+    $output_top[] = $this->_type;
+    $output_top[] = "_form\" action=\"butr.php\" method=\"post\" class=\"form-inline\">\n";
+    
+    $output_top[] = "              <div class=\"row-fluid\">\n";
+		$output_top[] = "                <div class=\"span6\">\n";
+		$output_top[] = "                  <select name=\"bulk_action\" id=\"\" class=\"left\">\n";
+		$output_top[] = "                    <option value=\"\">";
+		$output_top[] = gettext('Bulk actions');
+		$output_top[] = "</option>\n";
+		
+		// TODO Work out bulk actions and put them here...
+		$output_top[] = "                    <option value=\"1\">";
+		$output_top[] = gettext('Action 1');
+		$output_top[] = "</option>\n";
+		
+		$output_top[] = "                  </select>\n";
+		$output_top[] = "                  <a href=\"javascript:void(0);\" class=\"btn left\"";
+    $output_top[] = " style=\"margin-left:10px;\">Apply</a>\n";
+		$output_top[] = "                </div><!-- end .span6 -->\n";
+		$output_top[] = "                <div class=\"span6\">\n";
+		$output_top[] = "                  <div class=\"pagination right\">\n";
+
+    $output_bottom = array();
+    
+    $output_bottom[] = "                  </div><!-- end .pagination right -->\n";
+    $output_bottom[] = "                </div><!-- end .span6 -->\n";
+    $output_bottom[] = "              </div><!-- end .row-fluid -->\n";
+    $output_bottom[] = "              <div class=\"row-fluid\">\n";
+    $output_bottom[] = "                <div class=\"span12\">\n";
+    $output_bottom[] = "                  ";
+    $output_bottom[] = gettext('Displaying up to');
+    $output_bottom[] = "\n";
+    $output_bottom[] = "                  <select name=\"size\"";
+    
     if (count($this->_output) > 0) {
-      echo implode('&nbsp;', $this->_output);
-      echo "<br>\n";
+      $output_bottom[] = " onchange=\"javascript:sizePagination('" . $this->_type . "', this.value, " . $this->_callback . ");\">\n";
     }
-    echo gettext('Displaying up to') . " ";
-    echo "<select name=\"size\"";
-    if (count($this->_output) > 0) {
-      echo " onchange=\"javascript:sizePagination('" . $this->_type . "', this.value, " . $this->_callback . ");\"";
-    }
-    echo " class=\"pagination-" . $this->_type ."\">\n";
+    
+    $output_bottom[] = "                    <option value=\"10\"";
     if ($this->_size == 10) {
-      echo "<option value=\"10\" selected>10</option>\n";
-    } else {
-      echo "<option value=\"10\">10</option>\n";
+      $output_bottom[] = " selected";
     }
+    $output_bottom[] = ">10</option>\n";
+    
+    $output_bottom[] = "                    <option value=\"20\"";
     if ($this->_size == 20) {
-      echo "<option value=\"20\" selected>20</option>\n";
-    } else {
-      echo "<option value=\"20\">20</option>\n";
+      $output_bottom[] = " selected";
     }
+    $output_bottom[] = ">20</option>\n";
+    
+    $output_bottom[] = "                    <option value=\"50\"";
     if ($this->_size == 50) {
-      echo "<option value=\"50\" selected>50</option>\n";
-    } else {
-      echo "<option value=\"50\">50</option>\n";
+      $output_bottom[] = " selected";
     }
+    $output_bottom[] = ">50</option>\n";
+    
+    $output_bottom[] = "                    <option value=\"100\"";
     if ($this->_size == 100) {
-      echo "<option value=\"100\" selected>100</option>\n";
-    } else {
-      echo "<option value=\"100\">100</option>\n";
+      $output_bottom[] = " selected";
     }
-    if ($this->_size == -1) {
-      echo "<option value=\"-1\" selected>" . gettext('All') . "</option>\n";
-    } else {
-      echo "<option value=\"-1\">" . gettext('All') . "</option>\n";
+    $output_bottom[] = ">100</option>\n";
+    
+    $output_bottom[] = "                    <option value=\"";
+    $output_bottom[] = LIST_SIZE_ALL;
+    $output_bottom[] = "\"";
+    if ($this->_size == LIST_SIZE_ALL) {
+      $output_bottom[] = " selected";
     }
-    echo "</select>\n";
-    echo " " . gettext('results from a total of') . " " . $this->_total_count . ".\n";
-    echo "<input type=\"hidden\" name=\"offset\" value=\"" . $this->_offset . "\">\n";
-    echo "<input type=\"hidden\" name=\"direction\" value=\"" . $this->_direction . "\">\n";
-    echo "<input type=\"hidden\" name=\"ordinal\" value=\"" . $this->_ordinal . "\">\n";
-    echo "</form>\n";
-    echo "</div>\n";
+    $output_bottom[] = ">";
+    $output_bottom[] = gettext('All');
+    $output_bottom[] = "</option>\n";
+    
+    $output_bottom[] = "                  </select>\n";
+    $output_bottom[] = "                  ";
+    $output_bottom[] = gettext('results from a total of');
+    $output_bottom[] = " ";
+    $output_bottom[] = $this->_total_count;
+    $output_bottom[] = ".\n";
+    $output_bottom[] = "                </div><!-- end .span12 -->\n";
+    $output_bottom[] = "              </div><!-- end .row-fluid -->\n";
+    
+    $output_bottom[] = "               <input type=\"hidden\" name=\"offset\" value=\"";
+    $output_bottom[] = $this->_offset;
+    $output_bottom[] = "\">\n";
+    $output_bottom[] = "               <input type=\"hidden\" name=\"direction\" value=\"";
+    $output_bottom[] = $this->_direction;
+    $output_bottom[] = "\">\n";
+    $output_bottom[] = "               <input type=\"hidden\" name=\"ordinal\" value=\"";
+    $output_bottom[] = $this->_ordinal;
+    $output_bottom[] = "\">\n";  
+    $output_bottom[] = "            </form>\n";
+    
+    echo implode('', $output_top);
+    if (count($this->_output) > 0) {
+      echo implode('', $this->_output);
+    }
+    echo implode('', $output_bottom);
   }
   
   /**
@@ -246,35 +304,32 @@ class Pagination {
    *   - the contents of the entry
    */
   private function generateEntry($offset, $item, $is_active, $label) {
+    $output = array("                    <li");
     
-    if ($is_active) {
-      $output = "<div id=\"pagination-" . $this->_type . "-" . $item
-      . "\" class=\"pagination-" . $this->_type . "-active\">";
-      
-      if ($label !== '') {
-        $output .= $label;
-      } else {
-        $output .= $item;
-      }
-      
-      $output .= "</div>\n";
-    } else {
-      $output = "<div id=\"pagination-" . $this->_type . "-" . $item
-        . "\" class=\"pagination-" . $this->_type
-        . "\"><a href=\"javascript:jumpPagination('" . $this->_type
-        . "', '" . $offset . "', " . $this->_callback . ");\" class=\"pagination-link-" . $this->_type
-        . "\">";
-      
-      if ($label !== '') {
-        $output .= $label;
-      } else {
-        $output .= $item;
-      }
-      
-      $output .= "</a></div>\n";
+    if ($is_active === true) {
+      $output[] = " class=\"active\"";
     }
     
-    return $output;
+    $output[] = ">\n";
+    $output[] = "                      <a href=\"javascript:jumpPagination('";
+    $output[] = $this->_type;
+    $output[] = "', '";
+    $output[] = $offset;
+    $output[] = "', ";
+    $output[] = $this->_callback;
+    $output[] = ");\">";
+    
+    if ($label !== '') {
+      $output[] = $label;
+    } else {
+      $output[] = $item;
+    }
+    
+    $output[] = "</a>\n";
+    $output[] = "                      </a>\n";
+    $putput[] = "                    </li>\n";
+    
+    return implode('', $output);
   }
   
   /**
@@ -283,8 +338,7 @@ class Pagination {
    *   - This denotes whether it is before or after the entries.
    */
   private function generatePadding($i) {
-    return "<div class=\"pagination-padding-" . $this->_type . "\""
-     . " id=\"pagination-padding-" . $this->_type . "-" . $i . "\">...</div>";
+    return "                    <li>&#8230;</li>\n";
   }
   
   /**

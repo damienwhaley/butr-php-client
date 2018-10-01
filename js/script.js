@@ -52,10 +52,10 @@ $(document).ready(function() {
 			
 	// show hide well divs
 	$('.well .inner').hide();
-	$('.show').click(function(){
-		$(this).next('.inner').slideToggle();
-		return false;
-	});
+	//$('.show').click(function(){
+	//	$(this).next('.inner').slideToggle();
+	//	return false;
+	//});
 	
 	// accordion
 	$('.sub-nav ul').hide();

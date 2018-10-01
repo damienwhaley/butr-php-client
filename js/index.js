@@ -35,12 +35,9 @@ function processLogInForm() {
   var globalLanguage = document.log_in_form.global_language.value;
   var authenticationMethod = document.log_in_form.authentication_method.value;
   
-  $('#error').modal('hide');
-  $('#warning').modal('hide');
-  $('#notice').modal('hide');
-  $('#debug').modal('hide');
+  hideAllModalsAndAlerts();
   
-  document.log_in_form.submit.disabled = true;
+  $('#submit').prop('disabled', 'disabled');
   
   if (username === undefined || username === null || username === '') {
     errorMessage += '<br>* '+butr_i18n_Username;
@@ -60,9 +57,9 @@ function processLogInForm() {
   }
   
   if (errorMessage !== '') {
-    $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').modal('show');
-    document.log_in_form.submit.disabled = false;
+    $('#warning_alert_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
+    $('#warning_alert').show();
+    $('#submit').removeProp('disabled');
     return false;
   }
   
@@ -153,6 +150,7 @@ function processLogInResponse(res) {
  */
 function handleLogInError(res) {
   'use strict';
+  
   var responseStatus = '';
   var explanation = '';
   
@@ -184,11 +182,11 @@ function handleLogInError(res) {
   }
 
   if (responseStatus !== 'OK') {
-    $('#error_message').html(explanation);
-    $('#error').modal('show');
+    $('#error_modal_message').html(explanation);
+    $('#error_modal').modal('show');
   }
   
-  document.log_in_form.submit.disabled = false;
+  $('#submit').removeProp('disabled');
 }
 
 /**
@@ -196,7 +194,14 @@ function handleLogInError(res) {
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
 function testCapabilities() {
+  'use strict';
+  
   var missing = '';
+  
+  hideAllModalsAndAlerts();
+  
+  $('#submit').removeProp('disabled');
+  $('#submit').prop('class', 'btn btn-primary');
   
   if (!Modernizr.history) {
     missing += '<br>* '+butr_i18n_HistoryApi;
@@ -204,16 +209,22 @@ function testCapabilities() {
   
   if (missing != '') {
     missing = butr_i18n_YourBrowserDoesNotHave+':'+missing;
-    $('#submit').attr('disabled', 'disabled');
-    $('#error_message').html(missing);
-    $('#error').modal('show');
+    $('#submit').prop('disabled', 'disabled');
+    $('#error_modal_message').html(missing);
+    $('#error_modal').modal('show');
   } else {
 	// Check we can communicate with server.
     processPing();
   }
 }
 
+/**
+ * This pings the butr server to make sure that it is up.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ */
 function processPing() {
+  'use strict';
+  
   var form_body = '';
   
   form_body = 'command=ping'
@@ -262,7 +273,7 @@ function processPingResponse(res) {
   
   if (responseStatus === 'OK') {
 	// Can communicate with server so allow user to log in.
-	document.log_in_form.submit.disabled = false;
+	$('#submit').removeProp('disabled');
     return;
   }
 
@@ -277,6 +288,7 @@ function processPingResponse(res) {
  */
 function handlePingError(res) {
   'use strict';
+  
   var responseStatus = '';
   var explanation = '';
   
@@ -308,9 +320,9 @@ function handlePingError(res) {
   }
 
   if (responseStatus !== 'OK') {
-    $('#error_message').html(explanation);
-    $('#error').modal('show');
+    $('#error_modal_message').html(explanation);
+    $('#error_modal').modal('show');
   }
   
-  document.log_in_form.submit.disabled = true;
+  $('#submit').prop('disabled', 'disabled');
 }

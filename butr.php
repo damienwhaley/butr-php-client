@@ -31,18 +31,43 @@ $window_name = isset($_POST['window']) ? $_POST['window'] : '';
 $session_token = $butr_page->fetchSessionCookie($window_name);
 
 // Figure out the content to reload if the page is refreshed.
-$content = isset($_POST['content']) ? $_POST['content'] : '';
-if ($content === '' && isset($_SERVER['QUERY_STRING'])) {
-  $content = $_SERVER['QUERY_STRING'];
-  $patterns = array(0 => '/&a=/', 1 => '/^page=/');
-  $replacements = array(0 => '?a=', 1 => '');
-  $content = preg_replace($patterns, $replacements, $content);
-  $patterns = null;
-  $replacements = null;
+$state = array();
+$state['content'] = isset($_POST['content']) ? $_POST['content'] : '';
+if ($state['content'] === '' && isset($_SERVER['QUERY_STRING'])) {
+  $state['content'] = $_SERVER['QUERY_STRING'];
 }
-if ($content == '') {
-  $content = 'dashboard.php';
+if ($state['content'] == '') {
+  $state['content'] = 'dashboard.php';
 }
+else {
+  if (strlen($state['content']) >= 1) {
+    if (substr($state['content'], 0, 1) === '?') {
+      $state['content'] = substr($state['content'], 1, strlen($state['content']) - 1);
+    }
+  }
+  if (strlen($state['content']) >= 5) {
+    if (substr($state['content'], 0, 5) === 'page=') {      
+      $state['content'] = substr($state['content'], 5, strlen($state['content']) - 5);
+    }
+  }
+  if (strlen($state['content']) >= 5) {
+    if (strpos($state['content'], '.php&')) {
+      $state['content'] = str_replace('.php&', '.php?', $state['content']);
+    }
+  }
+}
+
+$state['page_title'] = isset($_POST['page_title']) ? $_POST['page_title'] : '';
+$state['fragment_title'] = isset($_POST['fragment_title']) ? $_POST['fragment_title'] : '';
+$state['page_wells'] = isset($_POST['page_wells']) ? $_POST['page_wells'] : '';
+$state['page_url'] = isset($_POST['page_url']) ? $_POST['page_url'] : '';
+$state['page_attributes'] = isset($_POST['page_attributes']) ? $_POST['page_attributes'] : '';
+
+$state['page_title'] = htmlspecialchars($state['page_title'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$state['fragment_title'] = htmlspecialchars($state['fragment_title'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$state['page_wells'] = htmlspecialchars($state['page_wells'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$state['page_url'] = htmlspecialchars($state['page_url'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
+$state['page_attributes'] = htmlspecialchars($state['page_attributes'], ENT_COMPAT | ENT_HTML5, 'UTF-8');
 
 $butr_authentication = new Butr\Authentication();
 $butr_authentication->setSessionToken($session_token);
@@ -128,8 +153,15 @@ $butr_page->generateHtmlTop($company_name, array('butr.js'), array('butr.css'), 
       var butrSession = parseSession(sessionJson);
       sessionJson = null;
     
-      // Make sure the session is active.
-      $(document).ready(checkSessionAlive);
+      $(document).ready(function () {
+        'use strict';
+        
+        $(window)._scrollable();
+        moment.lang(butrSession.language);
+
+        // Make sure session is active (long polling).
+        checkSessionAlive();
+      });
     </script>
     <div id="fixed-wrapper">
 <?php 
@@ -153,22 +185,26 @@ $butr_pageDock->generateHtmlDock();
     </section><!-- end #page -->
     <form name="butr_state_form" action="butr.php" method="post">
       <input type="hidden" name="window" value="">
-      <input type="hidden" name="content" value="">
-      <input type="hidden" name="page_title" value = "">
-      <input type="hidden" name="fragment_title" value = "">
       <input type="hidden" name="language" value="">
+      <input type="hidden" name="content" value="page=<?php echo htmlspecialchars($state['content'], ENT_COMPAT | ENT_HTML5, 'UTF-8'); ?>">
+      <input type="hidden" name="page_title" value="<?php echo $state['page_title']; ?>">
+      <input type="hidden" name="fragment_title" value="<?php echo $state['fragment_title']; ?>">
+      <input type="hidden" name="page_url" value="<?php echo $state['page_url']; ?>">
+      <input type="hidden" name="page_attributes" value="<?php echo $state['page_attributes']; ?>">
+      <input type="hidden" name="page_wells" value="<?php echo $state['page_wells']; ?>">
     </form>
     <script type="text/javascript">
       document.butr_state_form.window.value = window.name;
+      document.butr_state_form.language = butrSession.language;
 <?php 
-if ($content !== '') {
+if ($state['content'] !== '') {
 ?>
       $(document).ready(function () {
         'use strict';
-        insertContent('<?php echo $content; ?>');
+        
+        insertPageFragment('<?php echo $state['content']; ?>', true);
       });
 <?php
-  echo "      moment.lang(butrSession.language);\n";
 }
 ?>
     </script>

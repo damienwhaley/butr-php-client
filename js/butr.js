@@ -20,6 +20,7 @@
 
 /**
  * This checks to see if the current session key is valid or not.
+ * This is using long polling but will switch to socket.io soon.
  * @author Damien Whaley <damien@whelbonestudios.com>
  */
 function checkSessionAlive() {
@@ -56,7 +57,8 @@ function checkSessionAlive() {
 }
 
 /**
- * This handles the response from the session active query and displays an error or not.
+ * This handles the response from the session active query
+ * and displays an error or not.
  * @author Damien Whaley <damien@whalebonestudios.com>
  * @param res
  *   - object containing the JSON response from the Butr server.
@@ -94,7 +96,7 @@ function checkSessionAliveResponse(res) {
 }
 
 /**
- * This handles any errors and displays them in an error div.
+ * This handles any errors and displays them in an error modal.
  * @author Damien Whaley <damien@whalebonestudios.com>
  * @param res
  *   - object or string containing the response from the server.
@@ -132,24 +134,24 @@ function handleCheckSessionAliveError(res) {
   }
 
   if (responseStatus !== 'OK') {
-    $('#error_message').html(explanation);
-    $('#error').modal('show');
+    $('#error_modal_message').html(explanation);
+    $('#error_modal').modal('show');
   }
 }
 
 /**
- * This is used to populate the content div with whatever is coming
+ * This is used to populate the page div with whatever is coming
  * from the menu item.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param content
  *   - String containing the page to call to get the content from.
+ * @param alterHistory
+ *   - Boolean set to true to have an in-fragment history alter.
  */
-function insertContent(content) {
+function insertPageFragment(content, alterHistory) {
   'use strict';
   
-  $('#error').modal('hide');
-  $('#warning').modal('hide');
-  $('#notice').modal('hide');
-  $('#debug').modal('hide');
+  hideAllModalsAndAlerts();
   $('#page-title').html('&nbsp;');
   $('#page-title-buttons').html('');
   
@@ -166,6 +168,12 @@ function insertContent(content) {
   }
   
   var formBody = 'window_name='+escape(window.name)+'&language='+escape(language);
+  
+  if (alterHistory !== undefined && alterHistory !== null && alterHistory === true) {
+	if (formBody.indexOf('alter_history=1') < 0) {
+	  formBody += '&alter_history=1';
+	}
+  }
   
   // Remove trailing ampersand
   if (content.charAt(content.length - 1) === '&') {
@@ -191,23 +199,24 @@ function insertContent(content) {
     success: function(data, textStatus, jqXHR) {
       'use strict';
       
-      insertContentResponse(jqXHR.responseText);
+      insertPageFragmentResponse(jqXHR.responseText);
     },
     error: function(jqXHR, textStatus, errorThrown) {
       'use strict';
       
-      handleInsertContentError(jqXHR.responseText);
+      handleInsertPageFragmentError(jqXHR.responseText);
     }
   });
 }
 
 /**
- * This function populates the content div with whatever the content from the
+ * This function populates the page div with whatever the content from the
  * page call is.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param res
  *   - String containing the HTML snippet.
  */
-function insertContentResponse(res) {
+function insertPageFragmentResponse(res) {
   'use strict';
   
   var pageSection = $('#page');
@@ -218,12 +227,12 @@ function insertContentResponse(res) {
 }
 
 /**
- * This handles any errors and displays them in an error div.
+ * This handles any errors and displays them in an error modal.
  * @author Damien Whaley <damien@whalebonestudios.com>
  * @param res
  *   - object or string containing the response from the server.
  */
-function handleInsertContentError(res) {
+function handleInsertPageFragmentError(res) {
   'use strict';
   
   var responseStatus = '';
@@ -256,20 +265,207 @@ function handleInsertContentError(res) {
   }
 
   if (responseStatus !== 'OK') {
-    $('#error_message').html(explanation);
-    $('#error').modal('show');
+    $('#error_modal_message').html(explanation);
+    $('#error_modal').modal('show');
+  }
+}
+
+/**
+ * This is used to populate the page div with whatever is coming
+ * from the menu item.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param content
+ *   - String containing the page to call to get the content from.
+ * @param target
+ *   - String containing the id for the target well on the page
+ *     fragment.
+ * @param scroll
+ *   - Boolean to tell the response handler to scroll the page or not.
+ * @param alterHistory
+ *   - Boolean set to true to have an in-well history alter.
+ * @param requiresUuid
+ *   - Boolean set to true if you must have a uuid to insert this well.
+ */
+function insertPageFragmentWell(content, target, scroll, alterHistory, requiresUuid) {
+  'use strict';
+  
+  var pageWellInner = $('#' + target + '-inner');
+  
+  if (pageWellInner.is(':visible')) {
+	// Toggle and exit
+	pageWellInner.slideToggle();
+	return;
+  }
+  
+  if (content === undefined || content === null || content === '') {
+    // Nothing to do.
+    return;
+  }
+  
+  if (requiresUuid === undefined || requiresUuid === null || requiresUuid === '') {
+	requiresUuid = false;
+  }
+  
+  if (requiresUuid === '1' || requiresUuid === true) {
+	requiresUuid = true;
+  }
+  
+  if (requiresUuid === true && document.fragment_state_form.uuid.value === '') {
+	// Need to have a record selected first
+	$('#warning_alert_message').html(butr_i18n_YouNeedARecordFirst + '.');
+	$('#warning_alert').show();
+	return;
+  }
+  
+  var language = 'en-AU';
+  if (butrSession !== undefined && butrSession !== null) {
+    if (butrSession.language !== undefined && butrSession !== null && butrSession.language !== '') {
+      language = butrSession.language;
+    }
+  }
+  
+  var formBody = 'window_name='+escape(window.name)+'&language='+escape(language);
+  
+  if (alterHistory !== undefined && alterHistory !== null && alterHistory === true) {
+	formBody += '&alter_history=1';
+  }
+  
+  // Remove trailing ampersand
+  if (content.charAt(content.length - 1) === '&') {
+	content = content.substring(0, content.length - 1);
+  }
+  
+  var charPos = -1;
+  charPos = content.indexOf('?');
+  
+  if (charPos >= 0) {
+    formBody = formBody + '&' + content.substring((charPos + 1));
+    content = content.substring(0, charPos);
+  }
+  else {
+	formBody = formBody + '&' + content;
+  }
+  
+  $.ajax({
+    url: content,
+    data: formBody,
+    type: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    success: function(data, textStatus, jqXHR) {
+      'use strict';
+      
+      insertPageFragmentWellResponse(jqXHR.responseText, target, scroll);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      'use strict';
+      
+      handleInsertPageFragmentWellError(jqXHR.responseText);
+    }
+  });
+}
+
+/**
+ * This function populates the page div with whatever the content from the
+ * page call is.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param res
+ *   - String containing the HTML snippet.
+ * @param target
+ *   - String containing the div identifier to insert the content into.
+ * @param scroll
+ *   - Boolean to decide on whether the page should scroll or not.
+ */
+function insertPageFragmentWellResponse(res, target, scroll) {
+  'use strict';
+
+  var pageWell = $('#' + target);
+  var pageWellInner = $('#' + target + '-inner');
+  var shouldScroll = true;
+  
+  if (scroll === undefined || scroll === null || scroll !== true) {
+	shouldScroll = false;
+  }
+  
+  if (shouldScroll === true && pageWell !== undefined && pageWell !== null) {
+    $.scrollTo(pageWell, { 'over': -1.8 });
+  }
+  
+  if (pageWellInner !== undefined && pageWellInner !== null) {
+	if (!pageWellInner.is(':visible')) {
+	  pageWellInner.html(res);
+	  pageWellInner.slideToggle();
+	}
+  }
+  
+  // Add to open well to the form state
+  var wells = document.butr_state_form.page_wells.value;
+  if (wells !== undefined && wells !== null && wells !== '') {
+    if (wells.indexOf(target + ',') === -1) {
+      wells += target + ',';
+    }
+  }
+  else {
+    wells = target + ',';
+  }
+  document.butr_state_form.page_wells.value = wells;
+}
+
+/**
+ * This handles any errors and displays them in an error div.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ * @param res
+ *   - object or string containing the response from the server.
+ */
+function handleInsertPageFragmentWellError(res) {
+  'use strict';
+  
+  var responseStatus = '';
+  var explanation = '';
+  
+  try {
+    res = JSON.parse(res);
+  } catch(e) {
+    // Do nothing
+  }
+
+  if (res !== null && res !== undefined && typeof(res) === 'object') {
+    if (res.result !== undefined) {
+      if (res.result.status !== undefined && res.result.status !== null && res.result.status !== '') {
+        responseStatus = res.result.status ;
+      }
+    }
+
+    if (responseStatus !== 'OK') {
+      if (res.result !== undefined) {
+        if (res.result.explanation !== undefined && res.result.explanation !== null && res.result.explanation !== '') {
+          explanation = res.result.explanation;
+        }
+      }
+    }
+  }
+  
+  if (explanation === '') {
+    explanation = butr_i18n_CouldNotCommunicate+'.';
+  }
+
+  if (responseStatus !== 'OK') {
+    $('#error_modal_message').html(explanation);
+    $('#error_modal').modal('show');
   }
 }
 
 /**
  * This parses the global configuration to leave an object
  * with name value pairs.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param jsonConfig
  *   - String containing the global configuration.
  * @returns object
  *   - Object containing the configuration settings.
  */
 function parseGlobalConfiguration(jsonConfig) {
+  'use strict';
+  
   var jsonSetting = {};
   var jsonOutput = {};
   
@@ -285,6 +481,7 @@ function parseGlobalConfiguration(jsonConfig) {
   catch (e) {
     // Do nothing.
   }
+  jsonSetting = null;
   
   return jsonOutput;
 }
@@ -292,12 +489,15 @@ function parseGlobalConfiguration(jsonConfig) {
 /**
  * This parses the user's session to leave an object
  * with the same data.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param jsonSession
  *   - String containing the user's session.
  * @returns object
  *   - Object containing the session settings.
  */
 function parseSession(jsonSession) {
+  'use strict';
+  
   var jsonData = {};
   var jsonOutput = {};
   
@@ -313,6 +513,7 @@ function parseSession(jsonSession) {
   catch (e) {
     // Do nothing.
   }
+  jsonData = null;
   
   return jsonOutput;
 }
@@ -324,10 +525,7 @@ function parseSession(jsonSession) {
 function logOut() {
   'use strict';
   
-  $('#error').modal('hide');
-  $('#warning').modal('hide');
-  $('#notice').modal('hide');
-  $('#debug').modal('hide');
+  hideAllModalsAndAlerts();
   
   var cookieName = 'Butr|' + window.name;
   
@@ -396,7 +594,8 @@ function endSessionResponse(res) {
 
 /**
  * This cleans up the session in the browser and takes you back
- * to the login screen.
+ * to the login screen. If an error occurs it logs you
+ * out anyway.
  * @author Damien Whaley <damien@whalebonestudios.com>
  * @param res
  *   - object or string containing the response from the server.
@@ -404,6 +603,7 @@ function endSessionResponse(res) {
 function handleEndSessionError(res) {
   'use strict';
   
+  // Erase cookies anyway
   var cookieName = 'Butr|' + window.name;
   eraseCookie(cookieName);
   window.name = '';
@@ -413,46 +613,9 @@ function handleEndSessionError(res) {
 }
 
 /**
- * This is fired whenever there is a state change. This figures out the content
- * to load and calls insertContent with the correct parameters.
- * @param state
- *   - Object containing the History state
- *   
- * TODO: Seems to cause a double hit when refreshing page. need to check to make
- * sure that if the previous state is the same as the current state that we do
- * not need to do this. It could also be in the history handling functions in the
- * js files for the pages themselves. need to document a case where it happens to
- * investigate.
- */
-function handleHistoryStateChange(state) {
-  'use strict';
-  
-  if (state === undefined || state === null) {
-    // Nothing to do.
-    return;
-  }
-  
-  if (state.data === undefined || state.data === null) {
-    // Nothing to do.
-    return;
-  }
-  
-  var pageUrl = state.data.pageUrl;
-  var pageAttributes = state.data.pageAttributes;
-  
-  var content = pageUrl;
-  if (pageAttributes !== undefined && pageAttributes !== null && pageAttributes !== '') {
-    content += '?' + pageAttributes;
-  }
-  
-  if (content !== undefined && content !== null && content !== '') {
-    insertContent(content);
-  }
-}
-
-/**
  * This changes the number of results per page and refreshes the page with the requested
  * number of results per page.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param type
  *   - String containing the pagination type.
  * @param size
@@ -462,6 +625,8 @@ function handleHistoryStateChange(state) {
  *     have the parameters: callback(offset, size, ordinal, direction)
  */
 function sizePagination(type, size, callback) {
+  'use strict';
+  
   var offset = 0;
   var ordinal = 'default';
   var direction = 'ascending';
@@ -478,6 +643,7 @@ function sizePagination(type, size, callback) {
 
 /**
  * This changes the page being displayed for the results.
+ * @author Damien Whaley <damien@whalebonestudios.com>
  * @param type
  *   - Integer containing the pagination type.
  * @param offset
@@ -486,7 +652,9 @@ function sizePagination(type, size, callback) {
  *   - Function to be called to set the new list view. It is assumed it will
  *     have the parameters: callback(offset, size, ordinal, direction)
  */
-function jumpPagination(type, offset, callback) { 
+function jumpPagination(type, offset, callback) {
+  'use strict';
+  
   var size = 0;
   var ordinal = 'default';
   var direction = 'ascending';
@@ -498,5 +666,21 @@ function jumpPagination(type, offset, callback) {
 
   if (callback !== undefined && callback !== null && typeof(callback) === 'function') {
     callback(offset, size, ordinal, direction);
+  }
+}
+
+/**
+ * This toggles a well when it is clicked on. This is the default function
+ * which is called if there is no action.
+ * @param well
+ *   - String containing the id of the well div
+ */
+function wellToggle(well) {
+  'use strict';
+  
+  var pageWellInner = $('#' + well + '-inner');
+  
+  if (pageWellInner !== undefined && pageWellInner) {
+	pageWellInner.slideToggle();
   }
 }

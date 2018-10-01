@@ -28,7 +28,7 @@
 define('Butr\DATABASE_ENGINE', 'mysql');
 define('Butr\DATABASE_HOST', 'localhost');
 define('Butr\DATABASE_PORT', '3306');
-define('Butr\DATABASE_NAME', 'butrclient');
+define('Butr\DATABASE_NAME', 'DBNAME');
 define('Butr\DATABASE_USER', 'DBUSER');
 define('Butr\DATABASE_PASS', 'DBPASS');
 

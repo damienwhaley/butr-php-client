@@ -77,6 +77,7 @@ var butr_i18n_Country = 'Country';
 var butr_i18n_CountryCode = 'Country Code';
 var butr_i18n_CountryName = 'Country Name';
 
+var butr_i18n_Dashboard = 'Dashboard';
 var butr_i18n_Description = 'Description';
 var butr_i18n_DisplayName = 'Display Name';
 var butr_i18n_Dock = 'Dock';
@@ -169,3 +170,4 @@ var butr_i18n_Uuid = 'Uuid';
 var butr_i18n_Weighting = 'Weighting';
 
 var butr_i18n_YourBrowserDoesNotHave = 'Your browser does not have the following functionality';
+var butr_i18n_YouNeedARecordFirst = 'You need a record selected before you can use this';

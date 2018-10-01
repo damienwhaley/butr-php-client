@@ -492,7 +492,7 @@ unset($butr_command);
 ?>
 <h1><?php echo gettext('Dock Item Administration'); ?></h1>
 <ul>
-  <li><a href="javascript:insertContent('system_dock_item.php?a=add')"><?php echo gettext('Add Dock Item'); ?></a></li>
+  <li><a href="javascript:insertPageFragment('system_dock_item.php?a=add')"><?php echo gettext('Add Dock Item'); ?></a></li>
   <li><a href="javascript:setHistorySystemDockItemList(0, '<?php echo $default_list_size; ?>', '<?php echo Butr\SORT_ORDINAL_DEFAULT; ?>', '<?php echo Butr\SORT_DIRECTION_ASCENDING; ?>');"><?php echo gettext('List Dock Items'); ?></a>
 </ul>
 <?php

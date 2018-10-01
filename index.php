@@ -65,8 +65,33 @@ echo "\n";
 ?>
 </noscript>
 <div class="container-fluid">
+  
 	<div id="login">
-			<h1><?php echo $company_name_title; ?>&nbsp;<?php echo gettext('Butr Log In'); ?></h1>
+	  <h1><?php echo $company_name_title; ?><br>
+	    <?php echo gettext('Butr Log In'); ?></h1>
+	  <div class="alert alert-success hide" id="success_alert">
+        <button type="button" class="close" onclick="javascript:$('success_alert').hide();">x</button>
+        <p id="success_alert_message">&nbsp;</p>
+      </div><!-- end .alert -->
+      <div class="alert alert-warning hide" id="warning_alert">
+        <button type="button" class="close" onclick="javascript:$('#warning_alert').hide();">x</button>
+        <p id="warning_alert_message">&nbsp;</p>
+      </div><!-- end .alert -->
+      <div class="alert alert-info hide" id="info_alert">
+        <button type="button" class="close" onclick="javascript:$('#info_alert').hide();">x</button>
+        <p id="info_alert_message">&nbsp;</p>
+      </div><!-- end .alert -->
+      <div class="alert alert-block alert-error hide" id="error_alert">
+        <button type="button" class="close" onclick="javascript:$('error_alert').hide();">x</button>
+        <h4 class="alert-heading" id="error_alert_title"><?php echo gettext('Oops!'); ?></h4>
+        <p id="error_alert_message">&nbsp;</p>
+        <p>
+          <a class="btn btn-danger" href="javascript:$('#error_alert').hide();"
+           id="error_alert_button_1"><?php echo gettext('Take this action'); ?></a>
+          <a class="btn" href="javascript:$('#error_alert').hide();"
+           id="error_alert_button_2">Or do this</a>
+        </p>
+      </div><!-- end .alert -->
 			<div class="well">
 				<form name="log_in_form" action="#" method="post" accept-charset="utf-8" onsubmit="javascript:return processLogInForm();">
 				  <input type="hidden" name="nonce" value="<?php echo Butr\uuidSecure(); ?>">
@@ -86,7 +111,8 @@ echo "\n";
 					</div><!-- end .row-fluid -->
 					<div class="row-fluid">
 						<div class="control-group span12">
-							<button type="submit" class="btn btn-primary disabled" style="disabled: disabled;"><?php echo gettext('Log In'); ?></button>
+							<button id="submit" type="submit" class="btn btn-primary disabled"
+							 style="disabled: disabled;"><?php echo gettext('Log In'); ?></button>
 						</div><!-- end .control-group -->
 					</div><!-- end .row-fluid -->
 					<div class="clearfix"></div>
@@ -104,7 +130,7 @@ echo "\n";
     'use strict';
     window.name = '';
     testCapabilities();
-  }
+  });
 </script>
 <?php 
 // Generate bottom part of the page including flushing the buffer.

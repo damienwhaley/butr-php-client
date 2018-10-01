@@ -30,6 +30,7 @@ define('Butr\SORT_ORDINAL_DEFAULT', 'default');
 define('Butr\SORT_ORDINAL_DISPLAY_LABEL', 'display_label');
 define('Butr\SORT_ORDINAL_DOCK_ITEM_NAME', 'dock_item_name');
 define('Butr\SORT_ORDINAL_DOCK_NAME', 'dock_name');
+define('Butr\SORT_ORDINAL_DOCK_TAB_DISPLAY_NAME', 'dock_tab_display_name');
 define('Butr\SORT_ORDINAL_FIRST_NAME', 'first_name');
 define('Butr\SORT_ORDINAL_ITEM_NAME', 'item_name');
 define('Butr\SORT_ORDINAL_LAST_NAME', 'last_name');
@@ -38,6 +39,7 @@ define('Butr\SORT_ORDINAL_MODULE_NAME', 'module_name');
 define('Butr\SORT_ORDINAL_NAME_LABEL', 'name_label');
 define('Butr\SORT_ORDINAL_SECURITY_CLIENT_TYPE_LABEL', 'security_client_type_label');
 define('Butr\SORT_ORDINAL_SUBITEM_NAME', 'subitem_name');
+define('Butr\SORT_ORDINAL_SUBTAB_NAME', 'subtab_name');
 define('Butr\SORT_ORDINAL_SYSTEM_DOCK_TYPE_LABEL', 'system_dock_type_label');
 define('Butr\SORT_ORDINAL_TAB_NAME', 'tab_name');
 define('Butr\SORT_ORDINAL_TITLE_LABEL', 'title_label');
@@ -47,7 +49,7 @@ define('Butr\SORT_ORDINAL_IS_ACTIVE', 'is_active');
 // Message Result
 define('Butr\MESSAGE_RESULT_OK', 'OK');
 define('Butr\MESSAGE_RESULT_WARNING', 'WARNING');
-define('BCopyOfDock.class.phputr\MESSAGE_RESULT_ERROR', 'ERROR');
+define('Butr\MESSAGE_RESULT_ERROR', 'ERROR');
 define('Butr\MESSAGE_RESULT_EXPIRED', 'EXPIRED');
 
 // Pagination Type

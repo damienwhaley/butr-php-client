@@ -1,10 +1,10 @@
 PHP
 ===
 
-PageFragment - make sure it works
-Try getting one of the pages to work with the insert content stuff.
-Need to get an insertFragment which will call functions from within the page.
+finish user_user (list next, then search results).
+
 Need to refactor the history code like setHistoryUserUser
+Finish off the error_modal  error_modal_message from everything.
 
 // FARM pages to do next:
 - #system_module.php
@@ -35,5 +35,3 @@ Need to refactor the history code like setHistoryUserUser
 
 * make sure PSR-0 is implemented in coding rules.
 * try to do PSR-1 and maybe PSR-2 (but I think there's things that I do differently).
-
--- Template integration

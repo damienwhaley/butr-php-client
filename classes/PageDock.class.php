@@ -364,8 +364,8 @@ class PageDock {
               if (strpos($this->_dock[$i]['items'][$j]['action'], 'javascript:', 0) !== false) {
                 $item_action = $this->_dock[$i]['items'][$j]['action'];
               } else {
-                $item_action = "javascript:insertContent('"
-                  . $this->_dock[$i]['items'][$j]['action'] . "');";
+                $item_action = "javascript:insertPageFragment('"
+                  . $this->_dock[$i]['items'][$j]['action'] . "', true);";
               }
             }
             
@@ -434,7 +434,7 @@ class PageDock {
                   if (strpos($this->_dock[$i]['items'][$j]['subitems'][$k]['action'], 'javascript:', 0) !== false) {
                     $subitem_action = $this->_dock[$i]['items'][$j]['subitems'][$k]['action'];
                   } else {
-                    $subitem_action = "javascript:insertContent('" . $this->_dock[$i]['items'][$j]['subitems'][$k]['action'] . "');";
+                    $subitem_action = "javascript:insertPageFragment('" . $this->_dock[$i]['items'][$j]['subitems'][$k]['action'] . "', true);";
                   }
                   
                   $output[] = "                    <li>\n";

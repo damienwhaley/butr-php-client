@@ -268,7 +268,7 @@ unset($butr_command);
 ?>
 <h1><?php echo gettext('Country Administration'); ?></h1>
 <ul>
-  <li><a href="javascript:insertContent('location_country.php?a=add')"><?php echo gettext('Add Country'); ?></a></li>
+  <li><a href="javascript:insertPageFragment('location_country.php?a=add')"><?php echo gettext('Add Country'); ?></a></li>
   <li><a href="javascript:setHistoryLocationCountryList(0, '<?php echo $default_list_size; ?>', '<?php echo Butr\SORT_ORDINAL_DEFAULT; ?>', '<?php echo Butr\SORT_DIRECTION_ASCENDING; ?>');"><?php echo gettext('List Countries'); ?></a></li>
 </ul>
 <?php

@@ -333,7 +333,7 @@ unset($butr_command);
 ?>
 <h1><?php echo gettext('Dock Administration'); ?></h1>
 <ul>
-  <li><a href="javascript:insertContent('system_dock.php?a=add')"><?php echo gettext('Add Dock'); ?></a></li>
+  <li><a href="javascript:insertPageFragment('system_dock.php?a=add')"><?php echo gettext('Add Dock'); ?></a></li>
   <li><a href="javascript:setHistorySystemDockList(0, '<?php echo $default_list_size; ?>', '<?php echo Butr\SORT_ORDINAL_DEFAULT; ?>', '<?php echo Butr\SORT_DIRECTION_ASCENDING; ?>');"><?php echo gettext('List Docks'); ?></a></li>
 </ul>
 <?php

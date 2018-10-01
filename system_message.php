@@ -308,7 +308,7 @@ unset($butr_command);
 ?>
 <h1><?php echo gettext('Message Administration'); ?></h1>
 <ul>
-  <li><a href="javascript:insertContent('system_message.php?a=add')"><?php echo gettext('Add Message'); ?></a></li>
+  <li><a href="javascript:insertPageFragment('system_message.php?a=add')"><?php echo gettext('Add Message'); ?></a></li>
   <li><a href="javascript:setHistorySystemMessageList(0, '<?php echo $default_list_size; ?>', '<?php echo Butr\SORT_ORDINAL_DEFAULT; ?>', '<?php echo Butr\SORT_DIRECTION_ASCENDING; ?>');"><?php echo gettext('List Messages'); ?></a></li>
 </ul>
 <?php

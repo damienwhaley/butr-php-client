@@ -23,23 +23,26 @@ $basedir = dirname(__FILE__);
 $basedir = substr($basedir, 0, strlen($basedir)-5);
 require_once($basedir . 'includes/autoload.inc');
 require_once($basedir . 'includes/constants.inc');
+require_once($basedir . 'includes/uuid.inc');
 
-// @todo more tests about the setting of tabs
+// @todo more tests about the setting of wells
 
 /**
- * This tests the PageTab class
+ * This tests the PageWell class
  * @author Damien Whaley <damien@whalebonestudios.com>
  */
-class PageTabTest extends PHPUnit_Framework_TestCase
+class PageWellTest extends PHPUnit_Framework_TestCase
 {
   protected $_testClass;
-  protected $_tab;
+  protected $_well;
   protected $_language_code;
+  protected $_uuid;
   
   public function setUp() {
-    $this->_testClass = new Butr\PageTab();
-    $this->_tab = array();
+    $this->_testClass = new Butr\PageWell();
+    $this->_well = array();
     $this->_language_code = 'en-GB';
+    $this->_uuid = Butr\uuidSecure();
   }
   
   public function testResetAll() {   
@@ -54,9 +57,10 @@ class PageTabTest extends PHPUnit_Framework_TestCase
   public function testSetAll() {   
     $this->_testClass->resetAll();
   
-    $this->_testClass->setAll($this->_tab, $this->_language_code);
+    $this->_testClass->setAll($this->_well, $this->_language_code, $this->_uuid);
     
     $this->assertEquals($this->_language_code, $this->_testClass->getLanguageCode());
+    $this->assertEquals($this->_uuid, $this->_testClass->getUuid());
   }
   
   /**
@@ -70,6 +74,27 @@ class PageTabTest extends PHPUnit_Framework_TestCase
     $this->_testClass->resetAll();
     $this->_testClass->setLanguageCode(null);
     $this->assertEquals(Butr\DEFAULT_LANGUAGE, $this->_testClass->getLanguageCode());
+  }
+  
+  /**
+   * @depends testResetAll
+   */
+  public function testSetUuid() {
+  	$this->_testClass->resetAll();
+  	$this->_testClass->setUuid($this->_uuid);
+  	$this->assertEquals($this->_uuid, $this->_testClass->getUuid());
+  
+  	$this->_testClass->resetAll();
+  	$this->_testClass->setUuid('not-a-uuid');
+  	$this->assertEquals('', $this->_testClass->getUuid());
+  
+  	$this->_testClass->resetAll();
+  	$this->_testClass->setUuid(null);
+  	$this->assertEquals('', $this->_testClass->getUuid());
+  
+  	$this->_testClass->resetAll();
+  	$this->_testClass->setUuid(200);
+  	$this->assertEquals('', $this->_testClass->getUuid());
   }
   
   public function tearDown() {

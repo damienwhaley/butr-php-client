@@ -22,33 +22,6 @@
  * This set the user history to allow back/forwards buttons. This is for the
  * user administration add user page.
  * @author Damien Whaley <damien@whalebonestudios.com>
- */
-function setHistoryUserUserAdd() {
-  'use strict';
-  
-  var historyState = {};
-  var content = '';
-  historyState.pageUrl = 'user_user.php';
-  historyState.pageAttributes = 'a=add';
-  historyState.pageTitle = butrGlobalConfigurations.company_name + ' | Butr | '+butr_i18n_UserAdministration+' | '+butr_i18n_AddUser;
-  
-  content = '?page=' + historyState.pageUrl + '&' + historyState.pageAttributes;
-
-  // Remove trailing ampersand
-  if (content.charAt(content.length - 1) === '&') {
-	  content = content.substring(0, content.length - 1);
-  }
-  
-  document.title = historyState.pageTitle;
-  $('#page-title').html(butr_i18n_UserAdministration+' - '+butr_i18n_AddUser);
-  document.butr_state_form.content.value = content;
-  History.pushState(historyState, historyState.pageTitle, content);
-}
-
-/**
- * This set the user history to allow back/forwards buttons. This is for the
- * user administration add user page.
- * @author Damien Whaley <damien@whalebonestudios.com>
  * @param uuid
  *   - string containing the uuid of the user record.
  */
@@ -56,22 +29,23 @@ function setHistoryUserUserFetch(uuid) {
   'use strict';
   
   var historyState = {};
-  var content = '';
   historyState.pageUrl = 'user_user.php';
   historyState.pageAttributes = 'a=fetch&uuid=' + uuid;
-  historyState.pageTitle = butrGlobalConfigurations.company_name + ' | Butr | '+butr_i18n_UserAdministration+' | '+butr_i18n_ModifyUser;
+  historyState.pageTitle = butr_i18n_UserAdministration;
+  historyState.fragmentTitle = butr_i18n_UserAdministration;
+  historyState.pageWells = '';
   
-  content = '?page=' + historyState.pageUrl + '&' + historyState.pageAttributes;
+  setHistory(historyState);
+}
 
-  // Remove trailing ampersand
-  if (content.charAt(content.length - 1) === '&') {
-	  content = content.substring(0, content.length - 1);
-  }
-  
-  document.title = historyState.pageTitle;
-  $('#page-title').html(butr_i18n_UserAdministration+' - '+butr_i18n_ModifyUser);
-  document.butr_state_form.content.value = content;
-  History.pushState(historyState, historyState.pageTitle, content);
+/**
+ * This populates the title fields so that the titles can be populated.
+ * @author Damien Whaley <damien@whalebonestudios.com>
+ */
+function setTitlesUserUser() {
+  document.butr_state_form.page_title.value = butr_i18n_UserAdministration;
+  butr_state_form.fragment_title.value = butr_i18n_UserAdministration;
+  setTitles();
 }
 
 /**
@@ -132,6 +106,10 @@ function setHistoryUserUserList(offset, size, ordinal, direction) {
 function processUserUserAddForm() {
   'use strict';
   
+  if (isButtonDisabled('#add_submit')) {
+	return false;
+  }
+  
   var errorMessage = '';
   var globalTitleUuid = document.user_user_add_form.global_title_uuid.value;
   var firstName = document.user_user_add_form.first_name.value;
@@ -139,12 +117,8 @@ function processUserUserAddForm() {
   var preferredGlobalLanguageUuid = document.user_user_add_form.preferred_global_language_uuid.value;
   var username = document.user_user_add_form.username.value;
   
-  $('#error').modal('hide');
-  $('#warning').modal('hide');
-  $('#notice').modal('hide');
-  $('#debug').modal('hide');
-  
-  document.user_user_add_form.submit.disabled = true;
+  hideAllModalsAndAlerts();
+  disableButton('#add_submit');
   
   if (globalTitleUuid === undefined || globalTitleUuid === null || globalTitleUuid === '') {
     errorMessage += '<br>* '+butr_i18n_Title;
@@ -161,11 +135,11 @@ function processUserUserAddForm() {
   if (username === undefined || username === null || username === '') {
     errorMessage += '<br>* '+butr_i18n_Username;
   }
-  
+    
   if (errorMessage !== '') {
-    $('#notice_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
-    $('#notice').modal('show');
-    document.user_user_add_form.submit.disabled = false;
+    $('#warning_alert_message').html(butr_i18n_PleaseCheckThatYouHaveCompleted+':'+errorMessage);
+    $('#warning_alert').show();
+    enableButton('#add_submit');
     return false;
   }
   
@@ -213,8 +187,8 @@ function processUserUserAddResponse(res) {
   'use strict';
   
   var responseStatus = '';
-  var explanation = '';
   var userUuid = '';
+  var historyState = {};
 
   if (res === undefined || res === null || typeof(res) !== 'object') {
     return handleUserUserAddError(res);
@@ -233,8 +207,16 @@ function processUserUserAddResponse(res) {
   }
   
   if (responseStatus === 'OK' && userUuid !== '') {
-	document.butr_state_form.content.value = 'user_user.php?a=fetch&uuid=' + escape(userUuid) + '&success=ok_add';
-	document.butr_state_form.submit();   
+    historyState.pageUrl = 'user_user.php';
+    historyState.pageAttributes = 'uuid=' + escape(userUuid) + '&success=add_ok&alter_history=1';
+    historyState.pageTitle = butr_i18n_UserAdministration;
+    historyState.fragmentTitle = butr_i18n_UserAdministration;
+    historyState.pageWells = '';
+    
+    saveHistory(historyState.pageTitle, historyState.fragmentTitle, historyState.pageUrl,
+      historyState.pageAttributes, historyState.pageWells, null);
+    
+    document.butr_state_form.submit();
     return;
   }
 
@@ -331,7 +313,6 @@ function processUserUserModifyResponse(res) {
   'use strict';
   
   var responseStatus = '';
-  var explanation = '';
   var userUuid = '';
 
   if (res === undefined || res === null || typeof(res) !== 'object') {

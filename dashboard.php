@@ -30,13 +30,23 @@ $window_name = (isset($_POST['window_name'])) ? $_POST['window_name'] : '';
 $session_token = fetchSessionCookie($window_name);
 
 // Instantiate page fragment class for templated presentation.
-$butr_page_fragment = new Butr\PageFragment();
+$butr_pageTab = new Butr\PageTab();
+$butr_pageFragment = new Butr\PageFragment();
 
 // Generate the top part of the page fragment including buffering output.
-$butr_page_fragment->generateHtmlTop(null, null, $language_code);
+$butr_pageFragment->generateHtmlTop(null, null);
+$butr_pageTab->generateHtmlTab();
+$butr_pageFragment->generateHtmlMiddle($language_code);
+echo "<script type=\"text/javascript\">setHistoryDashboard();</script>\n";
 ?>
-<h1>Dashboard</h1>
-<p>You are logged in with session token: <?php echo $session_token; ?></p>
+<div class="well" id="dashboard_details">
+  	<div class="row-fluid">
+  		<div class="span12">
+  		  <span class="lbl">Congratulations! You are logged in with session
+  			  token: <?php echo $session_token; ?></span>
+  		</div><!-- end .span12 -->
+  	</div><!-- end .row -fluid-->
+  </div><!-- end .well -->
 <?php
 // Generate bottom part of the page including flushing the buffer.
-$butr_page_fragment->generateHtmlBottom();
+$butr_pageFragment->generateHtmlBottom();

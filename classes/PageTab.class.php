@@ -37,7 +37,7 @@ class PageTab {
   private $_tab;
   
   /**
-   * String containing the language code for the display of the docks.
+   * String containing the language code for the display of the tabs.
    * @var string
    */
   private $_language_code;
@@ -98,6 +98,7 @@ class PageTab {
   	if (is_array($tab)) {
       for($i = 0; $i < sizeof($tab); $i++) {
     		$html_id = 'tab-' . (($i < 10) ? '0' . $i : $i);
+    		$well_id = 'well-' . (($i < 10) ? '0' . $i : $i);
     	
     		$this->_tab[] = array(
     		  'name' => htmlspecialchars($tab[$i]->tab_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
@@ -106,12 +107,15 @@ class PageTab {
     		  'picture_path' => htmlspecialchars($tab[$i]->picture_path, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
     		  'action' => htmlspecialchars($tab[$i]->action, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
     		  'html_id' => $html_id,
-    		  'tab_type' => htmlspecialchars($dock[$i]->items[$j]->tab_magic, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
+    		  'well_id' => $well_id,
+    		  'is_record_required' => htmlspecialchars($tab[$i]->is_record_required, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
+    		  'tab_type' => htmlspecialchars($tab[$i]->items[$j]->tab_magic, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
     		  'subtabs' => array(),
     		);
     		
     		for($j = 0; $j < sizeof($tab[$i]->items); $j++) {
     		  $html_id = 'tab-' . (($i < 10) ? '0' . $i : $i) . '-subtab-' . (($j < 10) ? '0' . $j : $j);
+    		  $well_id = 'well-' . (($i < 10) ? '0' . $i : $i) . '-subwell-' . (($j < 10) ? '0' . $j : $j);
     		
     		  $this->_tab[$i]['subtabs'][] =  array(
   		      'name' => htmlspecialchars($tab[$i]->subtabs[$j]->subtab_name, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
@@ -121,6 +125,8 @@ class PageTab {
   		      'tab_type' => htmlspecialchars($tab[$i]->subtabs[$j]->item_magic, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
   		      'action' => htmlspecialchars($tab[$i]->subtabs[$j]->action, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
   		      'html_id' => $html_id,
+    		    'well_id' => $well_id,
+    		    'is_record_required' => htmlspecialchars($tab[$i]->subtabs[$j]->is_record_required, ENT_COMPAT | ENT_HTML5, 'UTF-8'),
   		    );
   	    }
       }
@@ -128,7 +134,7 @@ class PageTab {
   }  
   
   /**
-   * This prints out the HTML for the dock header section.
+   * This prints out the HTML for the dock tab section.
    * @author Damien Whaley <damien@whalebonestudios.com>
    */
   public function generateHtmlTab() {
@@ -204,14 +210,18 @@ class PageTab {
           $img = "                  <i class=\"" . $item_img . "\"></i>\n";
         }
         
-        if ($this->_tab[$i]['tab_type'] === 'subtab_parent') {
+        if (isset($this->_tab[$i]['tab_type'])
+          && $this->_tab[$i]['tab_type'] === 'subtab_parent') {
           $action = "javascript:void(0);";
         } else {
           if (strpos($this->_tab[$i]['action'], 'javascript:', 0) !== false) {
             $action = $this->_tab[$i]['action'];
           } else {
-            $action = "javascript:insertContent('"
-            . $this->_tab[$i]['action'] . "');";
+            $action = "javascript:insertPageFragmentWell('"
+            . $this->_tab[$i]['action'] . "', '"
+            . $this->_tab[$i]['well_id'] . "', true, true, '"
+            . $this->_tab[$i]['is_record_required']
+            . "');";
           }
         }
         
@@ -288,14 +298,18 @@ class PageTab {
               $subtab_img = "                      <i class=\"" . $item_img . "\"></i>\n";
             }
             
-            if ($this->_tab[$i]['subtabs'][$j]['tab_type'] === 'subtab_parent') {
+            if (isset($this->_tab[$i]['subtabs'][$j]['tab_type'])
+              && $this->_tab[$i]['subtabs'][$j]['tab_type'] === 'subtab_parent') {
               $subtab_action = "javascript:void(0);";
             } else {
               if (strpos($this->_tab[$i]['subtabs'][$j]['action'], 'javascript:', 0) !== false) {
                 $subtab_action = $this->_tab[$i]['subtabs'][$j]['action'];
               } else {
-                $subtab_action = "javascript:insertContent('"
-                . $this->_tab[$i]['subtabs'][$j]['action'] . "');";
+                $subtab_action = "javascript:insertPageFragmentWell('"
+                . $this->_tab[$i]['subtabs'][$j]['action'] . "', '"
+                . $this->_tab[$i]['subtabs'][$j]['well_id'] . "', true, true, '"
+                . $this->_tab[$i]['subtabs'][$j]['is_record_required']
+                . "');";
               }
             }
             
@@ -313,7 +327,6 @@ class PageTab {
           if (count($this->_tab[$i]['subtabs']) > 0) {
             $output[] = "                </ul>\n";
           }
-          
         }
         
         $output[] = "              </li>\n";
